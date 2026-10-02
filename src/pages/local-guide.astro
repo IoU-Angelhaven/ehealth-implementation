@@ -1,0 +1,16 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const page = await getEntry('pages', 'local-guide');
+if (!page) throw new Error('Missing src/content/pages/local-guide.md');
+const { Content } = await render(page);
+---
+
+<Base title={page.data.title} description={page.data.intro}>
+  <article class="prose">
+    <h1>{page.data.title}</h1>
+    {page.data.intro && <p class="lead">{page.data.intro}</p>}
+    <Content />
+  </article>
+</Base>

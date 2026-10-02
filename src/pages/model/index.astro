@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ModelOverview from '../../components/ModelOverview.astro';
+
+const steps = (await getCollection('steps')).sort((a, b) => a.data.number - b.data.number);
+const activities = await getCollection('activities');
+---
+
+<Base
+  title="The AMBeR Model"
+  description="A step-by-step model for implementing eHealth in cancer care."
+>
+  <h1>The AMBeR Model</h1>
+  <p class="lead prose">
+    The AMBeR Model describes the implementation process in five steps. Each step contains a number
+    of activities. Select a step to read more.
+  </p>
+
+  <ModelOverview />
+
+  {
+    steps.map((step) => {
+      const items = activities
+        .filter((a) => a.data.step.id === step.id)
+        .sort((a, b) => a.data.order - b.data.order);
+      return (
+        <section>
+          <h2>
+            <a href={`/model/${step.id}/`}>
+              Step {step.data.number}: {step.data.title}
+            </a>
+          </h2>
+          <p class="prose">{step.data.summary}</p>
+          {items.length > 0 && (
+            <ol>
+              {items.map((a) => (
+                <li>
+                  <a href={`/model/${step.id}/${a.id}/`}>{a.data.title}</a>
+                </li>
+              ))}
+            </ol>
+          )}
+        </section>
+      );
+    })
+  }
+</Base>

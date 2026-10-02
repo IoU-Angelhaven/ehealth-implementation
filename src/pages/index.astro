@@ -1,0 +1,64 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ModelOverview from '../components/ModelOverview.astro';
+import StoryCard from '../components/StoryCard.astro';
+
+const home = await getEntry('pages', 'home');
+if (!home) throw new Error('Missing src/content/pages/home.md');
+const { Content } = await render(home);
+const stories = (await getCollection('stories', (s) => s.data.published)).slice(0, 3);
+---
+
+<Base>
+  <section class="band" slot="hero">
+    <div class="wrap prose">
+      <h1>{home.data.title}</h1>
+      {home.data.intro && <p class="lead">{home.data.intro}</p>}
+      <p class="actions">
+        <a class="button" href="/model/">Explore the AMBeR Model</a>
+        <a class="button secondary" href="/local-guide/">Create your local guide</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="prose"><Content /></div>
+
+  <h2>The AMBeR Model in five steps</h2>
+  <ModelOverview />
+
+  <h2>Who is this for?</h2>
+  <ul class="grid">
+    <li class="card">
+      <h3>Healthcare professionals</h3>
+      <p>Practical activities, tips and examples for introducing eHealth in everyday cancer care.</p>
+      <a href="/model/">Start with the model</a>
+    </li>
+    <li class="card">
+      <h3>Managers</h3>
+      <p>How to plan, lead and follow up an eHealth implementation in your organisation.</p>
+      <a href="/local-guide/">Create a local guide</a>
+    </li>
+    <li class="card">
+      <h3>Decision-makers</h3>
+      <p>Results and experiences from implementation in the South Baltic region.</p>
+      <a href="/stories/">Read the stories</a>
+    </li>
+  </ul>
+
+  {
+    stories.length > 0 && (
+      <>
+        <h2>Stories of implementation</h2>
+        <ul class="grid">
+          {stories.map((story) => (
+            <StoryCard story={story} />
+          ))}
+        </ul>
+        <p>
+          <a href="/stories/">All stories</a>
+        </p>
+      </>
+    )
+  }
+</Base>

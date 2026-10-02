@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  story: CollectionEntry<'stories'>;
+}
+const { story } = Astro.props;
+---
+
+<li class="card">
+  <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
+  <p class="muted">{story.data.organisation}, {story.data.country}</p>
+  <p>{story.data.summary}</p>
+</li>

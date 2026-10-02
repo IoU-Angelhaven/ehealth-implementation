@@ -1,0 +1,57 @@
+---
+import { site } from '../site.config';
+---
+
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <!-- Replace with the official Interreg South Baltic / AMBeR logo block
+           (place the image in public/media/ and use an <img> tag here). -->
+      <p class="logo-placeholder">[Interreg South Baltic – AMBeR logo]</p>
+      <p>
+        {site.project} – {site.projectLong} is co-funded by the European Union through the Interreg
+        South Baltic Programme.
+      </p>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/about/">About AMBeR</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+        <li><a href="/accessibility/">Accessibility</a></li>
+        {site.contactEmail && <li><a href={`mailto:${site.contactEmail}`}>Contact</a></li>}
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy-900);
+    color: #d7e0ee;
+    padding: 2.5rem 0;
+    font-size: 0.95rem;
+  }
+  .cols {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .cols > div {
+    max-width: 36rem;
+  }
+  .logo-placeholder {
+    display: inline-block;
+    border: 1px dashed #7d93b5;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: #fff;
+  }
+</style>
