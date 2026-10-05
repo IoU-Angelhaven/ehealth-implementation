@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import type { CollectionEntry } from 'astro:content';
 import Icon from './Icon.astro';
 
@@ -11,7 +12,7 @@ const { story } = Astro.props;
 <li class="card story">
   {
     story.data.image ? (
-      <img class="thumb" src={story.data.image} alt="" loading="lazy" />
+      <img class="thumb" src={url(story.data.image)} alt="" loading="lazy" />
     ) : (
       <div class="thumb placeholder">
         <Icon name="chat" size={72} accent="orange" />
@@ -19,7 +20,7 @@ const { story } = Astro.props;
     )
   }
   <span class="eyebrow">{story.data.country} · {story.data.organisation}</span>
-  <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
+  <h3><a href={url(`/stories/${story.id}/`)}>{story.data.title}</a></h3>
   <p>{story.data.summary}</p>
 </li>
 

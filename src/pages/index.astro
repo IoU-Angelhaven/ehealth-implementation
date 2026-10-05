@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
@@ -19,8 +20,8 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
 <Base bare>
   <PageHero eyebrow={`Interreg South Baltic project ${site.project}`} title={home.data.title} lead={home.data.intro}>
     <p class="actions">
-      <a class="button" href="/model/">Explore the AMBeR Model</a>
-      <a class="button ghost" href="/local-guide/">Create your local guide</a>
+      <a class="button" href={url('/model/')}>Explore the AMBeR Model</a>
+      <a class="button ghost" href={url('/local-guide/')}>Create your local guide</a>
     </p>
     <Illustration slot="art" name="board" />
   </PageHero>
@@ -32,7 +33,7 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
       <div class="prose"><Content /></div>
       <ModelOverview />
       <p class="actions">
-        <a class="button" href="/model/">See all activities</a>
+        <a class="button" href={url('/model/')}>See all activities</a>
       </p>
     </div>
   </section>
@@ -44,17 +45,17 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
       <ul class="grid audiences">
         <li class="card">
           <Icon name="heart" size={64} />
-          <h3><a href="/model/">Healthcare professionals</a></h3>
+          <h3><a href={url('/model/')}>Healthcare professionals</a></h3>
           <p>Practical activities, tips and examples for introducing eHealth in everyday cancer care.</p>
         </li>
         <li class="card">
           <Icon name="clipboard" size={64} accent="orange" />
-          <h3><a href="/local-guide/">Managers</a></h3>
+          <h3><a href={url('/local-guide/')}>Managers</a></h3>
           <p>How to plan, lead and follow up an eHealth implementation in your organisation.</p>
         </li>
         <li class="card">
           <Icon name="chart" size={64} />
-          <h3><a href="/stories/">Decision-makers</a></h3>
+          <h3><a href={url('/stories/')}>Decision-makers</a></h3>
           <p>Results and experiences from implementation in the South Baltic region.</p>
         </li>
       </ul>
@@ -70,7 +71,7 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
           Every AMBeR partner adapted the generic model to its own organisation. Download the model and
           follow our step-by-step advice – including tips on using AI – to do the same.
         </p>
-        <p class="actions"><a class="button" href="/local-guide/">Get started</a></p>
+        <p class="actions"><a class="button" href={url('/local-guide/')}>Get started</a></p>
       </div>
       <div class="art"><Illustration name="guide" /></div>
     </div>
@@ -88,7 +89,7 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
             ))}
           </ul>
           <p class="actions">
-            <a class="button ghost" href="/stories/">All stories</a>
+            <a class="button ghost" href={url('/stories/')}>All stories</a>
           </p>
         </div>
       </section>
@@ -102,7 +103,7 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
       {about.data.intro && <p class="prose lead">{about.data.intro}</p>}
       <p class="prose"><strong>{site.fundingStatement}</strong></p>
       <Facts facts={about.data.facts} />
-      <a class="button" href="/about/">Read more about AMBeR</a>
+      <a class="button" href={url('/about/')}>Read more about AMBeR</a>
     </div>
   </section>
 </Base>

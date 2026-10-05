@@ -1,4 +1,5 @@
 ---
+import { url } from '../../../lib/url';
 import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/PageHero.astro';
@@ -32,13 +33,13 @@ const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
 <Base bare title={`${number} ${activity.data.title}`} description={activity.data.summary}>
   <PageHero artFirst eyebrow={`Activity ${number}`} title={activity.data.title} lead={activity.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
-      <a href="/model/">The AMBeR Model</a> /{' '}
-      <a href={`/model/${step.id}/`}>Phase {step.data.number}</a> / Activity {number}
+      <a href={url('/model/')}>The AMBeR Model</a> /{' '}
+      <a href={url(`/model/${step.id}/`)}>Phase {step.data.number}</a> / Activity {number}
     </p>
     <div slot="art" class="meta">
       <Icon name={icon} size={120} />
       <span class="label">Part of</span>
-      <a class="tag" href={`/model/${step.id}/`}>Phase {step.data.number}: {step.data.title}</a>
+      <a class="tag" href={url(`/model/${step.id}/`)}>Phase {step.data.number}: {step.data.title}</a>
       {
         roles.length > 0 && (
           <>
@@ -62,7 +63,7 @@ const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
           siblings.map((a) => (
             <li>
               <a
-                href={`/model/${step.id}/${a.id}/`}
+                href={url(`/model/${step.id}/${a.id}/`)}
                 aria-current={a.id === activity.id ? 'page' : undefined}
               >
                 <Icon name={(a.data.icon ?? step.data.icon) as IconName} size={40} />
@@ -105,7 +106,7 @@ const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
             <p class="prompt-help">
               Replace the text in [square brackets] with your own information. Never attach
               documents with patient information or other personal data, and always check the
-              answers. <a href="/model/#how-title">More about using the prompts</a>
+              answers. <a href={url('/model/#how-title')}>More about using the prompts</a>
             </p>
             <ol>
               {prompts.map((pr, i) => (
@@ -136,7 +137,7 @@ const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
             <ul class="downloads">
               {downloads.map((d) => (
                 <li>
-                  <a href={d.file} download>
+                  <a href={url(d.file)} download>
                     {d.label}
                   </a>
                 </li>

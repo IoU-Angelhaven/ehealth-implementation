@@ -47,20 +47,28 @@ Enligt *Communication Guidelines for Beneficiaries* (Interreg South Baltic, v.6)
 Struktur, design och nya funktioner kan ni be Claude om (på svenska). Ändringarna görs då på en separat gren
 och slås ihop med `main` via en pull request när ni har godkänt dem.
 
-## Första publiceringen (görs en gång)
+## Publicering (GitHub Pages)
 
-1. **GitHub:** Settings → Pages → *Build and deployment* → Source: **GitHub Actions**.
-2. **GitHub:** Settings → Pages → *Custom domain*: `ehealth-implementation.eu`, och kryssa i *Enforce HTTPS* när det går.
-3. **Loopia (DNS för ehealth-implementation.eu):**
-   - Fyra A-poster för `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - CNAME-post för `www` → `iou-angelhaven.github.io`
-4. **Pages CMS:** logga in på <https://app.pagescms.org> och ge appen åtkomst till repot.
+Webbplatsen byggs och publiceras automatiskt av GitHub varje gång något sparas på grenen `main`.
+
+**Inställning som måste vara rätt (görs en gång):**
+GitHub → repot → *Settings* → *Pages* → *Build and deployment* → *Source*: välj **GitHub Actions**.
+(Välj *inte* "Deploy from a branch" – då försöker GitHub visa källkoden i stället för den färdiga webbplatsen.)
+
+Adressen blir då <https://iou-angelhaven.github.io/ehealth-implementation/>.
+
+Om publiceringen misslyckas: gå till fliken *Actions*, öppna "Build and publish website" och klicka *Re-run jobs*.
+
+**Senare – egen domän (ehealth-implementation.eu):**
+1. *Settings* → *Pages* → *Custom domain*: skriv `ehealth-implementation.eu` och spara. Kryssa i *Enforce HTTPS* när det går.
+2. Hos Loopia (DNS): fyra A-poster för `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, och en CNAME-post för `www` → `iou-angelhaven.github.io`.
+3. Kör "Build and publish website" en gång till (fliken *Actions* → *Run workflow*). Länkarna anpassas automatiskt till den nya adressen.
 
 ## För utvecklare
 
 ```bash
 npm install
-npm run dev      # lokal förhandsvisning på http://localhost:4321
+npm run dev      # lokal förhandsvisning på http://localhost:4321/ehealth-implementation/
 npm run build    # bygger till dist/
 ```
 

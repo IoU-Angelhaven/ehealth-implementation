@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import { site, nav, navCta } from '../site.config';
 ---
 
@@ -7,7 +8,7 @@ import { site, nav, navCta } from '../site.config';
     <div class="funding">
       <div class="logo-panel">
         <img
-          src="/media/brand/amber-interreg-eu-stacked.svg"
+          src={url('/media/brand/amber-interreg-eu-stacked.svg')}
           alt="Interreg South Baltic. Co-funded by the European Union. AMBeR – Advanced Modelling of Baltic Cancer E-Care."
           width="193"
           height="85"
@@ -21,7 +22,7 @@ import { site, nav, navCta } from '../site.config';
         {
           [...nav, navCta].map((item) => (
             <li>
-              <a href={item.href}>{item.label}</a>
+              <a href={url(item.href)}>{item.label}</a>
             </li>
           ))
         }
@@ -30,8 +31,8 @@ import { site, nav, navCta } from '../site.config';
     <nav aria-label="About this website">
       <h2>This website</h2>
       <ul>
-        <li><a href="/privacy/">Privacy</a></li>
-        <li><a href="/accessibility/">Accessibility</a></li>
+        <li><a href={url('/privacy/')}>Privacy</a></li>
+        <li><a href={url('/accessibility/')}>Accessibility</a></li>
         {site.contactEmail && <li><a href={`mailto:${site.contactEmail}`}>Contact</a></li>}
         <li><a href="https://southbaltic.eu/" rel="external">Interreg South Baltic Programme</a></li>
       </ul>

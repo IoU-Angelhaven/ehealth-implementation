@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/url';
 import { getCollection, getEntries, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
@@ -20,10 +21,10 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
 
 <Base bare title={story.data.title} description={story.data.summary}>
   <PageHero eyebrow={`${story.data.country} · ${story.data.organisation}`} title={story.data.title} lead={story.data.summary}>
-    <p class="breadcrumb" slot="breadcrumb"><a href="/stories/">Stories of implementation</a></p>
+    <p class="breadcrumb" slot="breadcrumb"><a href={url('/stories/')}>Stories of implementation</a></p>
     {
       story.data.image ? (
-        <img slot="art" class="hero-img" src={story.data.image} alt={story.data.imageAlt ?? ''} />
+        <img slot="art" class="hero-img" src={url(story.data.image)} alt={story.data.imageAlt ?? ''} />
       ) : (
         <Icon slot="art" name="chat" size={200} accent="orange" />
       )
@@ -48,7 +49,7 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
             <span class="label">Phases of the AMBeR Model in this story</span>
             <p>
               {steps.map((s) => (
-                <a class="tag" href={`/model/${s.id}/`}>
+                <a class="tag" href={url(`/model/${s.id}/`)}>
                   Phase {s.data.number}: {s.data.title}
                 </a>
               ))}

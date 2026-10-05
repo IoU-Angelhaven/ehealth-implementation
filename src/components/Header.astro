@@ -1,4 +1,5 @@
 ---
+import { url, isCurrent } from '../lib/url';
 import { nav, navCta } from '../site.config';
 
 const path = Astro.url.pathname;
@@ -12,9 +13,9 @@ const path = Astro.url.pathname;
          - the "Interreg + EU symbol" part must be at least 300 px wide on laptop/desktop
            screens. In this file that part is ~37 % of the full logo, so the logo is
            shown 820 px wide on large screens. Do not make it smaller or alter it. -->
-    <a class="brand" href="/">
+    <a class="brand" href={url('/')}>
       <img
-        src="/media/brand/amber-interreg-eu-horizontal.svg"
+        src={url('/media/brand/amber-interreg-eu-horizontal.svg')}
         alt="AMBeR – Advanced Modelling of Baltic Cancer E-Care. Interreg South Baltic. Co-funded by the European Union. Go to start page."
         width="308"
         height="55"
@@ -28,12 +29,12 @@ const path = Astro.url.pathname;
       <nav id="main-nav" aria-label="Main">
         <ul>
           <li>
-            <a href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a>
+            <a href={url('/')} aria-current={isCurrent(path, '/', true) ? 'page' : undefined}>Home</a>
           </li>
           {
             nav.map((item) => (
               <li>
-                <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                <a href={url(item.href)} aria-current={isCurrent(path, item.href) ? 'page' : undefined}>
                   {item.label}
                 </a>
               </li>
@@ -42,8 +43,8 @@ const path = Astro.url.pathname;
           <li class="cta">
             <a
               class="button"
-              href={navCta.href}
-              aria-current={path.startsWith(navCta.href) ? 'page' : undefined}
+              href={url(navCta.href)}
+              aria-current={isCurrent(path, navCta.href) ? 'page' : undefined}
             >
               {navCta.label}
             </a>
