@@ -1,0 +1,119 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ModelOverview from '../components/ModelOverview.astro';
+import StoryCard from '../components/StoryCard.astro';
+import Facts from '../components/Facts.astro';
+import { site } from '../site.config';
+
+const home = await getEntry('pages', 'home');
+const about = await getEntry('pages', 'about');
+if (!home || !about) throw new Error('Missing src/content/pages/home.md or about.md');
+const { Content } = await render(home);
+const stories = (await getCollection('stories', (s) => s.data.published)).slice(0, 3);
+---
+
+<Base bare>
+  <section class="hero home-hero">
+    <div class="wrap">
+      <span class="eyebrow">Interreg South Baltic project {site.project}</span>
+      <h1>{home.data.title}</h1>
+      {home.data.intro && <p class="lead prose">{home.data.intro}</p>}
+      <p class="actions">
+        <a class="button" href="/model/">Explore the AMBeR Model</a>
+        <a class="button secondary" href="/local-guide/">Create your local guide</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="prose"><Content /></div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <span class="eyebrow">The AMBeR Model</span>
+      <h2>Five steps to implementing eHealth</h2>
+      <p class="prose">
+        Each step contains a number of activities with practical guidance, tools and examples.
+      </p>
+      <ModelOverview />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Who is this for?</span>
+      <h2>Knowledge for everyone involved in cancer care</h2>
+      <ul class="grid">
+        <li class="card">
+          <h3>Healthcare professionals</h3>
+          <p>
+            Practical activities, tips and examples for introducing eHealth in everyday cancer care.
+          </p>
+          <a class="more" href="/model/">Start with the model →</a>
+        </li>
+        <li class="card">
+          <h3>Managers</h3>
+          <p>How to plan, lead and follow up an eHealth implementation in your organisation.</p>
+          <a class="more" href="/local-guide/">Create a local guide →</a>
+        </li>
+        <li class="card">
+          <h3>Decision-makers</h3>
+          <p>Results and experiences from implementation in the South Baltic region.</p>
+          <a class="more" href="/stories/">Read the stories →</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {
+    stories.length > 0 && (
+      <section class="section tint">
+        <div class="wrap">
+          <span class="eyebrow">Stories of implementation</span>
+          <h2>Experiences from the AMBeR partners</h2>
+          <ul class="grid">
+            {stories.map((story) => (
+              <StoryCard story={story} />
+            ))}
+          </ul>
+          <p class="actions">
+            <a class="button" href="/stories/">All stories</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section about">
+    <div class="wrap">
+      <span class="eyebrow">About the project</span>
+      <h2>{about.data.title}</h2>
+      {about.data.intro && <p class="prose">{about.data.intro}</p>}
+      <p class="prose"><strong>{site.fundingStatement}</strong></p>
+      <Facts facts={about.data.facts} />
+      <a class="button" href="/about/">Read more about AMBeR</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .home-hero {
+    padding: 4.5rem 0 5rem;
+  }
+  .home-hero .eyebrow {
+    color: var(--yellow);
+  }
+  .home-hero h1 {
+    max-width: 22ch;
+  }
+  .section > .wrap > .eyebrow + h2 {
+    margin-top: 0;
+  }
+  .about {
+    border-top: 1px solid var(--border);
+  }
+</style>

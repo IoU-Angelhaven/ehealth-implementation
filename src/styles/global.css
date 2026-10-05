@@ -1,0 +1,332 @@
+/* Design based on the AMBeR / Interreg South Baltic colour palette
+   (see public/media/brand/ and the AMBeR logos overview). */
+:root {
+  /* Brand palette */
+  --blue: #003399;        /* Pantone Reflex Blue */
+  --blue-dark: #002266;   /* darker shade for footer */
+  --blue-light: #9faee5;  /* Pantone 2716 */
+  --blue-tint: #eef1fb;   /* light background sections */
+  --yellow: #ffcc00;      /* Pantone Yellow – accents only */
+  --orange: #e25d25;      /* Pantone 166 – AMBeR orange, decorative use */
+  --orange-text: #c4461a; /* AMBeR orange darkened for readable text (contrast 5:1) */
+  --grey: #5f717b;        /* Pantone 431 */
+
+  --text: #1d2939;
+  --muted: var(--grey);
+  --bg: #ffffff;
+  --border: #d9deec;
+
+  --font: 'Open Sans Variable', 'Open Sans', Arial, sans-serif;
+  --radius: 12px;
+  --wrap: 75rem;
+  --shadow: 0 2px 10px rgb(0 34 102 / 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--blue);
+  text-underline-offset: 0.15em;
+}
+a:hover {
+  color: var(--orange-text);
+}
+:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--blue);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--orange-text);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 1.6em 0 0.5em;
+}
+h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin-top: 0;
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+h3 {
+  font-size: 1.25rem;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+@media (min-width: 48rem) {
+  .wrap {
+    padding: 0 2rem;
+  }
+}
+.prose {
+  max-width: 46rem;
+}
+.lead {
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+.muted {
+  color: var(--muted);
+}
+
+/* Small label above headings, e.g. "STEP 2" */
+.eyebrow {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  background: #fff;
+  padding: 0.5rem 1rem;
+}
+
+main {
+  padding: 3rem 0 4rem;
+}
+main.flush {
+  padding-top: 0;
+}
+
+/* Full-width sections */
+.section {
+  padding: 3.5rem 0;
+}
+.section.tint {
+  background: var(--blue-tint);
+}
+.section > .wrap > h2:first-child {
+  margin-top: 0;
+}
+
+/* Page hero on blue background */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--blue);
+  color: #fff;
+  padding: 3.5rem 0;
+}
+.hero::after {
+  /* decorative light-blue shape */
+  content: '';
+  position: absolute;
+  right: -8rem;
+  top: -6rem;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  background: var(--blue-light);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.hero .wrap {
+  position: relative;
+  z-index: 1;
+}
+.hero h1 {
+  color: #fff;
+}
+.hero h1::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 5px;
+  margin-top: 1rem;
+  border-radius: 3px;
+  background: var(--orange);
+}
+.hero .lead {
+  color: #dfe5f7;
+}
+.hero a:not(.button) {
+  color: #fff;
+}
+.hero .breadcrumb a {
+  color: #dfe5f7;
+}
+
+.button {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  border: 2px solid var(--blue);
+  text-decoration: none;
+}
+.button:hover {
+  background: var(--blue-dark);
+  border-color: var(--blue-dark);
+  color: #fff;
+}
+.hero .button {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--blue-dark);
+}
+.hero .button:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--blue-dark);
+}
+.button.secondary,
+.hero .button.secondary {
+  background: transparent;
+  color: inherit;
+  border-color: currentColor;
+}
+.button.secondary:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+/* Cards and grids */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  padding: 0;
+  margin: 1.5rem 0 0;
+  list-style: none;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  width: 3rem;
+  height: 4px;
+  border-radius: 0 0 3px 3px;
+  background: var(--orange);
+}
+.card h2,
+.card h3 {
+  margin-top: 0.25rem;
+}
+.card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.card h3 a:hover {
+  text-decoration: underline;
+}
+.card p:last-child {
+  margin-bottom: 0;
+}
+.card .more {
+  margin-top: auto;
+  font-weight: 700;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  background: var(--blue-tint);
+  color: var(--blue);
+  border-radius: 999px;
+  padding: 0.15rem 0.75rem;
+  margin: 0 0.3rem 0.3rem 0;
+  text-decoration: none;
+}
+
+.notice {
+  border-left: 4px solid var(--orange);
+  background: #fdf0ea;
+  padding: 0.75rem 1rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.breadcrumb a {
+  color: inherit;
+}
+
+/* Key facts list (project description required by EU rules) */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 0;
+}
+.facts div {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+}
+.facts dt {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.facts dd {
+  margin: 0.25rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--blue);
+}

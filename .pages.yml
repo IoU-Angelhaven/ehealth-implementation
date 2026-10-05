@@ -1,0 +1,98 @@
+# Configuration for Pages CMS (https://pagescms.org) – the editing interface.
+# Images and documents uploaded in the editor are stored in public/media.
+media:
+  input: public/media
+  output: /media
+
+content:
+  # ---------- The AMBeR Model ----------
+  - name: steps
+    label: Model – Steps
+    type: collection
+    path: src/content/steps
+    filename: "step-{fields.number}.md"
+    view:
+      fields: [number, title]
+      primary: title
+      sort: [number]
+    fields:
+      - { name: number, label: Step number, type: number, required: true }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: summary, label: Short summary, type: text, required: true }
+      - { name: body, label: Text, type: rich-text }
+
+  - name: activities
+    label: Model – Activities
+    type: collection
+    path: src/content/activities
+    filename: "{fields.title}.md"
+    view:
+      fields: [step, order, title]
+      primary: title
+      sort: [step, order]
+    fields:
+      - name: step
+        label: Belongs to step
+        type: select
+        required: true
+        options:
+          values: [step-1, step-2, step-3, step-4, step-5]
+      - { name: order, label: Order within the step, type: number, required: true }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: summary, label: Short summary, type: text, required: true }
+      - { name: roles, label: Who is involved, type: string, list: true }
+      - name: downloads
+        label: Downloads
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Link text, type: string }
+          - { name: file, label: File, type: file }
+      - { name: body, label: Text, type: rich-text }
+
+  # ---------- Stories ----------
+  - name: stories
+    label: Stories
+    type: collection
+    path: src/content/stories
+    filename: "{fields.title}.md"
+    view:
+      fields: [title, organisation, country, published]
+      primary: title
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: summary, label: Short summary, type: text, required: true }
+      - { name: organisation, label: Organisation, type: string, required: true }
+      - { name: country, label: Country, type: string, required: true }
+      - name: steps
+        label: Related steps in the model
+        type: select
+        options:
+          multiple: true
+          values: [step-1, step-2, step-3, step-4, step-5]
+      - { name: image, label: Image, type: image }
+      - { name: imageAlt, label: Image description (for screen readers), type: string }
+      - { name: video, label: Video link (optional), type: string }
+      - { name: published, label: Published, type: boolean, default: true }
+      - { name: body, label: Story, type: rich-text }
+
+  # ---------- Single pages ----------
+  - name: home
+    label: Page – Home
+    type: file
+    path: src/content/pages/home.md
+    fields: &page
+      - { name: title, label: Title, type: string, required: true }
+      - { name: intro, label: Introduction, type: text }
+      - name: facts
+        label: Key facts (shown as boxes)
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: value, label: Value, type: string }
+      - { name: body, label: Text, type: rich-text }
+  - { name: about, label: Page – About AMBeR, type: file, path: src/content/pages/about.md, fields: *page }
+  - { name: local-guide, label: Page – Create your local guide, type: file, path: src/content/pages/local-guide.md, fields: *page }
+  - { name: privacy, label: Page – Privacy, type: file, path: src/content/pages/privacy.md, fields: *page }
+  - { name: accessibility, label: Page – Accessibility, type: file, path: src/content/pages/accessibility.md, fields: *page }

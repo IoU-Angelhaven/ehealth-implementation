@@ -1,0 +1,54 @@
+---
+import { getCollection, getEntries, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories', (s) => s.data.published);
+  return stories.map((story) => ({ params: { id: story.id }, props: { story } }));
+}
+
+interface Props {
+  story: CollectionEntry<'stories'>;
+}
+
+const { story } = Astro.props;
+const { Content } = await render(story);
+const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number - b.data.number);
+---
+
+<Base title={story.data.title} description={story.data.summary}>
+  <PageHero
+    slot="hero"
+    eyebrow={`${story.data.organisation}, ${story.data.country}`}
+    title={story.data.title}
+    lead={story.data.summary}
+  >
+    <p class="breadcrumb" slot="breadcrumb"><a href="/stories/">Stories of implementation</a></p>
+  </PageHero>
+  <article class="prose">
+    {story.data.image && <img src={story.data.image} alt={story.data.imageAlt ?? ''} />}
+    {
+      story.data.video && (
+        <p>
+          <a href={story.data.video}>Watch the video</a>
+        </p>
+      )
+    }
+    <Content />
+    {
+      steps.length > 0 && (
+        <>
+          <h2>Steps of the AMBeR Model in this story</h2>
+          <p>
+            {steps.map((s) => (
+              <a class="tag" href={`/model/${s.id}/`}>
+                Step {s.data.number}: {s.data.title}
+              </a>
+            ))}
+          </p>
+        </>
+      )
+    }
+  </article>
+</Base>

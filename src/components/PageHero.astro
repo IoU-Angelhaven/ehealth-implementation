@@ -1,0 +1,31 @@
+---
+// Blue title banner at the top of a page.
+interface Props {
+  title: string;
+  lead?: string;
+  eyebrow?: string;
+}
+const { title, lead, eyebrow } = Astro.props;
+---
+
+<section class="hero page-hero">
+  <div class="wrap">
+    <slot name="breadcrumb" />
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h1>{title}</h1>
+    {lead && <p class="lead prose">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding: 2.5rem 0 2.75rem;
+  }
+  .eyebrow {
+    color: var(--yellow);
+  }
+  .lead {
+    margin-bottom: 0;
+  }
+</style>

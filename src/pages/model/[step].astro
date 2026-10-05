@@ -1,0 +1,90 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import PageHero from '../../components/PageHero.astro';
+
+export async function getStaticPaths() {
+  const steps = (await getCollection('steps')).sort((a, b) => a.data.number - b.data.number);
+  return steps.map((step, i) => ({
+    params: { step: step.id },
+    props: { step, prev: steps[i - 1], next: steps[i + 1] },
+  }));
+}
+
+interface Props {
+  step: CollectionEntry<'steps'>;
+  prev?: CollectionEntry<'steps'>;
+  next?: CollectionEntry<'steps'>;
+}
+
+const { step, prev, next } = Astro.props;
+const { Content } = await render(step);
+const activities = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const stories = await getCollection(
+  'stories',
+  (s) => s.data.published && s.data.steps.some((ref) => ref.id === step.id),
+);
+---
+
+<Base title={`Step ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
+  <PageHero
+    slot="hero"
+    eyebrow={`Step ${step.data.number} of the AMBeR Model`}
+    title={step.data.title}
+    lead={step.data.summary}
+  >
+    <p class="breadcrumb" slot="breadcrumb">
+      <a href="/model/">The AMBeR Model</a> / Step {step.data.number}
+    </p>
+  </PageHero>
+  <div class="prose"><Content /></div>
+
+  <h2>Activities in this step</h2>
+  <ol class="grid">
+    {
+      activities.map((a) => (
+        <li class="card">
+          <h3>
+            <a href={`/model/${step.id}/${a.id}/`}>
+              {step.data.number}.{a.data.order} {a.data.title}
+            </a>
+          </h3>
+          <p>{a.data.summary}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  {
+    stories.length > 0 && (
+      <>
+        <h2>Stories related to this step</h2>
+        <ul class="grid">
+          {stories.map((story) => (
+            <StoryCard story={story} />
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  <nav class="pager" aria-label="Steps">
+    {prev && <a href={`/model/${prev.id}/`}>← Step {prev.data.number}: {prev.data.title}</a>}
+    {next && <a href={`/model/${next.id}/`}>Step {next.data.number}: {next.data.title} →</a>}
+  </nav>
+</Base>
+
+<style>
+  .pager {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+</style>

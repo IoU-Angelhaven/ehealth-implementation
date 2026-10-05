@@ -1,0 +1,17 @@
+---
+// Cookie-free visitor statistics. Configure in src/site.config.ts.
+import { site } from '../site.config';
+
+const a = site.analytics;
+---
+
+{
+  a?.provider === 'goatcounter' && (
+    <script
+      is:inline
+      async
+      data-goatcounter={`https://${a.code}.goatcounter.com/count`}
+      src="//gc.zgo.at/count.js"
+    />
+  )
+}
