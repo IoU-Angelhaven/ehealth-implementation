@@ -1,6 +1,7 @@
 ---
 number: 3
 title: "Step 3 title (placeholder)"
+icon: clipboard
 summary: "One or two sentences describing the purpose of step 3. Replace with text from the AMBeR Model document."
 ---
 

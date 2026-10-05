@@ -2,6 +2,8 @@
 import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/PageHero.astro';
+import Icon from '../../../components/Icon.astro';
+import type { IconName } from '../../../icons';
 
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
@@ -23,39 +25,85 @@ const siblings = (await getCollection('activities', (a) => a.data.step.id === st
   (a, b) => a.data.order - b.data.order,
 );
 const number = `${step.data.number}.${activity.data.order}`;
+const icon = (activity.data.icon ?? step.data.icon) as IconName;
+const { useItTo, rememberTo, roles, downloads } = activity.data;
 ---
 
-<Base title={`${number} ${activity.data.title}`} description={activity.data.summary}>
-  <PageHero
-    slot="hero"
-    eyebrow={`Activity ${number}`}
-    title={activity.data.title}
-    lead={activity.data.summary}
-  >
+<Base bare title={`${number} ${activity.data.title}`} description={activity.data.summary}>
+  <PageHero artFirst eyebrow={`Activity ${number}`} title={activity.data.title} lead={activity.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
       <a href="/model/">The AMBeR Model</a> /{' '}
-      <a href={`/model/${step.id}/`}>Step {step.data.number}: {step.data.title}</a> / Activity {number}
+      <a href={`/model/${step.id}/`}>Step {step.data.number}</a> / Activity {number}
     </p>
-  </PageHero>
-  <div class="layout">
-    <article class="prose">
+    <div slot="art" class="meta">
+      <Icon name={icon} size={120} />
+      <span class="label">Part of</span>
+      <a class="tag" href={`/model/${step.id}/`}>Step {step.data.number}: {step.data.title}</a>
       {
-        activity.data.roles.length > 0 && (
-          <p>
-            <strong>Who is involved: </strong>
-            {activity.data.roles.map((r) => (
-              <span class="tag">{r}</span>
-            ))}
-          </p>
+        roles.length > 0 && (
+          <>
+            <span class="label">Who is involved</span>
+            <div>
+              {roles.map((r) => (
+                <span class="tag">{r}</span>
+              ))}
+            </div>
+          </>
         )
       }
+    </div>
+  </PageHero>
+
+  <div class="wrap body">
+    <aside aria-labelledby="related-title">
+      <span class="eyebrow" id="related-title">More in step {step.data.number}</span>
+      <ol>
+        {
+          siblings.map((a) => (
+            <li>
+              <a
+                href={`/model/${step.id}/${a.id}/`}
+                aria-current={a.id === activity.id ? 'page' : undefined}
+              >
+                <Icon name={(a.data.icon ?? step.data.icon) as IconName} size={40} />
+                <span>
+                  {step.data.number}.{a.data.order} {a.data.title}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </aside>
+
+    <article class="prose">
       <Content />
+
       {
-        activity.data.downloads.length > 0 && (
+        (useItTo || rememberTo) && (
+          <div class="use-remember">
+            {useItTo && (
+              <div>
+                <span class="eyebrow">Use it to</span>
+                <p>{useItTo}</p>
+              </div>
+            )}
+            {rememberTo && (
+              <div>
+                <span class="eyebrow">Remember to</span>
+                <p>{rememberTo}</p>
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      {
+        downloads.length > 0 && (
           <>
-            <h2>Downloads</h2>
-            <ul>
-              {activity.data.downloads.map((d) => (
+            <span class="eyebrow downloads-title">Downloads</span>
+            <ul class="downloads">
+              {downloads.map((d) => (
                 <li>
                   <a href={d.file} download>
                     {d.label}
@@ -67,52 +115,98 @@ const number = `${step.data.number}.${activity.data.order}`;
         )
       }
     </article>
-    <aside aria-label={`Activities in step ${step.data.number}`}>
-      <h2>Step {step.data.number}</h2>
-      <ol>
-        {
-          siblings.map((a) => (
-            <li>
-              <a
-                href={`/model/${step.id}/${a.id}/`}
-                aria-current={a.id === activity.id ? 'page' : undefined}
-              >
-                {a.data.title}
-              </a>
-            </li>
-          ))
-        }
-      </ol>
-    </aside>
   </div>
 </Base>
 
 <style>
-  .layout {
-    display: grid;
-    gap: 2rem;
+  .meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  @media (min-width: 60rem) {
-    .layout {
-      grid-template-columns: minmax(0, 1fr) 16rem;
+  .meta :global(.icon) {
+    margin-bottom: 0.5rem;
+  }
+  .body {
+    display: grid;
+    gap: 3rem 4rem;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  @media (min-width: 56rem) {
+    .body {
+      grid-template-columns: 14rem 1fr;
+    }
+    aside {
+      order: 0;
     }
   }
-  aside {
-    background: var(--blue-tint);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    align-self: start;
-  }
-  aside h2 {
-    font-size: 1.1rem;
-    margin-top: 0;
+  @media (max-width: 55.99rem) {
+    aside {
+      order: 2;
+    }
   }
   aside ol {
-    padding-left: 1.2rem;
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  aside a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #fff;
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  aside a:hover {
+    outline: 2px solid var(--blue);
+  }
+  aside a[aria-current='page'] {
+    outline: 2px solid var(--orange);
+  }
+  article :global(h2) {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange-text);
+    margin: 2.5rem 0 0.5rem;
+  }
+  article :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .use-remember {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    margin: 2.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .use-remember > div {
+    padding: 1.5rem 1.5rem 1.25rem 0;
+  }
+  .use-remember > div + div {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--border);
+  }
+  .use-remember p {
     margin: 0;
   }
-  aside [aria-current='page'] {
-    font-weight: 700;
-    color: var(--blue);
+  .downloads-title {
+    margin-top: 2rem;
+  }
+  .downloads {
+    padding-left: 1.2rem;
   }
 </style>

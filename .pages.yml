@@ -19,6 +19,11 @@ content:
       - { name: number, label: Step number, type: number, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: summary, label: Short summary, type: text, required: true }
+      - name: icon
+        label: Icon
+        type: select
+        options:
+          values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, monitor, heart, calendar, training, map]
       - { name: body, label: Text, type: rich-text }
 
   - name: activities
@@ -40,7 +45,14 @@ content:
       - { name: order, label: Order within the step, type: number, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: summary, label: Short summary, type: text, required: true }
+      - name: icon
+        label: Icon (leave empty to use the step's icon)
+        type: select
+        options:
+          values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, monitor, heart, calendar, training, map]
       - { name: roles, label: Who is involved, type: string, list: true }
+      - { name: useItTo, label: "Use it to (one or two sentences)", type: text }
+      - { name: rememberTo, label: "Remember to (one or two sentences)", type: text }
       - name: downloads
         label: Downloads
         type: object

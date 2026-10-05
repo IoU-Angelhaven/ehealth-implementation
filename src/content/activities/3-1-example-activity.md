@@ -6,19 +6,21 @@ summary: "A short description of the activity. Replace with text from the AMBeR 
 roles:
   - Project manager
   - Clinical staff
+useItTo: "PLACEHOLDER: what the activity helps you achieve."
+rememberTo: "PLACEHOLDER: the most important thing to keep in mind."
 downloads: []
 ---
 
 PLACEHOLDER: This is an example activity. Each of the 31 activities in the AMBeR Model will get its own file like this one.
 
-## Why
+## What is it
 
-Why the activity matters.
+What the activity is and why it matters.
 
-## How
+## How to do it
 
 How to carry out the activity, step by step.
 
-## Tips
+## Tips from the AMBeR partners
 
-Practical tips from the AMBeR partners.
+Practical tips and lessons learned.

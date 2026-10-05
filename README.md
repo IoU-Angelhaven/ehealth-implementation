@@ -27,6 +27,7 @@ Bilder och dokument (t.ex. PDF:er att ladda ner) laddas upp via editorn och hamn
 | Stories | `src/content/stories/` |
 | Startsida, About, Local guide, Privacy, Accessibility | `src/content/pages/` |
 | Färger och typsnitt | `src/styles/global.css` |
+| Ikoner (namnen går att välja i editorn) | `src/icons.ts` |
 | Menyn, sajtens namn, statistik | `src/site.config.ts` |
 | Bilder och nedladdningsbara filer | `public/media/` |
 | Officiella logotyper (ändra inte) | `public/media/brand/` |

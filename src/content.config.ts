@@ -1,6 +1,9 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { iconNames } from './icons';
+
+const icon = z.enum(iconNames as [string, ...string[]]).optional();
 
 // The five steps of the AMBeR Model. One Markdown file per step.
 const steps = defineCollection({
@@ -9,6 +12,7 @@ const steps = defineCollection({
     number: z.number().int().min(1),
     title: z.string(),
     summary: z.string(),
+    icon,
   }),
 });
 
@@ -20,7 +24,10 @@ const activities = defineCollection({
     order: z.number().int().min(1),
     title: z.string(),
     summary: z.string(),
+    icon,
     roles: z.array(z.string()).default([]),
+    useItTo: z.string().optional(),
+    rememberTo: z.string().optional(),
     downloads: z
       .array(z.object({ label: z.string(), file: z.string() }))
       .default([]),

@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import type { IconName } from '../icons';
+
+interface Props {
+  activity: CollectionEntry<'activities'>;
+  step: CollectionEntry<'steps'>;
+  showStep?: boolean;
+}
+const { activity, step, showStep = true } = Astro.props;
+const number = `${step.data.number}.${activity.data.order}`;
+const icon = (activity.data.icon ?? step.data.icon) as IconName;
+---
+
+<li
+  class="card tool-card"
+  data-step={step.id}
+  data-roles={JSON.stringify(activity.data.roles)}
+>
+  <span class="badge">{showStep ? `Step ${step.data.number} · ${number}` : number}</span>
+  <Icon name={icon} size={72} />
+  <h3>
+    <a href={`/model/${step.id}/${activity.id}/`}>{activity.data.title}</a>
+  </h3>
+</li>

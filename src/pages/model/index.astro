@@ -1,59 +1,215 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import ModelOverview from '../../components/ModelOverview.astro';
 import PageHero from '../../components/PageHero.astro';
+import ModelOverview from '../../components/ModelOverview.astro';
+import ActivityCard from '../../components/ActivityCard.astro';
+import Illustration from '../../components/Illustration.astro';
 
 const steps = (await getCollection('steps')).sort((a, b) => a.data.number - b.data.number);
-const activities = await getCollection('activities');
+const stepById = new Map(steps.map((s) => [s.id, s]));
+const activities = (await getCollection('activities'))
+  .filter((a) => stepById.has(a.data.step.id))
+  .sort(
+    (a, b) =>
+      stepById.get(a.data.step.id)!.data.number - stepById.get(b.data.step.id)!.data.number ||
+      a.data.order - b.data.order,
+  );
+const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
 ---
 
-<Base
-  title="The AMBeR Model"
-  description="A step-by-step model for implementing eHealth in cancer care."
->
+<Base bare title="The AMBeR Model" description="A step-by-step model for implementing eHealth in cancer care.">
   <PageHero
-    slot="hero"
+    eyebrow="The model"
     title="The AMBeR Model"
-    lead="The AMBeR Model describes the implementation process in five steps. Each step contains a number of activities. Select a step to read more."
-  />
+    lead="The AMBeR Model describes the implementation of eHealth in cancer care in five steps. Each step contains activities with practical guidance, tools and examples."
+  >
+    <Illustration slot="art" name="path" />
+  </PageHero>
 
-  <ModelOverview />
+  <section class="section soft">
+    <div class="wrap">
+      <span class="eyebrow">The five steps</span>
+      <h2>Follow the process step by step</h2>
+      <ModelOverview />
+    </div>
+  </section>
 
-  {
-    steps.map((step) => {
-      const items = activities
-        .filter((a) => a.data.step.id === step.id)
-        .sort((a, b) => a.data.order - b.data.order);
-      return (
-        <section>
-          <h2>
-            <a class="step-link" href={`/model/${step.id}/`}>
-              Step {step.data.number}: {step.data.title}
-            </a>
-          </h2>
-          <p class="prose">{step.data.summary}</p>
-          {items.length > 0 && (
-            <ol>
-              {items.map((a) => (
+  <section class="section" aria-labelledby="toolbox-title">
+    <div class="wrap">
+      <span class="eyebrow">All activities</span>
+      <h2 id="toolbox-title">Find the activities you need</h2>
+
+      <div class="filters" hidden>
+        <div class="group">
+          <p class="group-title">When – step in the model</p>
+          <ul>
+            {
+              steps.map((s) => (
                 <li>
-                  <a href={`/model/${step.id}/${a.id}/`}>{a.data.title}</a>
+                  <button type="button" data-filter="step" data-value={s.id} aria-pressed="false">
+                    {s.data.number}. {s.data.title}
+                  </button>
                 </li>
-              ))}
-            </ol>
-          )}
-        </section>
-      );
-    })
-  }
+              ))
+            }
+          </ul>
+        </div>
+        {
+          roles.length > 0 && (
+            <div class="group">
+              <p class="group-title">Who – people involved</p>
+              <ul>
+                {roles.map((r) => (
+                  <li>
+                    <button type="button" data-filter="role" data-value={r} aria-pressed="false">
+                      {r}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+
+      <div class="status">
+        <p class="count" aria-live="polite">
+          Showing <strong data-count>{activities.length}</strong> of {activities.length} activities
+        </p>
+        <button type="button" class="reset" hidden>Show all</button>
+      </div>
+
+      <ul class="grid toolbox">
+        {
+          activities.map((a) => (
+            <ActivityCard activity={a} step={stepById.get(a.data.step.id)!} />
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 </Base>
 
-<style>
-  .step-link {
-    color: inherit;
-    text-decoration: none;
+<script>
+  // Filter the activity cards by step and role. Without JavaScript all activities are shown.
+  const filters = document.querySelector<HTMLElement>('.filters');
+  const cards = [...document.querySelectorAll<HTMLElement>('.toolbox > li')];
+  const countEl = document.querySelector('[data-count]');
+  const reset = document.querySelector<HTMLButtonElement>('.reset');
+  const active: Record<string, string | null> = { step: null, role: null };
+
+  function apply() {
+    let shown = 0;
+    for (const card of cards) {
+      const roles: string[] = JSON.parse(card.dataset.roles || '[]');
+      const ok =
+        (!active.step || card.dataset.step === active.step) &&
+        (!active.role || roles.includes(active.role));
+      card.hidden = !ok;
+      if (ok) shown++;
+    }
+    if (countEl) countEl.textContent = String(shown);
+    if (reset) reset.hidden = !active.step && !active.role;
+    filters?.querySelectorAll<HTMLButtonElement>('button[data-filter]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(active[b.dataset.filter!] === b.dataset.value));
+    });
   }
-  .step-link:hover {
+
+  if (filters) {
+    filters.hidden = false;
+    filters.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+      if (!b) return;
+      const type = b.dataset.filter!;
+      active[type] = active[type] === b.dataset.value ? null : b.dataset.value!;
+      apply();
+    });
+    reset?.addEventListener('click', () => {
+      active.step = null;
+      active.role = null;
+      apply();
+    });
+  }
+</script>
+
+<style>
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    margin: 2rem 0 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .filters[hidden] {
+    display: none;
+  }
+  .group + .group {
+    border-left: 1px solid var(--border);
+  }
+  .group-title {
+    margin: 0;
+    padding: 0.6rem 1.25rem;
+    background: var(--blue);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1.25rem 1rem;
+  }
+  .group button {
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 0.25rem;
+    cursor: pointer;
+  }
+  .group button:hover {
+    color: var(--blue);
+  }
+  .group button[aria-pressed='true'] {
+    color: var(--blue);
+    border-bottom: 2px solid var(--orange);
+  }
+  .group button[aria-pressed='true']::before {
+    content: '✓ ';
+  }
+  .status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .count {
+    margin: 0;
+    color: var(--muted);
+  }
+  .reset {
+    font: inherit;
+    color: var(--blue);
+    background: none;
+    border: 0;
     text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+  .toolbox {
+    margin-top: 1.25rem;
+  }
+  .toolbox > li[hidden] {
+    display: none;
   }
 </style>

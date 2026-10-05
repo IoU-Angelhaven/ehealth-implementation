@@ -1,6 +1,7 @@
 ---
 number: 5
 title: "Step 5 title (placeholder)"
+icon: chart
 summary: "One or two sentences describing the purpose of step 5. Replace with text from the AMBeR Model document."
 ---
 
