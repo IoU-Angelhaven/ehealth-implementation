@@ -1,22 +1,30 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import StoryCard from '../../components/StoryCard.astro';
 import PageHero from '../../components/PageHero.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import Icon from '../../components/Icon.astro';
 
 const stories = await getCollection('stories', (s) => s.data.published);
 ---
 
 <Base
+  bare
   title="Stories of implementation"
   description="Experiences from implementing eHealth in cancer care in the South Baltic region."
 >
   <PageHero
-    slot="hero"
+    eyebrow="In practice"
     title="Stories of implementation"
     lead="How AMBeR partners adapted the model to their own organisations, and what they learned along the way."
-  />
-  <ul class="grid">
-    {stories.map((story) => <StoryCard story={story} />)}
-  </ul>
+  >
+    <Icon slot="art" name="chat" size={200} accent="orange" />
+  </PageHero>
+  <section class="section soft">
+    <div class="wrap">
+      <ul class="grid">
+        {stories.map((story) => <StoryCard story={story} />)}
+      </ul>
+    </div>
+  </section>
 </Base>

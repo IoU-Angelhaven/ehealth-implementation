@@ -1,31 +1,73 @@
 ---
-// Blue title banner at the top of a page.
+// Page introduction: text on the left, illustration or icon on the right
+// (layout inspired by servicedesigntools.org).
 interface Props {
   title: string;
   lead?: string;
   eyebrow?: string;
+  /** Put the art on the left instead (used on activity pages) */
+  artFirst?: boolean;
 }
-const { title, lead, eyebrow } = Astro.props;
+const { title, lead, eyebrow, artFirst = false } = Astro.props;
+const hasArt = Astro.slots.has('art');
 ---
 
-<section class="hero page-hero">
+<section class:list={['page-hero', { 'has-art': hasArt, 'art-first': artFirst }]}>
   <div class="wrap">
-    <slot name="breadcrumb" />
-    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-    <h1>{title}</h1>
-    {lead && <p class="lead prose">{lead}</p>}
-    <slot />
+    <div class="text">
+      <slot name="breadcrumb" />
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
+    {
+      hasArt && (
+        <div class="art">
+          <slot name="art" />
+        </div>
+      )
+    }
   </div>
 </section>
 
 <style>
   .page-hero {
-    padding: 2.5rem 0 2.75rem;
+    background: #fff;
+    padding: 3.5rem 0 4rem;
+    box-shadow: 0 12px 20px -18px rgb(29 41 57 / 0.25);
+    position: relative;
+    z-index: 1;
   }
-  .eyebrow {
-    color: var(--yellow);
+  .wrap {
+    display: grid;
+    gap: 2.5rem 4rem;
+    align-items: center;
+  }
+  .text {
+    max-width: 40rem;
   }
   .lead {
     margin-bottom: 0;
+  }
+  .art {
+    display: flex;
+    justify-content: center;
+  }
+  @media (min-width: 56rem) {
+    .page-hero {
+      padding: 4.5rem 0 5rem;
+    }
+    .has-art .wrap {
+      grid-template-columns: 1.1fr 1fr;
+    }
+    .art-first .wrap {
+      grid-template-columns: 14rem 1fr;
+    }
+    .art-first .art {
+      order: -1;
+      justify-content: flex-start;
+      align-self: start;
+    }
   }
 </style>

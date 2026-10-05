@@ -1,8 +1,12 @@
 ---
+import { url } from '../../lib/url';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import StoryCard from '../../components/StoryCard.astro';
 import PageHero from '../../components/PageHero.astro';
+import ActivityCard from '../../components/ActivityCard.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../icons';
 
 export async function getStaticPaths() {
   const steps = (await getCollection('steps')).sort((a, b) => a.data.number - b.data.number);
@@ -29,62 +33,104 @@ const stories = await getCollection(
 );
 ---
 
-<Base title={`Step ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
-  <PageHero
-    slot="hero"
-    eyebrow={`Step ${step.data.number} of the AMBeR Model`}
-    title={step.data.title}
-    lead={step.data.summary}
-  >
+<Base bare title={`Phase ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
+  <PageHero eyebrow={`Phase ${step.data.number} of 5`} title={step.data.title} lead={step.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
-      <a href="/model/">The AMBeR Model</a> / Step {step.data.number}
+      <a href={url('/model/')}>The AMBeR Model</a> / Phase {step.data.number}
     </p>
+    <div slot="art" class="step-art">
+      <span class="big-number" aria-hidden="true">{step.data.number}</span>
+      <Icon name={step.data.icon as IconName} size={180} />
+    </div>
   </PageHero>
-  <div class="prose"><Content /></div>
 
-  <h2>Activities in this step</h2>
-  <ol class="grid">
-    {
-      activities.map((a) => (
-        <li class="card">
-          <h3>
-            <a href={`/model/${step.id}/${a.id}/`}>
-              {step.data.number}.{a.data.order} {a.data.title}
-            </a>
-          </h3>
-          <p>{a.data.summary}</p>
-        </li>
-      ))
-    }
-  </ol>
+  <section class="section">
+    <div class="wrap">
+      <div class="prose"><Content /></div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <span class="eyebrow">Activities</span>
+      <h2>Activities in phase {step.data.number}</h2>
+      <ol class="grid">
+        {activities.map((a) => <ActivityCard activity={a} step={step} showStep={false} />)}
+      </ol>
+    </div>
+  </section>
 
   {
     stories.length > 0 && (
-      <>
-        <h2>Stories related to this step</h2>
-        <ul class="grid">
-          {stories.map((story) => (
-            <StoryCard story={story} />
-          ))}
-        </ul>
-      </>
+      <section class="section">
+        <div class="wrap">
+          <span class="eyebrow">In practice</span>
+          <h2>Stories related to this phase</h2>
+          <ul class="grid">
+            {stories.map((story) => (
+              <StoryCard story={story} />
+            ))}
+          </ul>
+        </div>
+      </section>
     )
   }
 
-  <nav class="pager" aria-label="Steps">
-    {prev && <a href={`/model/${prev.id}/`}>← Step {prev.data.number}: {prev.data.title}</a>}
-    {next && <a href={`/model/${next.id}/`}>Step {next.data.number}: {next.data.title} →</a>}
+  <nav class="wrap pager" aria-label="Phases">
+    {
+      prev ? (
+        <a href={url(`/model/${prev.id}/`)}>
+          <span class="eyebrow">← Previous phase</span>
+          {prev.data.number}. {prev.data.title}
+        </a>
+      ) : (
+        <span />
+      )
+    }
+    {
+      next && (
+        <a class="next" href={url(`/model/${next.id}/`)}>
+          <span class="eyebrow">Next phase →</span>
+          {next.data.number}. {next.data.title}
+        </a>
+      )
+    }
   </nav>
 </Base>
 
 <style>
+  .step-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+  }
+  .big-number {
+    position: absolute;
+    left: 10%;
+    top: -1rem;
+    font-size: 7rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--blue-light);
+  }
   .pager {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     gap: 1rem;
-    margin-top: 3rem;
-    padding-top: 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
     border-top: 1px solid var(--border);
+  }
+  .pager a {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .pager a:hover {
+    color: var(--blue);
+  }
+  .next {
+    text-align: right;
   }
 </style>

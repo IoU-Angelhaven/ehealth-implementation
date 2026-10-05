@@ -3,16 +3,38 @@ import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Facts from '../components/Facts.astro';
+import Icon from '../components/Icon.astro';
+import Illustration from '../components/Illustration.astro';
 
 const page = await getEntry('pages', 'accessibility');
 if (!page) throw new Error('Missing src/content/pages/accessibility.md');
 const { Content } = await render(page);
 ---
 
-<Base title={page.data.title} description={page.data.intro}>
-  <PageHero slot="hero" title={page.data.title} lead={page.data.intro} />
-  <Facts facts={page.data.facts} />
-  <article class="prose">
-    <Content />
-  </article>
+<Base bare title={page.data.title} description={page.data.intro}>
+  <PageHero title={page.data.title} lead={page.data.intro}>
+  </PageHero>
+  {
+    page.data.facts.length > 0 && (
+      <section class="section soft facts-section">
+        <div class="wrap">
+          <Facts facts={page.data.facts} />
+        </div>
+      </section>
+    )
+  }
+  <div class="wrap">
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
 </Base>
+
+<style>
+  article {
+    padding-top: 3rem;
+  }
+  .facts-section {
+    padding: 1rem 0;
+  }
+</style>

@@ -1,42 +1,57 @@
 ---
-import { nav } from '../site.config';
+import { url, isCurrent } from '../lib/url';
+import { nav, navCta } from '../site.config';
 
 const path = Astro.url.pathname;
 ---
 
 <header class="site-header">
-  <div class="wrap bar">
+  <div class="wrap">
     <!-- Official AMBeR + Interreg South Baltic + EU logo combination. Programme rules
          (Communication Guidelines for Beneficiaries, sections 3.1 and 3.12.3 H):
          - the Programme logo must be prominent, at the top of the website;
          - the "Interreg + EU symbol" part must be at least 300 px wide on laptop/desktop
            screens. In this file that part is ~37 % of the full logo, so the logo is
            shown 820 px wide on large screens. Do not make it smaller or alter it. -->
-    <a class="brand" href="/">
+    <a class="brand" href={url('/')}>
       <img
-        src="/media/brand/amber-interreg-eu-horizontal.svg"
+        src={url('/media/brand/amber-interreg-eu-horizontal.svg')}
         alt="AMBeR – Advanced Modelling of Baltic Cancer E-Care. Interreg South Baltic. Co-funded by the European Union. Go to start page."
         width="308"
         height="55"
       />
     </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>
-      <span class="bars" aria-hidden="true"></span>
-      Menu
-    </button>
-    <nav id="main-nav" aria-label="Main">
-      <ul>
-        {
-          nav.map((item) => (
-            <li>
-              <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <div class="navrow">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" hidden>
+        <span class="bars" aria-hidden="true"></span>
+        Menu
+      </button>
+      <nav id="main-nav" aria-label="Main">
+        <ul>
+          <li>
+            <a href={url('/')} aria-current={isCurrent(path, '/', true) ? 'page' : undefined}>Home</a>
+          </li>
+          {
+            nav.map((item) => (
+              <li>
+                <a href={url(item.href)} aria-current={isCurrent(path, item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li class="cta">
+            <a
+              class="button"
+              href={url(navCta.href)}
+              aria-current={isCurrent(path, navCta.href) ? 'page' : undefined}
+            >
+              {navCta.label}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -58,21 +73,16 @@ const path = Astro.url.pathname;
 <style>
   .site-header {
     background: #fff;
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 1px 0 rgb(0 34 102 / 0.04);
+    position: relative;
+    z-index: 2;
   }
-  .bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem 2rem;
-    padding-top: 1.25rem;
-    padding-bottom: 0.75rem;
+  .site-header > .wrap {
+    padding-top: 1.5rem;
   }
   .brand {
     display: block;
-    flex: 1 0 100%;
+    width: fit-content;
+    max-width: 100%;
   }
   .brand img {
     display: block;
@@ -80,26 +90,41 @@ const path = Astro.url.pathname;
     width: 51.25rem; /* 820 px, see comment above */
     max-width: 100%;
   }
+  .navrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border);
+  }
   ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem 1.75rem;
+    align-items: center;
+    gap: 0.25rem 2.25rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  nav a {
+  nav {
+    width: 100%;
+  }
+  nav a:not(.button) {
     display: block;
-    color: var(--blue);
-    font-weight: 600;
+    color: var(--ink);
     text-decoration: none;
     padding: 0.4rem 0;
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid transparent;
   }
-  nav a:hover,
-  nav a[aria-current='page'] {
-    color: var(--blue);
+  nav a:not(.button):hover,
+  nav a:not(.button)[aria-current='page'] {
+    color: var(--ink);
     border-bottom-color: var(--orange);
+  }
+  .cta {
+    margin-left: auto;
   }
 
   .menu-toggle {
@@ -107,13 +132,12 @@ const path = Astro.url.pathname;
     align-items: center;
     gap: 0.5rem;
     font: inherit;
-    font-weight: 700;
-    color: var(--blue);
-    background: var(--blue-tint);
-    border: 0;
-    border-radius: 999px;
-    padding: 0.5rem 1rem;
-    margin-left: auto;
+    font-weight: 600;
+    color: var(--ink);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.45rem 0.9rem;
     cursor: pointer;
   }
   .menu-toggle[hidden] {
@@ -126,7 +150,6 @@ const path = Astro.url.pathname;
     width: 1.1rem;
     height: 2px;
     background: currentColor;
-    border-radius: 2px;
   }
   .bars {
     position: relative;
@@ -144,11 +167,7 @@ const path = Astro.url.pathname;
     top: 6px;
   }
 
-  /* Small screens: menu collapses behind the button */
   @media (max-width: 63.99rem) {
-    nav {
-      flex-basis: 100%;
-    }
     .js nav {
       display: none;
     }
@@ -157,29 +176,24 @@ const path = Astro.url.pathname;
     }
     ul {
       flex-direction: column;
+      align-items: stretch;
       gap: 0;
-      border-top: 1px solid var(--border);
-      padding-top: 0.5rem;
+      padding: 0.5rem 0;
     }
-    nav a {
+    nav a:not(.button) {
       padding: 0.6rem 0;
-      border-bottom: 0;
-      border-left: 3px solid transparent;
-      padding-left: 0.75rem;
+      border-bottom: 1px solid var(--border);
     }
-    nav a[aria-current='page'] {
-      border-left-color: var(--orange);
+    nav a:not(.button)[aria-current='page'] {
+      border-bottom-color: var(--orange);
+    }
+    .cta {
+      margin: 1rem 0 0;
     }
   }
-  /* Large screens: menu always visible next to the logo */
   @media (min-width: 64rem) {
     .menu-toggle {
       display: none !important;
-    }
-    nav {
-      flex-basis: 100%;
-      border-top: 1px solid var(--border);
-      padding-top: 0.5rem;
     }
   }
 </style>

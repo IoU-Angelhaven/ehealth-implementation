@@ -19,6 +19,8 @@ export const site = {
 export const nav = [
   { href: '/model/', label: 'The AMBeR Model' },
   { href: '/stories/', label: 'Stories' },
-  { href: '/local-guide/', label: 'Create your local guide' },
   { href: '/about/', label: 'About AMBeR' },
 ];
+
+// Highlighted button at the end of the main menu
+export const navCta = { href: '/local-guide/', label: 'Create your local guide' };

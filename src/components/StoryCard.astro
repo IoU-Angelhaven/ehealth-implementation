@@ -1,5 +1,7 @@
 ---
+import { url } from '../lib/url';
 import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
 
 interface Props {
   story: CollectionEntry<'stories'>;
@@ -7,26 +9,37 @@ interface Props {
 const { story } = Astro.props;
 ---
 
-<li class="card">
-  {story.data.image && <img class="thumb" src={story.data.image} alt="" loading="lazy" />}
-  <span class="eyebrow">{story.data.country}</span>
-  <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
-  <p class="muted">{story.data.organisation}</p>
+<li class="card story">
+  {
+    story.data.image ? (
+      <img class="thumb" src={url(story.data.image)} alt="" loading="lazy" />
+    ) : (
+      <div class="thumb placeholder">
+        <Icon name="chat" size={72} accent="orange" />
+      </div>
+    )
+  }
+  <span class="eyebrow">{story.data.country} · {story.data.organisation}</span>
+  <h3><a href={url(`/stories/${story.id}/`)}>{story.data.title}</a></h3>
   <p>{story.data.summary}</p>
-  <a class="more" href={`/stories/${story.id}/`} aria-hidden="true" tabindex="-1">Read the story →</a>
 </li>
 
 <style>
+  .story {
+    padding-top: 0;
+  }
   .thumb {
     display: block;
-    width: calc(100% + 3rem);
+    width: calc(100% + 3.5rem);
     max-width: none;
-    margin: -1.5rem -1.5rem 1rem;
+    margin: 0 -1.75rem 1.5rem;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: var(--radius) var(--radius) 0 0;
   }
-  .eyebrow {
-    margin-bottom: 0;
+  .placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--blue-tint);
   }
 </style>

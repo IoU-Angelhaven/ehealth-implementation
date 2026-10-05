@@ -1,9 +1,13 @@
 ---
+import { url } from '../lib/url';
 import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
 import ModelOverview from '../components/ModelOverview.astro';
 import StoryCard from '../components/StoryCard.astro';
 import Facts from '../components/Facts.astro';
+import Icon from '../components/Icon.astro';
+import Illustration from '../components/Illustration.astro';
 import { site } from '../site.config';
 
 const home = await getEntry('pages', 'home');
@@ -14,32 +18,23 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
 ---
 
 <Base bare>
-  <section class="hero home-hero">
-    <div class="wrap">
-      <span class="eyebrow">Interreg South Baltic project {site.project}</span>
-      <h1>{home.data.title}</h1>
-      {home.data.intro && <p class="lead prose">{home.data.intro}</p>}
-      <p class="actions">
-        <a class="button" href="/model/">Explore the AMBeR Model</a>
-        <a class="button secondary" href="/local-guide/">Create your local guide</a>
-      </p>
-    </div>
-  </section>
+  <PageHero eyebrow={`Interreg South Baltic project ${site.project}`} title={home.data.title} lead={home.data.intro}>
+    <p class="actions">
+      <a class="button" href={url('/model/')}>Explore the AMBeR Model</a>
+      <a class="button ghost" href={url('/local-guide/')}>Create your local guide</a>
+    </p>
+    <Illustration slot="art" name="board" />
+  </PageHero>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="prose"><Content /></div>
-    </div>
-  </section>
-
-  <section class="section tint">
+  <section class="section soft">
     <div class="wrap">
       <span class="eyebrow">The AMBeR Model</span>
-      <h2>Five steps to implementing eHealth</h2>
-      <p class="prose">
-        Each step contains a number of activities with practical guidance, tools and examples.
-      </p>
+      <h2>Five phases of implementing eHealth</h2>
+      <div class="prose"><Content /></div>
       <ModelOverview />
+      <p class="actions">
+        <a class="button" href={url('/model/')}>See all activities</a>
+      </p>
     </div>
   </section>
 
@@ -47,31 +42,44 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
     <div class="wrap">
       <span class="eyebrow">Who is this for?</span>
       <h2>Knowledge for everyone involved in cancer care</h2>
-      <ul class="grid">
+      <ul class="grid audiences">
         <li class="card">
-          <h3>Healthcare professionals</h3>
-          <p>
-            Practical activities, tips and examples for introducing eHealth in everyday cancer care.
-          </p>
-          <a class="more" href="/model/">Start with the model →</a>
+          <Icon name="heart" size={64} />
+          <h3><a href={url('/model/')}>Healthcare professionals</a></h3>
+          <p>Practical activities, tips and examples for introducing eHealth in everyday cancer care.</p>
         </li>
         <li class="card">
-          <h3>Managers</h3>
+          <Icon name="clipboard" size={64} accent="orange" />
+          <h3><a href={url('/local-guide/')}>Managers</a></h3>
           <p>How to plan, lead and follow up an eHealth implementation in your organisation.</p>
-          <a class="more" href="/local-guide/">Create a local guide →</a>
         </li>
         <li class="card">
-          <h3>Decision-makers</h3>
+          <Icon name="chart" size={64} />
+          <h3><a href={url('/stories/')}>Decision-makers</a></h3>
           <p>Results and experiences from implementation in the South Baltic region.</p>
-          <a class="more" href="/stories/">Read the stories →</a>
         </li>
       </ul>
     </div>
   </section>
 
+  <section class="band">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">From model to practice</span>
+        <h2>Create your own local implementation guide</h2>
+        <p>
+          Every AMBeR partner adapted the generic model to its own organisation. Download the model and
+          follow our step-by-step advice – including tips on using AI – to do the same.
+        </p>
+        <p class="actions"><a class="button" href={url('/local-guide/')}>Get started</a></p>
+      </div>
+      <div class="art"><Illustration name="guide" /></div>
+    </div>
+  </section>
+
   {
     stories.length > 0 && (
-      <section class="section tint">
+      <section class="section soft">
         <div class="wrap">
           <span class="eyebrow">Stories of implementation</span>
           <h2>Experiences from the AMBeR partners</h2>
@@ -81,39 +89,33 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
             ))}
           </ul>
           <p class="actions">
-            <a class="button" href="/stories/">All stories</a>
+            <a class="button ghost" href={url('/stories/')}>All stories</a>
           </p>
         </div>
       </section>
     )
   }
 
-  <section class="section about">
+  <section class="section">
     <div class="wrap">
       <span class="eyebrow">About the project</span>
       <h2>{about.data.title}</h2>
-      {about.data.intro && <p class="prose">{about.data.intro}</p>}
+      {about.data.intro && <p class="prose lead">{about.data.intro}</p>}
       <p class="prose"><strong>{site.fundingStatement}</strong></p>
       <Facts facts={about.data.facts} />
-      <a class="button" href="/about/">Read more about AMBeR</a>
+      <a class="button" href={url('/about/')}>Read more about AMBeR</a>
     </div>
   </section>
 </Base>
 
 <style>
-  .home-hero {
-    padding: 4.5rem 0 5rem;
+  .audiences {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
   }
-  .home-hero .eyebrow {
-    color: var(--yellow);
+  .audiences .card {
+    gap: 0.25rem;
   }
-  .home-hero h1 {
-    max-width: 22ch;
-  }
-  .section > .wrap > .eyebrow + h2 {
-    margin-top: 0;
-  }
-  .about {
-    border-top: 1px solid var(--border);
+  .audiences h3 {
+    margin-top: 1.25rem;
   }
 </style>

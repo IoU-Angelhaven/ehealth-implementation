@@ -1,0 +1,52 @@
+---
+// Line icons in the style of the site: dark outline with a coloured block behind.
+// The list of names is also used in .pages.yml (icon fields) – keep them in sync.
+import { icons, type IconName } from '../icons';
+
+interface Props {
+  name?: IconName;
+  size?: number;
+  accent?: 'blue' | 'orange';
+  class?: string;
+}
+
+const { name = 'document', size = 64, accent = 'blue', class: className } = Astro.props;
+const icon = icons[name] ?? icons.document;
+---
+
+<svg
+  class:list={['icon', `accent-${accent}`, className]}
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g class="accent" set:html={icon.accent} />
+  <g
+    class="line"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    set:html={icon.line}
+  />
+</svg>
+
+<style>
+  .icon {
+    display: block;
+    color: var(--ink);
+    flex: none;
+  }
+  .accent-blue .accent {
+    fill: var(--blue-light);
+  }
+  .accent-orange .accent {
+    fill: var(--orange);
+  }
+  .line :global(*) {
+    vector-effect: non-scaling-stroke;
+  }
+</style>

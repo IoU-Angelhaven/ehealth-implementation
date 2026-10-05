@@ -1,8 +1,13 @@
 ---
+import { url } from '../lib/url';
 import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
 ---
 
-<Base title="Page not found">
-  <h1>Page not found</h1>
-  <p>The page you are looking for does not exist. <a href="/">Go to the start page</a>.</p>
+<Base bare title="Page not found">
+  <PageHero title="Page not found" lead="The page you are looking for does not exist.">
+    <p class="actions"><a class="button" href={url('/')}>Go to the start page</a></p>
+    <Icon slot="art" name="compass" size={200} />
+  </PageHero>
 </Base>
