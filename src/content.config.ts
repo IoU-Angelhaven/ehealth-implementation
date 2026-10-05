@@ -49,6 +49,8 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     intro: z.string().optional(),
+    // Key facts about the project (shown on About and Home)
+    facts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
   }),
 });
 

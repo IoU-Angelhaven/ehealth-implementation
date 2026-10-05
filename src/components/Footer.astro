@@ -1,57 +1,106 @@
 ---
-import { site } from '../site.config';
+import { site, nav } from '../site.config';
 ---
 
 <footer class="site-footer">
   <div class="wrap cols">
-    <div>
-      <!-- Replace with the official Interreg South Baltic / AMBeR logo block
-           (place the image in public/media/ and use an <img> tag here). -->
-      <p class="logo-placeholder">[Interreg South Baltic – AMBeR logo]</p>
-      <p>
-        {site.project} – {site.projectLong} is co-funded by the European Union through the Interreg
-        South Baltic Programme.
-      </p>
+    <div class="funding">
+      <div class="logo-panel">
+        <img
+          src="/media/brand/amber-interreg-eu-stacked.svg"
+          alt="Interreg South Baltic. Co-funded by the European Union. AMBeR – Advanced Modelling of Baltic Cancer E-Care."
+          width="193"
+          height="85"
+          loading="lazy"
+        />
+      </div>
+      <p>{site.fundingStatement}</p>
     </div>
     <nav aria-label="Footer">
+      <h2>Explore</h2>
       <ul>
-        <li><a href="/about/">About AMBeR</a></li>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <nav aria-label="About this website">
+      <h2>This website</h2>
+      <ul>
         <li><a href="/privacy/">Privacy</a></li>
         <li><a href="/accessibility/">Accessibility</a></li>
         {site.contactEmail && <li><a href={`mailto:${site.contactEmail}`}>Contact</a></li>}
+        <li><a href="https://southbaltic.eu/" rel="external">Interreg South Baltic Programme</a></li>
       </ul>
     </nav>
+  </div>
+  <div class="wrap legal">
+    <p>{site.disclaimer}</p>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    background: var(--navy-900);
-    color: #d7e0ee;
-    padding: 2.5rem 0;
+    background: var(--blue-dark);
+    color: #dfe5f7;
+    padding: 3rem 0 1.5rem;
     font-size: 0.95rem;
+    border-top: 5px solid var(--orange);
   }
   .cols {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
+    display: grid;
+    gap: 2rem 3rem;
+    grid-template-columns: 1fr;
   }
-  .cols > div {
-    max-width: 36rem;
+  @media (min-width: 48rem) {
+    .cols {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
   }
-  .logo-placeholder {
+  .logo-panel {
     display: inline-block;
-    border: 1px dashed #7d93b5;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+  }
+  .logo-panel img {
+    display: block;
+    width: 15rem;
+    max-width: 100%;
+  }
+  .funding p {
+    max-width: 30rem;
+  }
+  h2 {
+    color: #fff;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.75rem;
   }
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
+  li {
+    margin-bottom: 0.4rem;
+  }
   a {
     color: #fff;
+  }
+  a:hover {
+    color: var(--yellow);
+  }
+  .legal {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    font-size: 0.85rem;
+    color: #b9c4e6;
   }
 </style>

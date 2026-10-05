@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ModelOverview from '../../components/ModelOverview.astro';
+import PageHero from '../../components/PageHero.astro';
 
 const steps = (await getCollection('steps')).sort((a, b) => a.data.number - b.data.number);
 const activities = await getCollection('activities');
@@ -11,11 +12,11 @@ const activities = await getCollection('activities');
   title="The AMBeR Model"
   description="A step-by-step model for implementing eHealth in cancer care."
 >
-  <h1>The AMBeR Model</h1>
-  <p class="lead prose">
-    The AMBeR Model describes the implementation process in five steps. Each step contains a number
-    of activities. Select a step to read more.
-  </p>
+  <PageHero
+    slot="hero"
+    title="The AMBeR Model"
+    lead="The AMBeR Model describes the implementation process in five steps. Each step contains a number of activities. Select a step to read more."
+  />
 
   <ModelOverview />
 
@@ -27,7 +28,7 @@ const activities = await getCollection('activities');
       return (
         <section>
           <h2>
-            <a href={`/model/${step.id}/`}>
+            <a class="step-link" href={`/model/${step.id}/`}>
               Step {step.data.number}: {step.data.title}
             </a>
           </h2>
@@ -46,3 +47,13 @@ const activities = await getCollection('activities');
     })
   }
 </Base>
+
+<style>
+  .step-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .step-link:hover {
+    text-decoration: underline;
+  }
+</style>

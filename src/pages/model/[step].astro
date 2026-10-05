@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import StoryCard from '../../components/StoryCard.astro';
+import PageHero from '../../components/PageHero.astro';
 
 export async function getStaticPaths() {
   const steps = (await getCollection('steps')).sort((a, b) => a.data.number - b.data.number);
@@ -29,9 +30,16 @@ const stories = await getCollection(
 ---
 
 <Base title={`Step ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
-  <p class="breadcrumb"><a href="/model/">The AMBeR Model</a> / Step {step.data.number}</p>
-  <h1>Step {step.data.number}: {step.data.title}</h1>
-  <p class="lead prose">{step.data.summary}</p>
+  <PageHero
+    slot="hero"
+    eyebrow={`Step ${step.data.number} of the AMBeR Model`}
+    title={step.data.title}
+    lead={step.data.summary}
+  >
+    <p class="breadcrumb" slot="breadcrumb">
+      <a href="/model/">The AMBeR Model</a> / Step {step.data.number}
+    </p>
+  </PageHero>
   <div class="prose"><Content /></div>
 
   <h2>Activities in this step</h2>

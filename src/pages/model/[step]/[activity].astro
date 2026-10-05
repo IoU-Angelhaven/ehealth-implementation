@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
 
 export async function getStaticPaths() {
   const activities = await getCollection('activities');
@@ -25,14 +26,19 @@ const number = `${step.data.number}.${activity.data.order}`;
 ---
 
 <Base title={`${number} ${activity.data.title}`} description={activity.data.summary}>
-  <p class="breadcrumb">
-    <a href="/model/">The AMBeR Model</a> /{' '}
-    <a href={`/model/${step.id}/`}>Step {step.data.number}: {step.data.title}</a> / Activity {number}
-  </p>
+  <PageHero
+    slot="hero"
+    eyebrow={`Activity ${number}`}
+    title={activity.data.title}
+    lead={activity.data.summary}
+  >
+    <p class="breadcrumb" slot="breadcrumb">
+      <a href="/model/">The AMBeR Model</a> /{' '}
+      <a href={`/model/${step.id}/`}>Step {step.data.number}: {step.data.title}</a> / Activity {number}
+    </p>
+  </PageHero>
   <div class="layout">
     <article class="prose">
-      <h1>{number} {activity.data.title}</h1>
-      <p class="lead">{activity.data.summary}</p>
       {
         activity.data.roles.length > 0 && (
           <p>
@@ -92,7 +98,7 @@ const number = `${step.data.number}.${activity.data.order}`;
     }
   }
   aside {
-    background: var(--navy-50);
+    background: var(--blue-tint);
     border-radius: var(--radius);
     padding: 1rem 1.25rem;
     align-self: start;
@@ -107,6 +113,6 @@ const number = `${step.data.number}.${activity.data.order}`;
   }
   aside [aria-current='page'] {
     font-weight: 700;
-    color: var(--navy-900);
+    color: var(--blue);
   }
 </style>

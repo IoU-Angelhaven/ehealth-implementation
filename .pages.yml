@@ -84,6 +84,13 @@ content:
     fields: &page
       - { name: title, label: Title, type: string, required: true }
       - { name: intro, label: Introduction, type: text }
+      - name: facts
+        label: Key facts (shown as boxes)
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: value, label: Value, type: string }
       - { name: body, label: Text, type: rich-text }
   - { name: about, label: Page – About AMBeR, type: file, path: src/content/pages/about.md, fields: *page }
   - { name: local-guide, label: Page – Create your local guide, type: file, path: src/content/pages/local-guide.md, fields: *page }

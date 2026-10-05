@@ -6,6 +6,11 @@ export const site = {
   description:
     'Knowledge and tools for implementing eHealth in cancer care in the Baltic Sea region, from the Interreg South Baltic project AMBeR.',
   contactEmail: '', // TODO: add a contact address
+  // Wording required by the Interreg South Baltic Communication Guidelines (sections 3.2 and 3.8)
+  fundingStatement:
+    'The AMBeR project is co-financed by the Interreg South Baltic Programme 2021–2027 through the European Regional Development Fund.',
+  disclaimer:
+    'The content of this website is the sole responsibility of its authors and can under no circumstances be regarded as reflecting the position of the European Union, the Managing Authority or the Joint Secretariat of the Interreg South Baltic Programme 2021–2027.',
   // Cookie-free analytics. Leave empty to disable.
   // Example: { provider: 'goatcounter', code: 'amber' }
   analytics: null as null | { provider: 'goatcounter'; code: string },

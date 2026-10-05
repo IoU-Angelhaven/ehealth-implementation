@@ -29,6 +29,17 @@ Bilder och dokument (t.ex. PDF:er att ladda ner) laddas upp via editorn och hamn
 | Färger och typsnitt | `src/styles/global.css` |
 | Menyn, sajtens namn, statistik | `src/site.config.ts` |
 | Bilder och nedladdningsbara filer | `public/media/` |
+| Officiella logotyper (ändra inte) | `public/media/brand/` |
+
+## Interregs regler som webbplatsen följer
+
+Enligt *Communication Guidelines for Beneficiaries* (Interreg South Baltic, v.6):
+
+- Logotypen (AMBeR + Interreg South Baltic + EU) ligger överst på varje sida, på vit bakgrund och i föreskriven minsta storlek.
+- Finansieringstexten och ansvarsfriskrivningen står i sidfoten med programmets formulering.
+- Sidan *About* beskriver projektets mål, resultat, partner, period, budget/EU-stöd och målgrupper.
+- Typsnittet är Open Sans.
+- Webbplatsen ska hållas uppdaterad och finnas kvar minst under projektets livstid. Riktlinjerna avråder från att publicera en halvfärdig webbplats.
 
 ## Större ändringar
 

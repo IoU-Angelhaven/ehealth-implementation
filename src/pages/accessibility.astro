@@ -1,6 +1,8 @@
 ---
 import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Facts from '../components/Facts.astro';
 
 const page = await getEntry('pages', 'accessibility');
 if (!page) throw new Error('Missing src/content/pages/accessibility.md');
@@ -8,9 +10,9 @@ const { Content } = await render(page);
 ---
 
 <Base title={page.data.title} description={page.data.intro}>
+  <PageHero slot="hero" title={page.data.title} lead={page.data.intro} />
+  <Facts facts={page.data.facts} />
   <article class="prose">
-    <h1>{page.data.title}</h1>
-    {page.data.intro && <p class="lead">{page.data.intro}</p>}
     <Content />
   </article>
 </Base>

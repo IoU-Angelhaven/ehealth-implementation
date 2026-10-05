@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/open-sans';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,9 +9,11 @@ import { site } from '../site.config';
 interface Props {
   title?: string;
   description?: string;
+  /** Let the page lay out its own full-width sections instead of one centred column. */
+  bare?: boolean;
 }
 
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, bare = false } = Astro.props;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.project}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -20,6 +23,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#003399" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -34,10 +38,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <slot name="hero" />
-    <main id="main">
-      <div class="wrap">
-        <slot />
-      </div>
+    <main id="main" class:list={{ flush: bare }}>
+      {
+        bare ? (
+          <slot />
+        ) : (
+          <div class="wrap">
+            <slot />
+          </div>
+        )
+      }
     </main>
     <Footer />
   </body>

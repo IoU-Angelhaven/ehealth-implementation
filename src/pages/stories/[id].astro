@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntries, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
 
 export async function getStaticPaths() {
   const stories = await getCollection('stories', (s) => s.data.published);
@@ -17,11 +18,15 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
 ---
 
 <Base title={story.data.title} description={story.data.summary}>
-  <p class="breadcrumb"><a href="/stories/">Stories of implementation</a></p>
+  <PageHero
+    slot="hero"
+    eyebrow={`${story.data.organisation}, ${story.data.country}`}
+    title={story.data.title}
+    lead={story.data.summary}
+  >
+    <p class="breadcrumb" slot="breadcrumb"><a href="/stories/">Stories of implementation</a></p>
+  </PageHero>
   <article class="prose">
-    <h1>{story.data.title}</h1>
-    <p class="muted">{story.data.organisation}, {story.data.country}</p>
-    <p class="lead">{story.data.summary}</p>
     {story.data.image && <img src={story.data.image} alt={story.data.imageAlt ?? ''} />}
     {
       story.data.video && (

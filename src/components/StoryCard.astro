@@ -8,7 +8,25 @@ const { story } = Astro.props;
 ---
 
 <li class="card">
+  {story.data.image && <img class="thumb" src={story.data.image} alt="" loading="lazy" />}
+  <span class="eyebrow">{story.data.country}</span>
   <h3><a href={`/stories/${story.id}/`}>{story.data.title}</a></h3>
-  <p class="muted">{story.data.organisation}, {story.data.country}</p>
+  <p class="muted">{story.data.organisation}</p>
   <p>{story.data.summary}</p>
+  <a class="more" href={`/stories/${story.id}/`} aria-hidden="true" tabindex="-1">Read the story →</a>
 </li>
+
+<style>
+  .thumb {
+    display: block;
+    width: calc(100% + 3rem);
+    max-width: none;
+    margin: -1.5rem -1.5rem 1rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .eyebrow {
+    margin-bottom: 0;
+  }
+</style>
