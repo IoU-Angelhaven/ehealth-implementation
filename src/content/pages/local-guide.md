@@ -17,9 +17,9 @@ PLACEHOLDER: Links to the downloadable documents (for example the full model as 
 
 Bring together people who know the care process, the patients, the technology and the organisation. Include at least one person from clinical practice and one from management.
 
-## 3. Go through the model step by step
+## 3. Go through the model phase by phase
 
-For each of the five steps and their activities, ask:
+For each of the five phases and their activities, ask:
 
 - Is this activity relevant for us? Why or why not?
 - Who in our organisation is responsible?

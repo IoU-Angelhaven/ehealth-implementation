@@ -32,10 +32,10 @@ const stories = await getCollection(
 );
 ---
 
-<Base bare title={`Step ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
-  <PageHero eyebrow={`Step ${step.data.number} of 5`} title={step.data.title} lead={step.data.summary}>
+<Base bare title={`Phase ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
+  <PageHero eyebrow={`Phase ${step.data.number} of 5`} title={step.data.title} lead={step.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
-      <a href="/model/">The AMBeR Model</a> / Step {step.data.number}
+      <a href="/model/">The AMBeR Model</a> / Phase {step.data.number}
     </p>
     <div slot="art" class="step-art">
       <span class="big-number" aria-hidden="true">{step.data.number}</span>
@@ -52,7 +52,7 @@ const stories = await getCollection(
   <section class="section soft">
     <div class="wrap">
       <span class="eyebrow">Activities</span>
-      <h2>Activities in step {step.data.number}</h2>
+      <h2>Activities in phase {step.data.number}</h2>
       <ol class="grid">
         {activities.map((a) => <ActivityCard activity={a} step={step} showStep={false} />)}
       </ol>
@@ -64,7 +64,7 @@ const stories = await getCollection(
       <section class="section">
         <div class="wrap">
           <span class="eyebrow">In practice</span>
-          <h2>Stories related to this step</h2>
+          <h2>Stories related to this phase</h2>
           <ul class="grid">
             {stories.map((story) => (
               <StoryCard story={story} />
@@ -75,11 +75,11 @@ const stories = await getCollection(
     )
   }
 
-  <nav class="wrap pager" aria-label="Steps">
+  <nav class="wrap pager" aria-label="Phases">
     {
       prev ? (
         <a href={`/model/${prev.id}/`}>
-          <span class="eyebrow">← Previous step</span>
+          <span class="eyebrow">← Previous phase</span>
           {prev.data.number}. {prev.data.title}
         </a>
       ) : (
@@ -89,7 +89,7 @@ const stories = await getCollection(
     {
       next && (
         <a class="next" href={`/model/${next.id}/`}>
-          <span class="eyebrow">Next step →</span>
+          <span class="eyebrow">Next phase →</span>
           {next.data.number}. {next.data.title}
         </a>
       )

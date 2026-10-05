@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import ModelOverview from '../../components/ModelOverview.astro';
@@ -16,33 +16,37 @@ const activities = (await getCollection('activities'))
       a.data.order - b.data.order,
   );
 const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
+const page = await getEntry('pages', 'model');
+if (!page) throw new Error('Missing src/content/pages/model.md');
+const { Content } = await render(page);
 ---
 
 <Base bare title="The AMBeR Model" description="A step-by-step model for implementing eHealth in cancer care.">
-  <PageHero
-    eyebrow="The model"
-    title="The AMBeR Model"
-    lead="The AMBeR Model describes the implementation of eHealth in cancer care in five steps. Each step contains activities with practical guidance, tools and examples."
-  >
+  <PageHero eyebrow="The model" title={page.data.title} lead={page.data.intro}>
     <Illustration slot="art" name="path" />
   </PageHero>
 
   <section class="section soft">
     <div class="wrap">
-      <span class="eyebrow">The five steps</span>
-      <h2>Follow the process step by step</h2>
+      <span class="eyebrow">The five phases</span>
+      <h2>Follow the process phase by phase</h2>
       <ModelOverview />
     </div>
   </section>
 
   <section class="section" aria-labelledby="toolbox-title">
     <div class="wrap">
-      <span class="eyebrow">All activities</span>
+      <span class="eyebrow">All {activities.length} activities</span>
       <h2 id="toolbox-title">Find the activities you need</h2>
+
+      <div class="search" hidden>
+        <label for="activity-search">Search activities</label>
+        <input id="activity-search" type="search" placeholder="For example: stakeholders, pilot, budget" />
+      </div>
 
       <div class="filters" hidden>
         <div class="group">
-          <p class="group-title">When – step in the model</p>
+          <p class="group-title">When – phase in the model</p>
           <ul>
             {
               steps.map((s) => (
@@ -80,13 +84,37 @@ const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
         <button type="button" class="reset" hidden>Show all</button>
       </div>
 
-      <ul class="grid toolbox">
+      <div class="toolbox">
         {
-          activities.map((a) => (
-            <ActivityCard activity={a} step={stepById.get(a.data.step.id)!} />
-          ))
+          steps.map((s) => {
+            const items = activities.filter((a) => a.data.step.id === s.id);
+            return (
+              <section class="phase-group" aria-labelledby={`group-${s.id}`}>
+                <h3 id={`group-${s.id}`}>
+                  <a href={`/model/${s.id}/`}>
+                    <span class="badge">Phase {s.data.number}</span> {s.data.title}
+                  </a>
+                  <span class="group-count">{items.length} activities</span>
+                </h3>
+                <ul class="grid">
+                  {items.map((a) => (
+                    <ActivityCard activity={a} step={s} showStep={false} />
+                  ))}
+                </ul>
+              </section>
+            );
+          })
         }
-      </ul>
+      </div>
+      <p class="empty" hidden>No activities match your search.</p>
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="how-title">
+    <div class="wrap">
+      <span class="eyebrow">How to use the guide</span>
+      <h2 id="how-title">About the activity guide</h2>
+      <div class="prose guide-info"><Content /></div>
     </div>
   </section>
 </Base>
@@ -94,10 +122,14 @@ const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
 <script>
   // Filter the activity cards by step and role. Without JavaScript all activities are shown.
   const filters = document.querySelector<HTMLElement>('.filters');
-  const cards = [...document.querySelectorAll<HTMLElement>('.toolbox > li')];
+  const cards = [...document.querySelectorAll<HTMLElement>('.toolbox .tool-card')];
+  const groups = [...document.querySelectorAll<HTMLElement>('.phase-group')];
   const countEl = document.querySelector('[data-count]');
   const reset = document.querySelector<HTMLButtonElement>('.reset');
   const active: Record<string, string | null> = { step: null, role: null };
+  const search = document.querySelector<HTMLInputElement>('#activity-search');
+  const empty = document.querySelector<HTMLElement>('.empty');
+  let query = '';
 
   function apply() {
     let shown = 0;
@@ -105,12 +137,15 @@ const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
       const roles: string[] = JSON.parse(card.dataset.roles || '[]');
       const ok =
         (!active.step || card.dataset.step === active.step) &&
-        (!active.role || roles.includes(active.role));
+        (!active.role || roles.includes(active.role)) &&
+        (!query || (card.dataset.search || '').includes(query));
       card.hidden = !ok;
       if (ok) shown++;
     }
+    for (const g of groups) g.hidden = !g.querySelector('.tool-card:not([hidden])');
     if (countEl) countEl.textContent = String(shown);
-    if (reset) reset.hidden = !active.step && !active.role;
+    if (reset) reset.hidden = !active.step && !active.role && !query;
+    if (empty) empty.hidden = shown > 0;
     filters?.querySelectorAll<HTMLButtonElement>('button[data-filter]').forEach((b) => {
       b.setAttribute('aria-pressed', String(active[b.dataset.filter!] === b.dataset.value));
     });
@@ -128,12 +163,50 @@ const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
     reset?.addEventListener('click', () => {
       active.step = null;
       active.role = null;
+      query = '';
+      if (search) search.value = '';
       apply();
     });
+    if (search) {
+      search.parentElement!.hidden = false;
+      search.addEventListener('input', () => {
+        query = search.value.trim().toLowerCase();
+        apply();
+      });
+    }
   }
 </script>
 
 <style>
+  .search {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 34rem;
+    margin-top: 1.5rem;
+  }
+  .search[hidden] {
+    display: none;
+  }
+  .search label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .search input {
+    font: inherit;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--grey);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+  .empty {
+    margin-top: 1.5rem;
+  }
+  .guide-info :global(h2) {
+    font-size: 1.3rem;
+  }
   .filters {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
@@ -162,6 +235,9 @@ const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
     list-style: none;
     margin: 0;
     padding: 0.5rem 1.25rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    column-gap: 1.5rem;
   }
   .group button {
     width: 100%;
@@ -206,10 +282,41 @@ const roles = [...new Set(activities.flatMap((a) => a.data.roles))].sort();
     cursor: pointer;
     padding: 0;
   }
-  .toolbox {
-    margin-top: 1.25rem;
-  }
-  .toolbox > li[hidden] {
+  .toolbox :global(.tool-card[hidden]),
+  .phase-group[hidden] {
     display: none;
+  }
+  .phase-group {
+    margin-top: 2.5rem;
+  }
+  .phase-group h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    margin: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--blue);
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+  .phase-group h3 a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .phase-group h3 a:hover {
+    text-decoration: underline;
+  }
+  .phase-group h3 .badge {
+    vertical-align: 0.2em;
+    margin-right: 0.35rem;
+  }
+  .group-count {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .phase-group .grid {
+    margin-top: 1.25rem;
   }
 </style>

@@ -1,8 +1,10 @@
 ---
 number: 5
-title: "Step 5 title (placeholder)"
+title: "Evaluation"
 icon: chart
-summary: "One or two sentences describing the purpose of step 5. Replace with text from the AMBeR Model document."
+summary: "This is the final phase of the implementation model. It makes sure that a solid system for follow-up, measures and evaluation is in place after implementation."
 ---
 
-PLACEHOLDER: Describe step 5 here: its purpose, who is involved and what the result of the step is.
+Clear indicators show the effect on quality of care, workflows and patient outcomes. The evaluation shows what works well and where adjustments are needed. This creates a lasting basis for continuous improvement.
+
+The phase has three activities: collecting and studying data, improving and adjusting, and learning from the project. The first two evaluate the solution. The third evaluates the work process that led to it.

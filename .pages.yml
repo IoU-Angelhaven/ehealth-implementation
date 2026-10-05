@@ -7,7 +7,7 @@ media:
 content:
   # ---------- The AMBeR Model ----------
   - name: steps
-    label: Model – Steps
+    label: Model – Phases
     type: collection
     path: src/content/steps
     filename: "step-{fields.number}.md"
@@ -16,7 +16,7 @@ content:
       primary: title
       sort: [number]
     fields:
-      - { name: number, label: Step number, type: number, required: true }
+      - { name: number, label: Phase number, type: number, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: summary, label: Short summary, type: text, required: true }
       - name: icon
@@ -37,22 +37,30 @@ content:
       sort: [step, order]
     fields:
       - name: step
-        label: Belongs to step
+        label: Belongs to phase
         type: select
         required: true
         options:
           values: [step-1, step-2, step-3, step-4, step-5]
-      - { name: order, label: Order within the step, type: number, required: true }
+      - { name: order, label: Order within the phase, type: number, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: summary, label: Short summary, type: text, required: true }
       - name: icon
-        label: Icon (leave empty to use the step's icon)
+        label: Icon (leave empty to use the phase's icon)
         type: select
         options:
           values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, monitor, heart, calendar, training, map]
       - { name: roles, label: Who is involved, type: string, list: true }
       - { name: useItTo, label: "Use it to (one or two sentences)", type: text }
       - { name: rememberTo, label: "Remember to (one or two sentences)", type: text }
+      - name: prompts
+        label: AI prompt examples
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string, required: true }
+          - { name: attach, label: "Attach (documents to add, optional)", type: text }
+          - { name: ask, label: Prompt text, type: text, required: true }
       - name: downloads
         label: Downloads
         type: object
@@ -77,7 +85,7 @@ content:
       - { name: organisation, label: Organisation, type: string, required: true }
       - { name: country, label: Country, type: string, required: true }
       - name: steps
-        label: Related steps in the model
+        label: Related phases in the model
         type: select
         options:
           multiple: true
@@ -104,6 +112,7 @@ content:
           - { name: label, label: Label, type: string }
           - { name: value, label: Value, type: string }
       - { name: body, label: Text, type: rich-text }
+  - { name: model, label: Page – The AMBeR Model (introduction), type: file, path: src/content/pages/model.md, fields: *page }
   - { name: about, label: Page – About AMBeR, type: file, path: src/content/pages/about.md, fields: *page }
   - { name: local-guide, label: Page – Create your local guide, type: file, path: src/content/pages/local-guide.md, fields: *page }
   - { name: privacy, label: Page – Privacy, type: file, path: src/content/pages/privacy.md, fields: *page }

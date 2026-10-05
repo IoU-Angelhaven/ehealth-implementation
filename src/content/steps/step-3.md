@@ -1,8 +1,10 @@
 ---
 number: 3
-title: "Step 3 title (placeholder)"
-icon: clipboard
-summary: "One or two sentences describing the purpose of step 3. Replace with text from the AMBeR Model document."
+title: "Service Strategy & Implementation"
+icon: rocket
+summary: "This phase turns a tested solution into everyday practice. It connects solution design with full implementation by preparing the practical, financial and organizational foundations. Solution design is about exploring and testing. This phase is about practical planning and managing resources."
 ---
 
-PLACEHOLDER: Describe step 3 here: its purpose, who is involved and what the result of the step is.
+The main activities are planning staff and time, planning the budget, involving stakeholders, defining measures of success, planning and running a pilot, and managing change.
+
+Success depends on people, technology and organization together. Technology alone does not create change. What matters is how well organizations, teams and individuals are prepared to adopt and keep new ways of working.

@@ -45,11 +45,11 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
       {
         steps.length > 0 && (
           <>
-            <span class="label">Steps of the AMBeR Model in this story</span>
+            <span class="label">Phases of the AMBeR Model in this story</span>
             <p>
               {steps.map((s) => (
                 <a class="tag" href={`/model/${s.id}/`}>
-                  Step {s.data.number}: {s.data.title}
+                  Phase {s.data.number}: {s.data.title}
                 </a>
               ))}
             </p>

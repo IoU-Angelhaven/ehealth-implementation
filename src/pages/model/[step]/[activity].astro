@@ -26,19 +26,19 @@ const siblings = (await getCollection('activities', (a) => a.data.step.id === st
 );
 const number = `${step.data.number}.${activity.data.order}`;
 const icon = (activity.data.icon ?? step.data.icon) as IconName;
-const { useItTo, rememberTo, roles, downloads } = activity.data;
+const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
 ---
 
 <Base bare title={`${number} ${activity.data.title}`} description={activity.data.summary}>
   <PageHero artFirst eyebrow={`Activity ${number}`} title={activity.data.title} lead={activity.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
       <a href="/model/">The AMBeR Model</a> /{' '}
-      <a href={`/model/${step.id}/`}>Step {step.data.number}</a> / Activity {number}
+      <a href={`/model/${step.id}/`}>Phase {step.data.number}</a> / Activity {number}
     </p>
     <div slot="art" class="meta">
       <Icon name={icon} size={120} />
       <span class="label">Part of</span>
-      <a class="tag" href={`/model/${step.id}/`}>Step {step.data.number}: {step.data.title}</a>
+      <a class="tag" href={`/model/${step.id}/`}>Phase {step.data.number}: {step.data.title}</a>
       {
         roles.length > 0 && (
           <>
@@ -56,7 +56,7 @@ const { useItTo, rememberTo, roles, downloads } = activity.data;
 
   <div class="wrap body">
     <aside aria-labelledby="related-title">
-      <span class="eyebrow" id="related-title">More in step {step.data.number}</span>
+      <span class="eyebrow" id="related-title">More in phase {step.data.number}</span>
       <ol>
         {
           siblings.map((a) => (
@@ -99,6 +99,37 @@ const { useItTo, rememberTo, roles, downloads } = activity.data;
       }
 
       {
+        prompts.length > 0 && (
+          <section class="prompts" aria-labelledby="prompts-title">
+            <h2 id="prompts-title">AI prompt examples</h2>
+            <p class="prompt-help">
+              Replace the text in [square brackets] with your own information. Never attach
+              documents with patient information or other personal data, and always check the
+              answers. <a href="/model/#how-title">More about using the prompts</a>
+            </p>
+            <ol>
+              {prompts.map((pr, i) => (
+                <li class="prompt">
+                  <h3>{pr.title}</h3>
+                  {pr.attach && (
+                    <p class="attach">
+                      <span class="label">Attach</span>
+                      {pr.attach}
+                    </p>
+                  )}
+                  <span class="label">Ask</span>
+                  <blockquote id={`prompt-${i + 1}`}>{pr.ask}</blockquote>
+                  <button type="button" class="copy" data-copy={`prompt-${i + 1}`} hidden>
+                    Copy prompt
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
+
+      {
         downloads.length > 0 && (
           <>
             <span class="eyebrow downloads-title">Downloads</span>
@@ -117,6 +148,25 @@ const { useItTo, rememberTo, roles, downloads } = activity.data;
     </article>
   </div>
 </Base>
+
+<script>
+  // "Copy prompt" buttons (only shown when the browser supports copying)
+  if (navigator.clipboard) {
+    document.querySelectorAll<HTMLButtonElement>('button.copy').forEach((button) => {
+      button.hidden = false;
+      button.addEventListener('click', async () => {
+        const text = document.getElementById(button.dataset.copy!)?.textContent?.trim() ?? '';
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = 'Copied ✓';
+        } catch {
+          button.textContent = 'Could not copy – select the text instead';
+        }
+        setTimeout(() => (button.textContent = 'Copy prompt'), 2500);
+      });
+    });
+  }
+</script>
 
 <style>
   .meta {
@@ -203,6 +253,92 @@ const { useItTo, rememberTo, roles, downloads } = activity.data;
   .use-remember p {
     margin: 0;
   }
+  /* Checklist: list after the "Checklist" heading gets tick boxes */
+  article :global(h2#checklist + ul) {
+    list-style: none;
+    padding: 0;
+  }
+  article :global(h2#checklist + ul li) {
+    position: relative;
+    padding: 0.35rem 0 0.35rem 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  article :global(h2#checklist + ul li::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 2px solid var(--blue);
+    border-radius: 3px;
+    background: linear-gradient(var(--blue-light), var(--blue-light)) 3px 3px / 0.5rem 0.5rem
+      no-repeat;
+  }
+  article :global(h2#methods-and-tools + ul li) {
+    margin-bottom: 0.6rem;
+  }
+
+  .prompts {
+    margin-top: 3rem;
+  }
+  .prompt-help {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .prompts ol {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .prompt {
+    background: var(--bg-soft);
+    border-left: 3px solid var(--orange);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+  .prompt h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+  }
+  .prompt .label {
+    margin: 1rem 0 0.35rem;
+  }
+  .prompt .attach {
+    margin: 0;
+  }
+  .prompt .attach .label {
+    margin-top: 0.75rem;
+  }
+  .prompt blockquote {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.98rem;
+  }
+  .copy {
+    margin-top: 0.75rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--blue);
+    background: #fff;
+    border: 2px solid var(--blue);
+    border-radius: var(--radius);
+    padding: 0.35rem 0.9rem;
+    cursor: pointer;
+  }
+  .copy:hover {
+    background: var(--blue-tint);
+  }
+  .copy[hidden] {
+    display: none;
+  }
+
   .downloads-title {
     margin-top: 2rem;
   }

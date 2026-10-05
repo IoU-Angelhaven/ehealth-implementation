@@ -1,5 +1,5 @@
 ---
-// The five steps as a row of cards. Replace with the final model graphic when it is ready.
+// The five phases as a row of cards. Replace with the final model graphic when it is ready.
 import { getCollection } from 'astro:content';
 import Icon from './Icon.astro';
 import type { IconName } from '../icons';
@@ -14,7 +14,7 @@ const activities = await getCollection('activities');
       const count = activities.filter((a) => a.data.step.id === step.id).length;
       return (
         <li class="card tool-card">
-          <span class="badge">Step {step.data.number}</span>
+          <span class="badge">Phase {step.data.number}</span>
           <Icon name={step.data.icon as IconName} size={72} accent={i % 2 ? 'orange' : 'blue'} />
           <h3>
             <a href={`/model/${step.id}/`}>{step.data.title}</a>
