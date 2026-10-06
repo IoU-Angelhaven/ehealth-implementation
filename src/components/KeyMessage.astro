@@ -1,0 +1,165 @@
+---
+// Highlighted key message: the first sentence becomes a large headline with an orange
+// marker underline; an orange loop illustration shows that the work is repeated.
+interface Props {
+  text: string;
+  /** Short labels shown on the loop, e.g. ["Generate ideas", "Discuss", "Test"] */
+  steps?: string[];
+  id?: string;
+}
+const { text, steps = [], id = 'key-message' } = Astro.props;
+const match = text.trim().match(/^(.+?[.!?])\s+([\s\S]*)$/);
+const headline = match ? match[1] : text.trim();
+const rest = match ? match[2] : '';
+---
+
+<aside class="key" aria-labelledby={id}>
+  <div class="blob" aria-hidden="true"></div>
+  <svg class="loop" viewBox="0 0 220 220" aria-hidden="true" focusable="false">
+    <!-- the loop -->
+    <circle cx="110" cy="110" r="78" fill="none" class="track" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"></circle>
+    <path d="M110 32a78 78 0 0 1 67.5 39" fill="none" class="arc" stroke-width="5" stroke-linecap="round"></path>
+    <path d="M177.5 149a78 78 0 0 1-135 0" fill="none" class="arc" stroke-width="5" stroke-linecap="round"></path>
+    <path d="M42.5 149a78 78 0 0 1 0-78" fill="none" class="arc" stroke-width="5" stroke-linecap="round" opacity=".55"></path>
+    <!-- arrow heads -->
+    <path d="M168 60l10 12 3-15" fill="none" class="arc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M54 158l-12-9 14-6" fill="none" class="arc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <!-- three stations: idea, discussion, test -->
+    <g>
+      <circle cx="110" cy="32" r="22" class="node"></circle>
+      <path d="M110 20c-6 0-10 4.5-10 10 0 4 2.5 6 4 8 1 1.3 1.5 2.5 1.5 4h9c0-1.5.5-2.7 1.5-4 1.5-2 4-4 4-8 0-5.5-4-10-10-10zM106 46h8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+    <g>
+      <circle cx="177.5" cy="149" r="22" class="node"></circle>
+      <path d="M166 139h23a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-13l-6 5v-5h-4a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"></path>
+    </g>
+    <g>
+      <circle cx="42.5" cy="149" r="22" class="node"></circle>
+      <path d="M32 149l7 7 14-15" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+    <!-- centre: "again" -->
+    <path d="M96 104a16 16 0 0 1 28-6M124 116a16 16 0 0 1-28 6M120 88v10h10M100 132v-10H90" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+
+  <div class="text">
+    <span class="eyebrow">Key message</span>
+    <p class="headline" id={id}><mark>{headline}</mark></p>
+    {rest && <p class="rest">{rest}</p>}
+    {
+      steps.length > 0 && (
+        <ol class="steps">
+          {steps.map((s) => (
+            <li>{s}</li>
+          ))}
+          <li class="again" aria-hidden="true">
+            ↻
+          </li>
+        </ol>
+      )
+    }
+  </div>
+</aside>
+
+<style>
+  .key {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 1.5rem 3rem;
+    align-items: center;
+    padding: 2.5rem 1.75rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, #fff 0%, #fff4ec 55%, #ffe6d6 100%);
+    border-top: 6px solid var(--orange);
+    box-shadow: var(--shadow);
+  }
+  .blob {
+    position: absolute;
+    right: -5rem;
+    bottom: -6rem;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    background: var(--orange);
+    opacity: 0.12;
+  }
+  .loop {
+    position: relative;
+    width: 12rem;
+    height: auto;
+    justify-self: center;
+    color: var(--ink);
+  }
+  .track {
+    stroke: var(--orange);
+    opacity: 0.45;
+  }
+  .arc {
+    stroke: var(--orange);
+  }
+  .node {
+    fill: var(--orange);
+  }
+  .text {
+    position: relative;
+  }
+  .headline {
+    margin: 0 0 1rem;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  /* orange highlighter pen behind the key sentence */
+  mark {
+    color: inherit;
+    background: linear-gradient(
+      transparent 58%,
+      rgb(226 93 37 / 0.35) 58%,
+      rgb(226 93 37 / 0.35) 92%,
+      transparent 92%
+    );
+    padding: 0 0.15em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .rest {
+    margin: 0;
+    font-size: 1.1rem;
+    max-width: 40rem;
+  }
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+  }
+  .steps li {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--orange-text);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+  }
+  .steps .again {
+    background: none;
+    color: var(--orange-text);
+    font-size: 1.4rem;
+    padding: 0 0.25rem;
+  }
+  @media (min-width: 48rem) {
+    .key {
+      grid-template-columns: 13rem 1fr;
+      padding: 3rem;
+    }
+    .loop {
+      width: 13rem;
+    }
+  }
+</style>
