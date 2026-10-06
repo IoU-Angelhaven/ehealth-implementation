@@ -21,31 +21,34 @@ facts:
 
 ## Background
 
-The AMBeR project addresses the disparities in innovation and healthcare access across the South Baltic area, particularly between urban and rural regions. People living in rural areas often find it harder to access specialised cancer care than patients in cities. As the number of cancer cases rises due to increased life expectancy and better diagnostics, innovation is crucial.
+Digital solutions can make cancer care more accessible, timely and patient-centered. In the South Baltic region, however, these solutions are not used equally. Patients face long distances to clinics, a late start of rehabilitation and care that is not adapted to individual needs. Staff often lack digital skills, and access to eHealth varies between regions and social groups. Above all, healthcare organizations have lacked a common model to help them bring digital solutions from pilot to everyday practice.
+
+AMBeR is an EU-funded Interreg South Baltic project (2023–2027) with partners in Sweden, Denmark, Germany, Lithuania and Poland. During the project, two types of pilots have been carried out: digital rehabilitation by physiotherapists, and blood testing at home. Both were implemented at hospitals and clinics around the Baltic Sea region. The experiences and knowledge from these pilots have laid the foundation for building a joint model for implementation.
 
 ## Objectives
 
-AMBeR aims to improve cancer care by encouraging shared experiences and knowledge among its partners. The project focuses on implementing telehealth solutions, such as home-based treatment monitoring and electronic rehabilitation, which can enhance patient-centred care and improve outcomes for cancer survivors.
+The main objective is to make it easier and more reliable for healthcare organizations to implement eHealth in cancer care and rehabilitation. This is done through four steps:
 
-## Main activities
-
-The project promotes the use of digital technologies for home diagnostics and rehabilitation. This reduces the need for hospital visits and makes early rehabilitation accessible, especially to people living in rural areas.
+- Develop a model for implementation.
+- Test and improve the model together with the pilots, so that it is based on real experience.
+- Help each partner organization write its own local implementation guide, and support local ownership of that guide.
+- Summarize clinical and policy recommendations for European, national and regional levels.
 
 ## Target groups
 
-- Patients with cancer and cancer survivors, especially those living far from specialised care
-- Clinicians, managers and developers in healthcare who plan and carry out the implementation of digital solutions
-- Decision-makers who shape cancer care and digital health in the South Baltic area
+- Clinicians and managers in cancer care and rehabilitation who plan or lead digital change.
+- Partner organizations in the South Baltic region that implement the pilots and develop local guides.
+- Healthcare leaders and policymakers who decide on strategy, resources and policy.
+- The wider European eHealth community, which can reuse the model and tools in other settings.
+- Patients and patient advocates, who are involved throughout and are the final beneficiaries.
 
-## Impact and results
+## Results
 
-AMBeR seeks to empower patients and improve their quality of life by reducing social and geographical health inequalities. By improving accessibility, it contributes to better treatment quality and efficiency. As a cross-border initiative, the project offers models that can improve healthcare delivery throughout the South Baltic area.
-
-The main results presented on this website are:
-
-- [The AMBeR Model](/model/) – an implementation model with five phases and 30 activities, including checklists, methods and AI prompt examples
-- [Guidance for creating your own local implementation guide](/local-guide/), based on how each partner adapted the model to its own organisation
-- [Stories of implementation](/stories/) from the partner organisations
+- A patient-centered implementation model that has been tested in real cross-border pilots.
+- Each partner organization has produced a local implementation guide that it owns and can use after the project ends.
+- An open online platform, ehealth-implementation.eu, that combines the model with a toolkit for replication. It is intended to stay available after the project ends and to reach the broader European eHealth community.
+- Clinical and policy recommendations, presented in the final report.
+- Long-term, the project aims at fewer hospital trips for patients, better continuity of care and quality of life, less inequality in cancer care, and more efficient use of healthcare resources.
 
 ## Partners
 
