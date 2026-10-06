@@ -4,7 +4,7 @@ export const site = {
   project: 'AMBeR',
   projectLong: 'Advanced Modelling of Baltic Cancer E-Care',
   description:
-    'Knowledge and tools for implementing eHealth in health care in the Baltic Sea region, from the Interreg South Baltic project AMBeR.',
+    'Knowledge and tools for implementing eHealth in healthcare in the Baltic Sea region, from the Interreg South Baltic project AMBeR.',
   contactEmail: '', // TODO: add a contact address
   // Wording required by the Interreg South Baltic Communication Guidelines (sections 3.2 and 3.8)
   fundingStatement:
