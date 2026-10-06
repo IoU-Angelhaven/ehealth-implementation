@@ -1,11 +1,11 @@
 ---
-// Highlighted "Important note" box with an orange illustration pointing at the text.
+// Highlighted "Key message" box with an orange illustration pointing at the text.
 interface Props {
   text: string;
   title?: string;
   id?: string;
 }
-const { text, title = 'Important note', id = 'important-note' } = Astro.props;
+const { text, title = 'Key message', id = 'important-note' } = Astro.props;
 const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 ---
 
@@ -32,7 +32,7 @@ const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
     </g>
   </svg>
   <div class="text">
-    <h2 id={id}>{title}</h2>
+    <h2 class="eyebrow" id={id}>{title}</h2>
     {paragraphs.map((p) => <p>{p}</p>)}
   </div>
 </aside>
@@ -61,11 +61,9 @@ const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
   .orange-line {
     stroke: var(--orange);
   }
+  /* The label itself uses the global .eyebrow style (small, bold capitals), as on the other phase pages */
   h2 {
     margin: 0 0 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--orange-text);
   }
   p {
     margin: 0 0 0.75rem;
