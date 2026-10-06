@@ -52,6 +52,10 @@ The main objective is to make it easier and more reliable for healthcare organiz
 
 ## Partners
 
+![The AMBeR project team: representatives of the partner organisations from Denmark, Sweden, Germany, Poland and Lithuania gathered in a meeting room. In front of them, a screen shows the title "Advanced Modeling of Baltic Cancer E-Care (AMBeR)" with the partner logos.](/media/about/amber-project-team.jpg)
+
+*The AMBeR project team.*
+
 **Lead partner**
 
 - [Department of Oncology, Zealand University Hospital](https://www.regionsjaelland.dk/) – Region Zealand, Denmark
@@ -76,7 +80,3 @@ The AMBeR project is co-financed by the Interreg South Baltic Programme 2021–2
 - Project period: September 2023 – March 2027
 
 Read more about AMBeR on the [Interreg South Baltic website](https://southbaltic.eu/projects-and-success-stories/advanced-modeling-of-baltic-cancer-e-care/).
-
-## Contact
-
-PLACEHOLDER: Contact details.
