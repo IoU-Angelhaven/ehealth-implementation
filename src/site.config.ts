@@ -22,5 +22,15 @@ export const nav = [
   { href: '/about/', label: 'About AMBeR' },
 ];
 
+// Languages offered in the language menu (machine translation by Google Translate).
+// `code` is the Google Translate language code, `name` is written in the language itself.
+export const languages = [
+  { code: 'sv', name: 'Svenska' },
+  { code: 'da', name: 'Dansk' },
+  { code: 'de', name: 'Deutsch' },
+  { code: 'pl', name: 'Polski' },
+  { code: 'lt', name: 'Lietuvių' },
+];
+
 // Highlighted button at the end of the main menu
 export const navCta = { href: '/local-guide/', label: 'Create your local guide' };

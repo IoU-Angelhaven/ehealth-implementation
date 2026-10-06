@@ -1,6 +1,7 @@
 ---
 import { url, isCurrent } from '../lib/url';
 import { nav, navCta } from '../site.config';
+import LanguagePicker from './LanguagePicker.astro';
 
 const path = Astro.url.pathname;
 ---
@@ -51,6 +52,9 @@ const path = Astro.url.pathname;
           </li>
         </ul>
       </nav>
+      <div class="lang-slot">
+        <LanguagePicker />
+      </div>
     </div>
   </div>
 </header>
@@ -95,6 +99,7 @@ const path = Astro.url.pathname;
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+    gap: 0.75rem;
     margin-top: 1rem;
     padding: 0.5rem 0;
     border-top: 1px solid var(--border);
@@ -109,7 +114,7 @@ const path = Astro.url.pathname;
     padding: 0;
   }
   nav {
-    width: 100%;
+    flex: 1 1 auto;
   }
   nav a:not(.button) {
     display: block;
@@ -168,6 +173,18 @@ const path = Astro.url.pathname;
   }
 
   @media (max-width: 63.99rem) {
+    /* Language menu and Menu button side by side, the menu opens below */
+    .lang-slot {
+      order: 1;
+    }
+    .menu-toggle {
+      order: 2;
+      margin-left: 0;
+    }
+    nav {
+      order: 3;
+      flex-basis: 100%;
+    }
     .js nav {
       display: none;
     }

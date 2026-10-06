@@ -1,0 +1,195 @@
+---
+// Language menu: opens the current page machine-translated by Google Translate
+// (free, no account, no cookies or scripts from Google on this site).
+// The page is translated on Google's web address *.translate.goog; "English" goes back to the original.
+import { languages } from '../site.config';
+
+// Build-time links (used without JavaScript): the published address of this page.
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+function translateUrl(page: URL, lang: string): string {
+  const host = page.hostname.replace(/-/g, '--').replace(/\./g, '-') + '.translate.goog';
+  const params = new URLSearchParams(page.search);
+  params.set('_x_tr_sl', 'en');
+  params.set('_x_tr_tl', lang);
+  params.set('_x_tr_hl', lang);
+  return `https://${host}${page.pathname}?${params}${page.hash}`;
+}
+---
+
+<details class="lang">
+  <summary>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+      <path
+        d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"></path>
+    </svg>
+    <span class="current" data-lang-current>English</span>
+    <span class="visually-hidden">– choose language</span>
+  </summary>
+  <div class="panel">
+    <ul>
+      <li>
+        <a href={pageUrl.href} hreflang="en" lang="en" data-lang="en" translate="no">English</a>
+      </li>
+      {
+        languages.map((l) => (
+          <li>
+            <a href={translateUrl(pageUrl, l.code)} hreflang={l.code} lang={l.code} data-lang={l.code} translate="no">
+              {l.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="note">Automatic translation by Google Translate. Translations may contain errors.</p>
+  </div>
+</details>
+
+<script>
+  // When the visitor is on Google's translated copy (*.translate.goog), work out the original address.
+  const PROXY = '.translate.goog';
+
+  function originalUrl(): URL {
+    const here = new URL(window.location.href);
+    if (!here.hostname.endsWith(PROXY)) return here;
+    // iou--angelhaven-github-io.translate.goog -> iou-angelhaven.github.io
+    const encoded = here.hostname.slice(0, -PROXY.length);
+    const host = encoded
+      .split('--')
+      .map((part) => part.replace(/-/g, '.'))
+      .join('-');
+    const orig = new URL(here.pathname + here.hash, `https://${host}`);
+    here.searchParams.forEach((v, k) => {
+      if (!k.startsWith('_x_tr_')) orig.searchParams.set(k, v);
+    });
+    return orig;
+  }
+
+  function translated(orig: URL, lang: string): string {
+    const host = orig.hostname.replace(/-/g, '--').replace(/\./g, '-') + PROXY;
+    const t = new URL(orig.pathname + orig.search + orig.hash, `https://${host}`);
+    t.searchParams.set('_x_tr_sl', 'en');
+    t.searchParams.set('_x_tr_tl', lang);
+    t.searchParams.set('_x_tr_hl', lang);
+    return t.href;
+  }
+
+  const onTranslatedPage = window.location.hostname.endsWith(PROXY);
+
+  document.querySelectorAll<HTMLDetailsElement>('details.lang').forEach((menu) => {
+    const orig = originalUrl();
+    const activeLang = new URL(window.location.href).searchParams.get('_x_tr_tl') || 'en';
+    menu.querySelectorAll<HTMLAnchorElement>('a[data-lang]').forEach((a) => {
+      const lang = a.dataset.lang!;
+      // On a translated copy, point the links back to the original site / other languages.
+      // On the normal site the links made at build time are already correct.
+      if (onTranslatedPage) a.href = lang === 'en' ? orig.href : translated(orig, lang);
+      if (lang === activeLang) {
+        a.setAttribute('aria-current', 'true');
+        const current = menu.querySelector('[data-lang-current]');
+        if (current) current.textContent = a.textContent;
+      }
+    });
+    // Close when clicking outside or pressing Escape
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target as Node)) menu.open = false;
+    });
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
+  });
+</script>
+
+<style>
+  .lang {
+    position: relative;
+  }
+  summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    list-style: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    white-space: nowrap;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-left: 0.15rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+  }
+  .lang[open] summary::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+  summary:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.4rem);
+    z-index: 10;
+    width: 15rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0.5rem 0;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .panel a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .panel a:hover {
+    background: var(--blue-tint);
+    color: var(--blue);
+  }
+  .panel a[aria-current] {
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .panel a[aria-current]::after {
+    content: ' ✓';
+  }
+  .note {
+    margin: 0.4rem 0 0;
+    padding: 0.5rem 1rem 0.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>
