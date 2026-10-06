@@ -1,6 +1,6 @@
 ---
-// Highlighted key message: the first sentence becomes a large headline with an orange
-// marker underline, followed by the rest of the text and optional step labels.
+// Highlighted key message: the first sentence becomes a large headline, followed by the
+// rest of the text and optional step labels.
 interface Props {
   text: string;
   /** Short labels shown under the text, e.g. ["Generate ideas", "Discuss", "Test"] */
@@ -20,7 +20,7 @@ const paragraphs = (match ? match[2] : '')
 <aside class="key" aria-labelledby={id}>
   <div class="text">
     <span class="eyebrow">Key message</span>
-    <p class="headline" id={id}><mark>{headline}</mark></p>
+    <p class="headline" id={id}>{headline}</p>
     {paragraphs.map((p) => <p class="rest">{p}</p>)}
     {
       steps.length > 0 && (
@@ -51,24 +51,12 @@ const paragraphs = (match ? match[2] : '')
     position: relative;
   }
   .headline {
+    max-width: 40rem; /* same width as the text below */
     margin: 0 0 1rem;
     font-size: clamp(1.6rem, 3.5vw, 2.4rem);
     font-weight: 300;
     line-height: 1.25;
     color: var(--ink);
-  }
-  /* orange highlighter pen behind the key sentence */
-  mark {
-    color: inherit;
-    background: linear-gradient(
-      transparent 58%,
-      rgb(226 93 37 / 0.35) 58%,
-      rgb(226 93 37 / 0.35) 92%,
-      transparent 92%
-    );
-    padding: 0 0.15em;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
   }
   .rest {
     margin: 0 0 1rem;
