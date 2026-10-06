@@ -7,7 +7,7 @@ DRAFT: Review and adapt this text.
 
 ## How the AMBeR partners did it
 
-In AMBeR, the partners first developed a generic model for implementing eHealth in cancer care. Each partner then adapted the model into a local implementation guide that fits its own organisation, patients, staff and IT environment. You can follow the same approach.
+In AMBeR, the partners first developed a generic model for implementing eHealth in healthcare. Each partner then adapted the model into a local implementation guide that fits its own organisation, patients, staff and IT environment. You can follow the same approach.
 
 ## 1. Download the AMBeR Model
 
@@ -36,7 +36,7 @@ AI tools such as chatbots can help you adapt the model faster. Never paste patie
 
 Example prompts:
 
-> I work at [type of organisation] in [country]. We are going to implement [eHealth service] for [patient group]. Below is one activity from the AMBeR Model for implementing eHealth in cancer care. Rewrite it as practical instructions for our organisation, using the roles [list roles]. Point out anything that may not fit our context.
+> I work at [type of organisation] in [country]. We are going to implement [eHealth service] for [patient group]. Below is one activity from the AMBeR Model for implementing eHealth in healthcare. Rewrite it as practical instructions for our organisation, using the roles [list roles]. Point out anything that may not fit our context.
 
 > Here is our draft local implementation guide. Act as a critical reviewer: which risks, stakeholders or practical steps might we have missed?
 
