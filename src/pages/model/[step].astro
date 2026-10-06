@@ -6,6 +6,7 @@ import PageHero from '../../components/PageHero.astro';
 import ActivityCard from '../../components/ActivityCard.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import Icon from '../../components/Icon.astro';
+import ImportantNote from '../../components/ImportantNote.astro';
 import type { IconName } from '../../icons';
 
 export async function getStaticPaths() {
@@ -24,6 +25,8 @@ interface Props {
 
 const { step, prev, next } = Astro.props;
 const { Content } = await render(step);
+const hasBody = Boolean(step.body?.trim());
+const { importantNote } = step.data;
 const activities = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -44,11 +47,24 @@ const stories = await getCollection(
     </div>
   </PageHero>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="prose"><Content /></div>
-    </div>
-  </section>
+  {
+    (hasBody || importantNote) && (
+      <section class="section">
+        <div class="wrap">
+          {hasBody && (
+            <div class="prose">
+              <Content />
+            </div>
+          )}
+          {importantNote && (
+            <div class:list={['note-wrap', { 'after-text': hasBody }]}>
+              <ImportantNote text={importantNote} />
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
 
   <section class="section soft">
     <div class="wrap">
@@ -99,6 +115,9 @@ const stories = await getCollection(
 </Base>
 
 <style>
+  .note-wrap.after-text {
+    margin-top: 2.5rem;
+  }
   .step-art {
     position: relative;
     display: grid;
