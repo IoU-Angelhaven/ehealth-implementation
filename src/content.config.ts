@@ -14,6 +14,8 @@ const steps = defineCollection({
     title: z.string(),
     summary: z.string(),
     icon,
+    // Highlighted "Important note" box on the phase page
+    importantNote: z.string().optional(),
   }),
 });
 

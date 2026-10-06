@@ -6,6 +6,7 @@ import PageHero from '../../components/PageHero.astro';
 import ActivityCard from '../../components/ActivityCard.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import Icon from '../../components/Icon.astro';
+import ImportantNote from '../../components/ImportantNote.astro';
 import type { IconName } from '../../icons';
 
 export async function getStaticPaths() {
@@ -24,6 +25,8 @@ interface Props {
 
 const { step, prev, next } = Astro.props;
 const { Content } = await render(step);
+const hasBody = Boolean(step.body?.trim());
+const { importantNote } = step.data;
 const activities = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -34,6 +37,24 @@ const stories = await getCollection(
 ---
 
 <Base bare title={`Phase ${step.data.number}: ${step.data.title}`} description={step.data.summary}>
+  <nav class="wrap top-pager" aria-label="Previous and next phase (top of page)">
+    {
+      prev && (
+        <a href={url(`/model/${prev.id}/`)}>
+          <span class="eyebrow">← Previous phase</span>
+          {prev.data.number}. {prev.data.title}
+        </a>
+      )
+    }
+    {
+      next && (
+        <a class="next" href={url(`/model/${next.id}/`)}>
+          <span class="eyebrow">Next phase →</span>
+          {next.data.number}. {next.data.title}
+        </a>
+      )
+    }
+  </nav>
   <PageHero eyebrow={`Phase ${step.data.number} of 5`} title={step.data.title} lead={step.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
       <a href={url('/model/')}>The AMBeR Model</a> / Phase {step.data.number}
@@ -44,11 +65,24 @@ const stories = await getCollection(
     </div>
   </PageHero>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="prose"><Content /></div>
-    </div>
-  </section>
+  {
+    (hasBody || importantNote) && (
+      <section class="section">
+        <div class="wrap">
+          {hasBody && (
+            <div class="prose">
+              <Content />
+            </div>
+          )}
+          {importantNote && (
+            <div class:list={['note-wrap', { 'after-text': hasBody }]}>
+              <ImportantNote text={importantNote} />
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
 
   <section class="section soft">
     <div class="wrap">
@@ -76,7 +110,7 @@ const stories = await getCollection(
     )
   }
 
-  <nav class="wrap pager" aria-label="Phases">
+  <nav class="wrap pager" aria-label="Previous and next phase">
     {
       prev ? (
         <a href={url(`/model/${prev.id}/`)}>
@@ -99,6 +133,9 @@ const stories = await getCollection(
 </Base>
 
 <style>
+  .note-wrap.after-text {
+    margin-top: 2.5rem;
+  }
   .step-art {
     position: relative;
     display: grid;
@@ -122,13 +159,30 @@ const stories = await getCollection(
     padding-bottom: 3rem;
     border-top: 1px solid var(--border);
   }
-  .pager a {
+  .pager a,
+  .top-pager a {
     text-decoration: none;
     color: var(--ink);
     font-weight: 600;
   }
-  .pager a:hover {
+  .pager a:hover,
+  .top-pager a:hover {
     color: var(--blue);
+  }
+  /* Same links at the top right of the page */
+  .top-pager {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem 2.5rem;
+    padding-top: 1.75rem;
+    margin-bottom: -1.5rem;
+    font-size: 0.95rem;
+  }
+  .top-pager .eyebrow {
+    margin-bottom: 0.15rem;
   }
   .next {
     text-align: right;
