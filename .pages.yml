@@ -30,7 +30,7 @@ content:
         type: object
         fields:
           - { name: text, label: Text, type: text }
-          - { name: steps, label: "Short labels on the loop (e.g. Generate ideas)", type: string, list: true }
+          - { name: steps, label: "Short labels under the text (e.g. Generate ideas)", type: string, list: true }
       - { name: body, label: Text, type: rich-text }
 
   - name: activities
