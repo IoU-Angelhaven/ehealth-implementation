@@ -7,6 +7,7 @@ import ActivityCard from '../../components/ActivityCard.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import Icon from '../../components/Icon.astro';
 import ImportantNote from '../../components/ImportantNote.astro';
+import KeyMessage from '../../components/KeyMessage.astro';
 import type { IconName } from '../../icons';
 
 export async function getStaticPaths() {
@@ -26,7 +27,7 @@ interface Props {
 const { step, prev, next } = Astro.props;
 const { Content } = await render(step);
 const hasBody = Boolean(step.body?.trim());
-const { importantNote } = step.data;
+const { importantNote, keyMessage } = step.data;
 const activities = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -66,7 +67,7 @@ const stories = await getCollection(
   </PageHero>
 
   {
-    (hasBody || importantNote) && (
+    (hasBody || importantNote || keyMessage) && (
       <section class="section">
         <div class="wrap">
           {hasBody && (
@@ -77,6 +78,11 @@ const stories = await getCollection(
           {importantNote && (
             <div class:list={['note-wrap', { 'after-text': hasBody }]}>
               <ImportantNote text={importantNote} />
+            </div>
+          )}
+          {keyMessage && (
+            <div class:list={['note-wrap', { 'after-text': hasBody || importantNote }]}>
+              <KeyMessage text={keyMessage.text} steps={keyMessage.steps} />
             </div>
           )}
         </div>

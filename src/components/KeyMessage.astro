@@ -1,0 +1,105 @@
+---
+// Highlighted key message: the first sentence becomes a large headline with an orange
+// marker underline, followed by the rest of the text and optional step labels.
+interface Props {
+  text: string;
+  /** Short labels shown under the text, e.g. ["Generate ideas", "Discuss", "Test"] */
+  steps?: string[];
+  id?: string;
+}
+const { text, steps = [], id = 'key-message' } = Astro.props;
+const match = text.trim().match(/^(.+?[.!?])\s+([\s\S]*)$/);
+const headline = match ? match[1] : text.trim();
+// The remaining text may contain several paragraphs (separated by a blank line)
+const paragraphs = (match ? match[2] : '')
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+---
+
+<aside class="key" aria-labelledby={id}>
+  <div class="text">
+    <span class="eyebrow">Key message</span>
+    <p class="headline" id={id}><mark>{headline}</mark></p>
+    {paragraphs.map((p) => <p class="rest">{p}</p>)}
+    {
+      steps.length > 0 && (
+        <ol class="steps">
+          {steps.map((s) => (
+            <li>{s}</li>
+          ))}
+        </ol>
+      )
+    }
+  </div>
+</aside>
+
+<style>
+  .key {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 1.5rem 3rem;
+    align-items: center;
+    padding: 2.5rem 1.75rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, #fff 0%, #fff4ec 55%, #ffe6d6 100%);
+    border-top: 6px solid var(--orange);
+    box-shadow: var(--shadow);
+  }
+  .text {
+    position: relative;
+  }
+  .headline {
+    margin: 0 0 1rem;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  /* orange highlighter pen behind the key sentence */
+  mark {
+    color: inherit;
+    background: linear-gradient(
+      transparent 58%,
+      rgb(226 93 37 / 0.35) 58%,
+      rgb(226 93 37 / 0.35) 92%,
+      transparent 92%
+    );
+    padding: 0 0.15em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .rest {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    max-width: 40rem;
+  }
+  .rest:last-of-type {
+    margin-bottom: 0;
+  }
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+  }
+  .steps li {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--orange-text);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+  }
+  @media (min-width: 48rem) {
+    .key {
+      padding: 3rem;
+    }
+  }
+</style>

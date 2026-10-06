@@ -16,6 +16,10 @@ const steps = defineCollection({
     icon,
     // Highlighted "Important note" box on the phase page
     importantNote: z.string().optional(),
+    // Highlighted "Key message" box: first sentence shown as a large headline
+    keyMessage: z
+      .object({ text: z.string(), steps: z.array(z.string()).default([]) })
+      .optional(),
   }),
 });
 
