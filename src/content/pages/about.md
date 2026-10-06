@@ -5,11 +5,11 @@ facts:
   - label: Programme
     value: Interreg South Baltic 2021–2027
   - label: Project period
-    value: 1 Sep 2023 – 19 Aug 2026
-  - label: Total eligible budget
-    value: EUR 3,392,834.38
-  - label: EU funding (ERDF)
-    value: EUR 2,714,267.49
+    value: Sep 2023 – Mar 2027
+  - label: Budget
+    value: EUR 3.3 million
+  - label: ERDF
+    value: EUR 2.7 million
   - label: Lead partner
     value: Zealand University Hospital, Denmark
 ---
@@ -69,8 +69,8 @@ The AMBeR project is co-financed by the Interreg South Baltic Programme 2021–2
 
 - Priority: Innovative South Baltic
 - Programme measure: 1.1 Digitalising the region
-- Total eligible budget: EUR 3,392,834.38, of which EUR 2,714,267.49 from the European Regional Development Fund (ERDF)
-- Project period: 1 September 2023 – 19 August 2026
+- Budget: EUR 3.3 million, of which EUR 2.7 million from the European Regional Development Fund (ERDF)
+- Project period: September 2023 – March 2027
 
 Read more about AMBeR on the [Interreg South Baltic website](https://southbaltic.eu/projects-and-success-stories/advanced-modeling-of-baltic-cancer-e-care/).
 
