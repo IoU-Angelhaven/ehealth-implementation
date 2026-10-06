@@ -14,7 +14,6 @@ const rest = match ? match[2] : '';
 ---
 
 <aside class="key" aria-labelledby={id}>
-  <div class="blob" aria-hidden="true"></div>
   <svg class="loop" viewBox="0 0 220 220" aria-hidden="true" focusable="false">
     <!-- the loop -->
     <circle cx="110" cy="110" r="78" fill="none" class="track" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"></circle>
@@ -51,9 +50,6 @@ const rest = match ? match[2] : '';
           {steps.map((s) => (
             <li>{s}</li>
           ))}
-          <li class="again" aria-hidden="true">
-            ↻
-          </li>
         </ol>
       )
     }
@@ -72,16 +68,6 @@ const rest = match ? match[2] : '';
     background: linear-gradient(135deg, #fff 0%, #fff4ec 55%, #ffe6d6 100%);
     border-top: 6px solid var(--orange);
     box-shadow: var(--shadow);
-  }
-  .blob {
-    position: absolute;
-    right: -5rem;
-    bottom: -6rem;
-    width: 18rem;
-    height: 18rem;
-    border-radius: 50%;
-    background: var(--orange);
-    opacity: 0.12;
   }
   .loop {
     position: relative;
@@ -146,12 +132,6 @@ const rest = match ? match[2] : '';
     background: var(--orange-text);
     border-radius: 999px;
     padding: 0.3rem 0.9rem;
-  }
-  .steps .again {
-    background: none;
-    color: var(--orange-text);
-    font-size: 1.4rem;
-    padding: 0 0.25rem;
   }
   @media (min-width: 48rem) {
     .key {
