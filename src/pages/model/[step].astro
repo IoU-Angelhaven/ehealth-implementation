@@ -6,7 +6,6 @@ import PageHero from '../../components/PageHero.astro';
 import ActivityCard from '../../components/ActivityCard.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import Icon from '../../components/Icon.astro';
-import ImportantNote from '../../components/ImportantNote.astro';
 import KeyMessage from '../../components/KeyMessage.astro';
 import type { IconName } from '../../icons';
 
@@ -27,10 +26,10 @@ interface Props {
 const { step, prev, next } = Astro.props;
 const { Content } = await render(step);
 const hasBody = Boolean(step.body?.trim());
-const { importantNote, keyMessage } = step.data;
+const { keyMessage } = step.data;
 // Light grey and white sections alternate down the page
-const activitiesTone = importantNote ? '' : 'soft';
-const storiesTone = importantNote ? 'soft' : '';
+const activitiesTone = keyMessage ? '' : 'soft';
+const storiesTone = keyMessage ? 'soft' : '';
 const activities = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -70,29 +69,22 @@ const stories = await getCollection(
   </PageHero>
 
   {
-    (hasBody || keyMessage) && (
+    hasBody && (
       <section class="section">
         <div class="wrap">
-          {hasBody && (
-            <div class="prose">
-              <Content />
-            </div>
-          )}
-          {keyMessage && (
-            <div class:list={['note-wrap', { 'after-text': hasBody }]}>
-              <KeyMessage text={keyMessage.text} steps={keyMessage.steps} />
-            </div>
-          )}
+          <div class="prose">
+            <Content />
+          </div>
         </div>
       </section>
     )
   }
 
   {
-    importantNote && (
+    keyMessage && (
       <section class="section soft">
         <div class="wrap">
-          <ImportantNote text={importantNote} />
+          <KeyMessage text={keyMessage} />
         </div>
       </section>
     )
@@ -147,9 +139,6 @@ const stories = await getCollection(
 </Base>
 
 <style>
-  .note-wrap.after-text {
-    margin-top: 2.5rem;
-  }
   .step-art {
     position: relative;
     display: grid;
