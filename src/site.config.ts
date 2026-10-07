@@ -19,6 +19,7 @@ export const site = {
 export const nav = [
   { href: '/model/', label: 'The AMBeR Model' },
   { href: '/stories/', label: 'Stories' },
+  { href: '/resources/', label: 'Learnings & resources' },
   { href: '/about/', label: 'About AMBeR' },
 ];
 

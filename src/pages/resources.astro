@@ -1,0 +1,75 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib/url';
+
+const page = await getEntry('pages', 'resources');
+if (!page) throw new Error('Missing src/content/pages/resources.md');
+const resources = page.data.resources;
+
+// Each resource is either a link or a download (or neither yet = "coming soon")
+const target = (r: (typeof resources)[number]) =>
+  r.file ? { href: url(r.file), label: 'Download', download: true } : r.url ? { href: url(r.url), label: 'Open', download: false } : null;
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+<Base bare title={page.data.title} description={page.data.intro}>
+  <PageHero title={page.data.title} lead={page.data.intro}>
+    <Icon slot="art" name="document" size={200} />
+  </PageHero>
+
+  <section class="section soft">
+    <div class="wrap">
+      <span class="eyebrow">Project outcomes</span>
+      <h2>Resources</h2>
+      <ul class="grid">
+        {
+          resources.map((r) => {
+            const t = target(r);
+            return (
+              <li class="card resource">
+                {r.type && <span class="eyebrow">{r.type}</span>}
+                <h3>
+                  {t ? (
+                    <a
+                      href={t.href}
+                      download={t.download || undefined}
+                      rel={isExternal(t.href) ? 'external noopener' : undefined}
+                    >
+                      {r.title}
+                    </a>
+                  ) : (
+                    r.title
+                  )}
+                </h3>
+                {r.description && <p>{r.description}</p>}
+                <p class="action">
+                  {t ? (
+                    <span class="more">
+                      {t.label} {t.download ? '↓' : '→'}
+                    </span>
+                  ) : (
+                    <span class="muted">Coming soon</span>
+                  )}
+                </p>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .resource .action {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-weight: 700;
+  }
+  .more {
+    color: var(--blue);
+  }
+</style>

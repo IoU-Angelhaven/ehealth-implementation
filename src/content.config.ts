@@ -66,6 +66,18 @@ const pages = defineCollection({
     intro: z.string().optional(),
     // Key facts about the project (shown on About and Home)
     facts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+    // List of resources (used by the "Learnings & resources" page)
+    resources: z
+      .array(
+        z.object({
+          title: z.string(),
+          type: z.string().optional(), // e.g. Report, Guide, Policy recommendation, Research, Link
+          description: z.string().optional(),
+          url: z.string().optional(), // web address or a page on this site (e.g. /model/)
+          file: z.string().optional(), // file uploaded in the editor (e.g. /media/resources/report.pdf)
+        }),
+      )
+      .default([]),
   }),
 });
 

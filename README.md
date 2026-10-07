@@ -26,6 +26,7 @@ Bilder och dokument (t.ex. PDF:er att ladda ner) laddas upp via editorn och hamn
 | Modellens 31 aktiviteter | `src/content/activities/` (en fil per aktivitet) |
 | Stories | `src/content/stories/` |
 | Startsida, About, Local guide, Privacy, Accessibility | `src/content/pages/` |
+| Learnings & resources (lista med länkar och nedladdningar) | `src/content/pages/resources.md`, filer i `public/media/resources/` |
 | Färger och typsnitt | `src/styles/global.css` |
 | Ikoner (namnen går att välja i editorn) | `src/icons.ts` |
 | Menyn, sajtens namn, statistik | `src/site.config.ts` |
