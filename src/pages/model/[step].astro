@@ -28,6 +28,9 @@ const { step, prev, next } = Astro.props;
 const { Content } = await render(step);
 const hasBody = Boolean(step.body?.trim());
 const { importantNote, keyMessage } = step.data;
+// Light grey and white sections alternate down the page
+const activitiesTone = importantNote ? '' : 'soft';
+const storiesTone = importantNote ? 'soft' : '';
 const activities = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -67,7 +70,7 @@ const stories = await getCollection(
   </PageHero>
 
   {
-    (hasBody || importantNote || keyMessage) && (
+    (hasBody || keyMessage) && (
       <section class="section">
         <div class="wrap">
           {hasBody && (
@@ -75,13 +78,8 @@ const stories = await getCollection(
               <Content />
             </div>
           )}
-          {importantNote && (
-            <div class:list={['note-wrap', { 'after-text': hasBody }]}>
-              <ImportantNote text={importantNote} />
-            </div>
-          )}
           {keyMessage && (
-            <div class:list={['note-wrap', { 'after-text': hasBody || importantNote }]}>
+            <div class:list={['note-wrap', { 'after-text': hasBody }]}>
               <KeyMessage text={keyMessage.text} steps={keyMessage.steps} />
             </div>
           )}
@@ -90,7 +88,17 @@ const stories = await getCollection(
     )
   }
 
-  <section class="section soft">
+  {
+    importantNote && (
+      <section class="section soft">
+        <div class="wrap">
+          <ImportantNote text={importantNote} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class={`section ${activitiesTone}`}>
     <div class="wrap">
       <span class="eyebrow">Activities</span>
       <h2>Activities in phase {step.data.number}</h2>
@@ -102,7 +110,7 @@ const stories = await getCollection(
 
   {
     stories.length > 0 && (
-      <section class="section">
+      <section class={`section ${storiesTone}`}>
         <div class="wrap">
           <span class="eyebrow">In practice</span>
           <h2>Stories related to this phase</h2>

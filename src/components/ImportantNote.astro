@@ -1,5 +1,6 @@
 ---
-// Highlighted "Key message" box with an orange illustration pointing at the text.
+// Highlighted "Key message" with an orange illustration pointing at the text.
+// It has no box of its own: the page puts it in a light grey full-width section.
 interface Props {
   text: string;
   title?: string;
@@ -44,11 +45,6 @@ const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
     gap: 1rem 2rem;
     align-items: center;
     max-width: 52rem;
-    padding: 1.75rem;
-    background: #fff7f2;
-    border: 2px solid var(--orange);
-    border-left-width: 8px;
-    border-radius: var(--radius);
   }
   .art {
     width: 9rem;
