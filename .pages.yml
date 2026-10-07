@@ -24,13 +24,7 @@ content:
         type: select
         options:
           values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, monitor, heart, calendar, training, map]
-      - { name: importantNote, label: "Important note (shown in a highlighted orange box)", type: text }
-      - name: keyMessage
-        label: "Key message (first sentence is shown as a large headline)"
-        type: object
-        fields:
-          - { name: text, label: Text, type: text }
-          - { name: steps, label: "Short labels under the text (e.g. Generate ideas)", type: string, list: true }
+      - { name: keyMessage, label: "Key message (shown on a light grey background with an orange illustration; leave a blank line between paragraphs)", type: text }
       - { name: body, label: Text, type: rich-text }
 
   - name: activities

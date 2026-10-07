@@ -1,93 +1,85 @@
 ---
-// Highlighted key message: the first sentence becomes a large headline, followed by the
-// rest of the text and optional step labels.
+// Highlighted "Key message" with an orange illustration pointing at the text.
+// It has no box of its own: the page puts it in a light grey full-width section.
 interface Props {
   text: string;
-  /** Short labels shown under the text, e.g. ["Generate ideas", "Discuss", "Test"] */
-  steps?: string[];
+  title?: string;
   id?: string;
 }
-const { text, steps = [], id = 'key-message' } = Astro.props;
-const match = text.trim().match(/^(.+?[.!?])\s+([\s\S]*)$/);
-const headline = match ? match[1] : text.trim();
-// The remaining text may contain several paragraphs (separated by a blank line)
-const paragraphs = (match ? match[2] : '')
-  .split(/\n\s*\n/)
-  .map((p) => p.trim())
-  .filter(Boolean);
+const { text, title = 'Key message', id = 'key-message' } = Astro.props;
+const paragraphs = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 ---
 
-<aside class="key" aria-labelledby={id}>
+<aside class="important" role="note" aria-labelledby={id}>
+  <svg class="art" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+    <!-- emphasis rays -->
+    <g class="orange-line" fill="none" stroke-width="3" stroke-linecap="round">
+      <path d="M66 3v8M38 12l5 6M94 12l-5 6"></path>
+    </g>
+    <!-- coloured block behind -->
+    <circle class="orange-fill" cx="54" cy="72" r="38"></circle>
+    <!-- warning sign -->
+    <path
+      d="M66 22 112 100H20Z"
+      fill="#fff"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linejoin="round"></path>
+    <path d="M66 50v24" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+    <circle cx="66" cy="87" r="3.5" fill="currentColor"></circle>
+    <!-- arrow pointing at the text -->
+    <g class="arrow orange-line" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M122 60h30M141 49l11 11-11 11"></path>
+    </g>
+  </svg>
   <div class="text">
-    <span class="eyebrow">Key message</span>
-    <p class="headline" id={id}>{headline}</p>
-    {paragraphs.map((p) => <p class="rest">{p}</p>)}
-    {
-      steps.length > 0 && (
-        <ol class="steps">
-          {steps.map((s) => (
-            <li>{s}</li>
-          ))}
-        </ol>
-      )
-    }
+    <h2 class="eyebrow" id={id}>{title}</h2>
+    {paragraphs.map((p) => <p>{p}</p>)}
   </div>
 </aside>
 
 <style>
-  .key {
-    position: relative;
-    overflow: hidden;
+  .important {
     display: grid;
-    gap: 1.5rem 3rem;
+    grid-template-columns: 1fr;
+    gap: 1rem 2rem;
     align-items: center;
-    padding: 2.5rem 1.75rem;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, #fff 0%, #fff4ec 55%, #ffe6d6 100%);
-    border-top: 6px solid var(--orange);
-    box-shadow: var(--shadow);
+    max-width: 52rem;
   }
-  .text {
-    position: relative;
-  }
-  .headline {
-    max-width: 40rem; /* same width as the text below */
-    margin: 0 0 1rem;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 300;
-    line-height: 1.25;
+  .art {
+    width: 9rem;
+    height: auto;
     color: var(--ink);
   }
-  .rest {
-    margin: 0 0 1rem;
-    font-size: 1.1rem;
-    max-width: 40rem;
+  .orange-fill {
+    fill: var(--orange);
   }
-  .rest:last-of-type {
+  .orange-line {
+    stroke: var(--orange);
+  }
+  /* The label itself uses the global .eyebrow style (small, bold capitals), as on the other phase pages */
+  h2 {
+    margin: 0 0 0.5rem;
+  }
+  p {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+  p:last-child {
     margin-bottom: 0;
   }
-  .steps {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    list-style: none;
-    margin: 1.5rem 0 0;
-    padding: 0;
+  @media (min-width: 40rem) {
+    .important {
+      grid-template-columns: 10rem 1fr;
+    }
+    .art {
+      width: 10rem;
+    }
   }
-  .steps li {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #fff;
-    background: var(--orange-text);
-    border-radius: 999px;
-    padding: 0.3rem 0.9rem;
-  }
-  @media (min-width: 48rem) {
-    .key {
-      padding: 3rem;
+  /* On small screens the box is stacked: hide the sideways arrow */
+  @media (max-width: 39.99rem) {
+    .arrow {
+      display: none;
     }
   }
 </style>
