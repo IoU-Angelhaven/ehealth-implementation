@@ -1,6 +1,6 @@
 ---
 title: "Learnings & resources"
-intro: "AMBeR resulted not only in the Implementation model but also in local and European policy recommendations, in local implementation guides and research. On this page you will find all project outcomes."
+intro: "AMBeR resulted not only in the implementation model but also in local and European policy recommendations, in local implementation guides and research. On this page you will find all project outcomes."
 resources:
   - title: "Policy recommendations – PLACEHOLDER"
     type: "Policy recommendation"
