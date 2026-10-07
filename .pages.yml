@@ -113,6 +113,27 @@ content:
           - { name: label, label: Label, type: string }
           - { name: value, label: Value, type: string }
       - { name: body, label: Text, type: rich-text }
+  - name: resources
+    label: Page – Learnings & resources
+    type: file
+    path: src/content/pages/resources.md
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: intro, label: Introduction, type: text }
+      - name: resources
+        label: Resources (links and downloads)
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string, required: true }
+          - name: type
+            label: Type
+            type: select
+            options:
+              values: [Report, Guide, Policy recommendation, Research, Presentation, Video, Tool, Link]
+          - { name: description, label: Short description, type: text }
+          - { name: url, label: "Link (web address). Leave empty if you upload a file.", type: string }
+          - { name: file, label: "Download (upload a file)", type: file }
   - { name: model, label: Page – The AMBeR Model (introduction), type: file, path: src/content/pages/model.md, fields: *page }
   - { name: about, label: Page – About AMBeR, type: file, path: src/content/pages/about.md, fields: *page }
   - { name: local-guide, label: Page – Create your local guide, type: file, path: src/content/pages/local-guide.md, fields: *page }
