@@ -44,6 +44,11 @@ export const icons = {
     accent: '<rect x="6" y="30" width="28" height="20" rx="4"/>',
     line: '<path d="M14 10h40a4 4 0 0 1 4 4v22a4 4 0 0 1-4 4H30l-10 8v-8h-6a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z"/><path d="M20 20h28M20 28h18"/>',
   },
+  consultation: {
+    // a nurse (cap with a cross, left) talking to a patient (right)
+    accent: '<path d="M7 56c0-12 5-18 13-18s13 6 13 18z"/><path d="M13 19l2-7h10l2 7z"/>',
+    line: '<path d="M13 19l2-7h10l2 7"/><path d="M20 13.5v4M18 15.5h4"/><circle cx="20" cy="26" r="7"/><path d="M7 56c0-12 5-18 13-18s13 6 13 18"/><path d="M16 38l4 7 4-7"/><circle cx="45" cy="32" r="6"/><path d="M34 56c0-9 4-15 11-15s11 6 11 15"/><path d="M5 56h54"/><path d="M31 4h19a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-11l-6 5v-5h-2a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z"/><path d="M36 10.5h.01M41 10.5h.01M46 10.5h.01" stroke-width="3.5"/>',
+  },
   monitor: {
     accent: '<rect x="6" y="17" width="40" height="27"/>',
     line: '<rect x="12" y="10" width="44" height="30" rx="3"/><path d="M26 52h16M34 40v12"/><path d="M18 26h8l3-6 5 12 3-6h9"/>',

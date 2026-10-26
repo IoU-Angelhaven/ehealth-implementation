@@ -26,7 +26,7 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
       story.data.image ? (
         <img slot="art" class="hero-img" src={url(story.data.image)} alt={story.data.imageAlt ?? ''} />
       ) : (
-        <Icon slot="art" name="chat" size={200} accent="orange" />
+        <Icon slot="art" name="consultation" size={200} accent="orange" />
       )
     }
   </PageHero>

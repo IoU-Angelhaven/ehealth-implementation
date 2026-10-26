@@ -23,7 +23,7 @@ content:
         label: Icon
         type: select
         options:
-          values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, monitor, heart, calendar, training, map]
+          values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, consultation, monitor, heart, calendar, training, map]
       - { name: keyMessage, label: "Key message (shown on a light grey background with an orange illustration; leave a blank line between paragraphs)", type: text }
       - { name: body, label: Text, type: rich-text }
 
@@ -50,7 +50,7 @@ content:
         label: Icon (leave empty to use the phase's icon)
         type: select
         options:
-          values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, monitor, heart, calendar, training, map]
+          values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, consultation, monitor, heart, calendar, training, map]
       - { name: roles, label: Who is involved, type: string, list: true }
       - { name: useItTo, label: "Use it to (one or two sentences)", type: text }
       - { name: rememberTo, label: "Remember to (one or two sentences)", type: text }
