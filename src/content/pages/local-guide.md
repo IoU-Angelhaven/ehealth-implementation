@@ -1,6 +1,6 @@
 ---
 title: "Create your own local implementation guide"
-intro: "The AMBeR Model is generic. To make it useful in your organisation, adapt it to your local context, just as every AMBeR partner did."
+intro: "The implementation model is generic. To make it useful in your organisation, adapt it to your local context, just as every AMBeR partner did."
 ---
 
 DRAFT: Review and adapt this text.
@@ -9,7 +9,7 @@ DRAFT: Review and adapt this text.
 
 In AMBeR, the partners first developed a generic model for implementing eHealth in healthcare. Each partner then adapted the model into a local implementation guide that fits its own organisation, patients, staff and IT environment. You can follow the same approach.
 
-## 1. Download the AMBeR Model
+## 1. Download the implementation model
 
 PLACEHOLDER: Links to the downloadable documents (for example the full model as PDF and an editable Word version).
 
@@ -28,7 +28,7 @@ For each of the five phases and their activities, ask:
 
 ## 4. Write your local guide
 
-Keep the structure of the AMBeR Model, but use your own words, names, roles and examples. Remove activities that do not apply and add what is specific to your setting.
+Keep the structure of the implementation model, but use your own words, names, roles and examples. Remove activities that do not apply and add what is specific to your setting.
 
 ## 5. Use AI as a writing assistant
 
@@ -36,7 +36,7 @@ AI tools such as chatbots can help you adapt the model faster. Never paste patie
 
 Example prompts:
 
-> I work at [type of organisation] in [country]. We are going to implement [eHealth service] for [patient group]. Below is one activity from the AMBeR Model for implementing eHealth in healthcare. Rewrite it as practical instructions for our organisation, using the roles [list roles]. Point out anything that may not fit our context.
+> I work at [type of organisation] in [country]. We are going to implement [eHealth service] for [patient group]. Below is one activity from the implementation model for implementing eHealth in healthcare. Rewrite it as practical instructions for our organisation, using the roles [list roles]. Point out anything that may not fit our context.
 
 > Here is our draft local implementation guide. Act as a critical reviewer: which risks, stakeholders or practical steps might we have missed?
 

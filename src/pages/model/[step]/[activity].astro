@@ -41,7 +41,7 @@ const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
 <Base bare title={`${number} ${activity.data.title}`} description={activity.data.summary.split(/\n\s*\n/)[0]}>
   <PageHero artFirst eyebrow={`Activity ${number}`} title={activity.data.title} lead={activity.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
-      <a href={url('/model/')}>The AMBeR Model</a> /{' '}
+      <a href={url('/model/')}>The implementation model</a> /{' '}
       <a href={url(`/model/${step.id}/`)}>Phase {step.data.number}</a> / Activity {number}
     </p>
     <div slot="art" class="meta">

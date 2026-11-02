@@ -5,7 +5,7 @@ media:
   output: /media
 
 content:
-  # ---------- The AMBeR Model ----------
+  # ---------- The implementation model ----------
   - name: steps
     label: Model – Phases
     type: collection
@@ -134,7 +134,7 @@ content:
           - { name: description, label: Short description, type: text }
           - { name: url, label: "Link (web address). Leave empty if you upload a file.", type: string }
           - { name: file, label: "Download (upload a file)", type: file }
-  - { name: model, label: Page – The AMBeR Model (introduction), type: file, path: src/content/pages/model.md, fields: *page }
+  - { name: model, label: Page – The implementation model (introduction), type: file, path: src/content/pages/model.md, fields: *page }
   - { name: about, label: Page – About AMBeR, type: file, path: src/content/pages/about.md, fields: *page }
   - { name: local-guide, label: Page – Create your local guide, type: file, path: src/content/pages/local-guide.md, fields: *page }
   - { name: privacy, label: Page – Privacy, type: file, path: src/content/pages/privacy.md, fields: *page }

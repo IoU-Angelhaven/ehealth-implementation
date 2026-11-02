@@ -20,7 +20,7 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
 <Base bare>
   <PageHero eyebrow={`Interreg South Baltic project ${site.project}`} title={home.data.title} lead={home.data.intro}>
     <p class="actions">
-      <a class="button" href={url('/model/')}>Explore the AMBeR Model</a>
+      <a class="button" href={url('/model/')}>Explore the implementation model</a>
       <a class="button ghost" href={url('/local-guide/')}>Create your local guide</a>
     </p>
     <Illustration slot="art" name="board" />
@@ -28,7 +28,7 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
 
   <section class="section soft">
     <div class="wrap">
-      <span class="eyebrow">The AMBeR Model</span>
+      <span class="eyebrow">The implementation model</span>
       <h2>Five phases of implementing eHealth</h2>
       <div class="prose"><Content /></div>
       <ModelOverview />

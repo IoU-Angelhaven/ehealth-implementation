@@ -22,7 +22,7 @@ if (!page) throw new Error('Missing src/content/pages/model.md');
 const { Content } = await render(page);
 ---
 
-<Base bare title="The AMBeR Model" description="A step-by-step model for implementing eHealth in healthcare.">
+<Base bare title="The implementation model" description="A step-by-step model for implementing eHealth in healthcare.">
   <PageHero eyebrow="The model" title={page.data.title} lead={page.data.intro}>
     <Illustration slot="art" name="path" />
   </PageHero>
@@ -38,7 +38,10 @@ const { Content } = await render(page);
   <section class="section" aria-labelledby="toolbox-title">
     <div class="wrap">
       <span class="eyebrow">All {activities.length} activities</span>
-      <h2 id="toolbox-title">Find the activities you need</h2>
+      <div class="heading-row">
+        <h2 id="toolbox-title">Find the activities you need</h2>
+        <a class="jump-link" href="#about-guide">About the activity guide <span aria-hidden="true">↓</span></a>
+      </div>
 
       <div class="search" hidden>
         <label for="activity-search">Search activities</label>
@@ -111,7 +114,7 @@ const { Content } = await render(page);
     </div>
   </section>
 
-  <section class="section soft" aria-labelledby="how-title">
+  <section class="section soft" id="about-guide" aria-labelledby="how-title">
     <div class="wrap">
       <span class="eyebrow">How to use the guide</span>
       <h2 id="how-title">About the activity guide</h2>
@@ -179,6 +182,33 @@ const { Content } = await render(page);
 </script>
 
 <style>
+  /* Heading with a link on its own line below it that jumps to the guide information further down */
+  .heading-row {
+    margin: 0 0 0.5rem;
+  }
+  .heading-row h2 {
+    margin: 0;
+  }
+  .jump-link {
+    display: inline-block;
+    margin-top: 0.4rem;
+    color: var(--orange-text);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .jump-link:hover {
+    color: var(--orange-text);
+    text-decoration: underline;
+  }
+  #about-guide {
+    scroll-margin-top: 1rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html) {
+      scroll-behavior: smooth;
+    }
+  }
   .search {
     display: flex;
     flex-direction: column;

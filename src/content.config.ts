@@ -5,7 +5,7 @@ import { iconNames } from './icons';
 
 const icon = z.enum(iconNames as [string, ...string[]]).optional();
 
-// The five phases of the AMBeR Model. One Markdown file per phase.
+// The five phases of the implementation model. One Markdown file per phase.
 // (Files and ids are called step-1 … step-5 to keep URLs stable.)
 const steps = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/steps' }),
