@@ -10,6 +10,11 @@ interface Props {
 }
 const { title, lead, eyebrow, artFirst = false } = Astro.props;
 const hasArt = Astro.slots.has('art');
+// The lead may have several paragraphs (separated by a blank line)
+const leadParagraphs = (lead ?? '')
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean);
 ---
 
 <section class:list={['page-hero', { 'has-art': hasArt, 'art-first': artFirst }]}>
@@ -18,7 +23,7 @@ const hasArt = Astro.slots.has('art');
       <slot name="breadcrumb" />
       {eyebrow && <span class="eyebrow">{eyebrow}</span>}
       <h1>{title}</h1>
-      {lead && <p class="lead">{lead}</p>}
+      {leadParagraphs.map((p) => <p class="lead">{p}</p>)}
       <slot />
     </div>
     {
@@ -48,6 +53,9 @@ const hasArt = Astro.slots.has('art');
     max-width: 40rem;
   }
   .lead {
+    margin-bottom: 1rem;
+  }
+  .lead:last-of-type {
     margin-bottom: 0;
   }
   .art {

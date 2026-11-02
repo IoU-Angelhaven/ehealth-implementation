@@ -2,7 +2,10 @@
 step: step-4
 order: 4
 title: "Secure Organizational Resources"
-summary: "This activity means formally committing and protecting the people, funding, time and infrastructure needed to deliver, sustain and expand the change. The solution then does not depend on goodwill, short-term projects or informal effort."
+summary: |-
+  This activity means formally committing and protecting the people, funding, time and infrastructure needed to deliver, sustain and expand the change. The solution then does not depend on goodwill, short-term projects or informal effort.
+
+  It turns digital change from something extra into a core part of the organization’s work. The expected results are funding and staffing that continue after the pilot, protected time for staff, clear ownership and executive support.
 icon: gear
 prompts:
   - title: "Write a business case"
@@ -15,8 +18,6 @@ prompts:
     attach: "your budget and resource plan"
     ask: "Draft a plan for the resources needed for [solution] after the pilot. Use the attached documents. Cover funding, staffing, protected time, infrastructure and support, with owners and dates."
 ---
-It turns digital change from something extra into a core part of the organization’s work. The expected results are funding and staffing that continue after the pilot, protected time for staff, clear ownership and executive support.
-
 ## Checklist
 
 - Build a [business case](https://www.atlassian.com/work-management/project-management/business-case) that shows why the solution is essential for patient care and not optional.

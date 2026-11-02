@@ -2,7 +2,10 @@
 step: step-3
 order: 7
 title: "Change Management"
-summary: "Change management is a structured way to help individuals, teams and organizations move from the current way of working to a new one. Digital health solutions change workflows, clinical practice, skills and sometimes organizational structures."
+summary: |-
+  Change management is a structured way to help individuals, teams and organizations move from the current way of working to a new one. Digital health solutions change workflows, clinical practice, skills and sometimes organizational structures.
+
+  Most failed implementations in healthcare are caused by too little attention to the human side of change, not by weak technology. Good change management builds readiness and confidence, reduces resistance and helps new practices last. It must run through the whole implementation and not stand alone.
 icon: cycle
 prompts:
   - title: "Plan the change with ADKAR"
@@ -15,8 +18,6 @@ prompts:
     attach: "the resource plan and the description of the solution"
     ask: "Design a training and support plan for [solution]. Use the attached documents. Include: content, formats, schedule, target groups, how learning is checked, how super-users are chosen and trained, and what ongoing support is available."
 ---
-Most failed implementations in healthcare are caused by too little attention to the human side of change, not by weak technology. Good change management builds readiness and confidence, reduces resistance and helps new practices last. It must run through the whole implementation and not stand alone.
-
 ## Checklist
 
 - Assess readiness for change: culture, earlier experience of change, leadership support and staff engagement ([change readiness assessment](https://www.prosci.com/blog/when-should-you-use-a-change-management-readiness-assessment)).

@@ -2,7 +2,10 @@
 step: step-1
 order: 6
 title: "Research User Needs"
-summary: "Users can be patients, clinicians or support staff. Their experiences, needs and everyday reality must guide any solution. Early knowledge about how they act, what challenges they have and what motivates them gives direction and helps make solutions relevant, acceptable and possible in practice."
+summary: |-
+  Users can be patients, clinicians or support staff. Their experiences, needs and everyday reality must guide any solution. Early knowledge about how they act, what challenges they have and what motivates them gives direction and helps make solutions relevant, acceptable and possible in practice.
+
+  Without this knowledge, even a well-designed solution can miss real needs.
 icon: heart
 prompts:
   - title: "Plan user research"
@@ -14,8 +17,6 @@ prompts:
     attach: "anonymized interview notes (remove names and patient information first)"
     ask: "Group the attached notes into themes. List the main pain points and needs for each user group, and suggest three questions that need more research."
 ---
-Without this knowledge, even a well-designed solution can miss real needs.
-
 ## Checklist
 
 - Define the main user groups, for example patients, nurses, doctors and administrative staff.

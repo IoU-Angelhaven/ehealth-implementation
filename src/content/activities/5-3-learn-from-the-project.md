@@ -2,7 +2,10 @@
 step: step-5
 order: 3
 title: "Learn from the Project (Lessons Learned)"
-summary: "It is important to evaluate not only the implemented solution, but also the work process that led to it. A review after the implementation identifies successes, challenges and areas to improve in the work group, the organization, the process and the activities that were carried out."
+summary: |-
+  It is important to evaluate not only the implemented solution, but also the work process that led to it. A review after the implementation identifies successes, challenges and areas to improve in the work group, the organization, the process and the activities that were carried out.
+
+  The result is a document or report for stakeholders. It highlights the achievements of the project and the areas to improve in future implementation projects.
 icon: document
 prompts:
   - title: "Plan a retrospective workshop"
@@ -14,8 +17,6 @@ prompts:
     attach: "anonymized notes from the workshop"
     ask: "Summarize the attached workshop notes into lessons learned for the work group, the organization, the process and the activities. Keep the points short and suggest an owner for each recommendation."
 ---
-The result is a document or report for stakeholders. It highlights the achievements of the project and the areas to improve in future implementation projects.
-
 ## Checklist
 
 - Plan a [post-implementation review](https://www.mindtools.com/a192l7e/post-implementation-reviews/) when the solution has been in use for some time.

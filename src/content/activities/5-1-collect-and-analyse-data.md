@@ -2,7 +2,10 @@
 step: step-5
 order: 1
 title: "Collect and Analyse Data (Data Collection & Analysis)"
-summary: "A plan for collecting and studying data is needed to evaluate well. Base the plan on the value description and set key measures (KPIs). They should show how effective the solution is and what value it creates."
+summary: |-
+  A plan for collecting and studying data is needed to evaluate well. Base the plan on the value description and set key measures (KPIs). They should show how effective the solution is and what value it creates.
+
+  Evaluate regularly whether the solution has reached its goals and created the wanted effect. The expected results are a set of key measures, a plan for how to collect the data, and a plan for how to measure regularly, fitted into the evaluation routines that already exist in the unit or organization.
 icon: chart
 prompts:
   - title: "Develop key measures"
@@ -15,8 +18,6 @@ prompts:
     attach: "the key measures"
     ask: "Draft a short questionnaire (8–10 questions) for [patients or staff] to evaluate [solution]. Use plain language and a clear rating scale. Base the questions on the attached key measures."
 ---
-Evaluate regularly whether the solution has reached its goals and created the wanted effect. The expected results are a set of key measures, a plan for how to collect the data, and a plan for how to measure regularly, fitted into the evaluation routines that already exist in the unit or organization.
-
 ## Checklist
 
 - Review the value description and decide what the evaluation must show.

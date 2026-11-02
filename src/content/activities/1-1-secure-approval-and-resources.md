@@ -2,7 +2,10 @@
 step: step-1
 order: 1
 title: "Secure Approval and Resources (Mandate)"
-summary: "Implementation in healthcare often crosses professions, organizations and sometimes regions. Make sure that decision-makers support the work and that the time, skills and funding are in place."
+summary: |-
+  Implementation in healthcare often crosses professions, organizations and sometimes regions. Make sure that decision-makers support the work and that the time, skills and funding are in place.
+
+  A clear approval (a “mandate”) gives the work legitimacy, reduces resistance and gives the team the authority it needs from the start.
 icon: clipboard
 prompts:
   - title: "Draft a project charter"
@@ -12,8 +15,6 @@ prompts:
     attach: "the project charter from the previous prompt"
     ask: "List the ten questions that hospital leaders are most likely to ask about this project. Suggest a short, honest answer to each question, based on the attached charter. Mark the questions where I need more information."
 ---
-A clear approval (a “mandate”) gives the work legitimacy, reduces resistance and gives the team the authority it needs from the start.
-
 ## Checklist
 
 - Make a short, high-level plan for time and resources.

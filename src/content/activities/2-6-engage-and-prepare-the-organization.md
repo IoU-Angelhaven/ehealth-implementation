@@ -2,7 +2,10 @@
 step: step-2
 order: 6
 title: "Engage and Prepare the Organization"
-summary: "By now you have a good understanding of the solution that you want to implement. It is time to prepare the organization on purpose. Who needs to support it? Which decisions are ahead? Which information material do we need?"
+summary: |-
+  By now you have a good understanding of the solution that you want to implement. It is time to prepare the organization on purpose. Who needs to support it? Which decisions are ahead? Which information material do we need?
+
+  Solutions do not succeed only because the technology is good. They succeed when people understand why change is needed, feel involved in shaping it and are prepared to work in a new way.
 icon: people
 prompts:
   - title: "Write a business case"
@@ -15,8 +18,6 @@ prompts:
     attach: "the stakeholder map"
     ask: "Create a change plan for introducing [solution] at [organization]. Use the attached stakeholder map. Cover: stakeholder concerns, how to handle resistance, training, how to choose super-users, support and how to measure that staff use the solution."
 ---
-Solutions do not succeed only because the technology is good. They succeed when people understand why change is needed, feel involved in shaping it and are prepared to work in a new way.
-
 ## Checklist
 
 - Identify all stakeholder groups that are affected, and find out who supports, doubts or is neutral, and who decides.

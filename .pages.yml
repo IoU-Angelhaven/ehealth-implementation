@@ -45,7 +45,7 @@ content:
           values: [step-1, step-2, step-3, step-4, step-5]
       - { name: order, label: Order within the phase, type: number, required: true }
       - { name: title, label: Title, type: string, required: true }
-      - { name: summary, label: Short summary, type: text, required: true }
+      - { name: summary, label: "Introduction (shown under the title; leave a blank line between paragraphs)", type: text, required: true }
       - name: icon
         label: Icon (leave empty to use the phase's icon)
         type: select

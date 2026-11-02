@@ -2,7 +2,10 @@
 step: step-3
 order: 5
 title: "Plan the Pilot Evaluation"
-summary: "A pilot is the bridge between solution design and full implementation. A well-planned pilot shows how the solution works in real conditions, reveals problems and needed changes, and builds confidence before a full rollout."
+summary: |-
+  A pilot is the bridge between solution design and full implementation. A well-planned pilot shows how the solution works in real conditions, reveals problems and needed changes, and builds confidence before a full rollout.
+
+  Make the evaluation plan before the pilot starts. A pilot is not early use by enthusiastic staff. It is a structured test that answers specific questions. A structured evaluation lowers risk and supports decisions based on evidence.
 icon: clipboard
 prompts:
   - title: "Design the evaluation plan"
@@ -15,8 +18,6 @@ prompts:
     attach: "the evaluation plan"
     ask: "Suggest a simple dashboard and a feedback system for the pilot. Which measures should be shown to warn the team quickly about problems? How will user feedback be collected and used?"
 ---
-Make the evaluation plan before the pilot starts. A pilot is not early use by enthusiastic staff. It is a structured test that answers specific questions. A structured evaluation lowers risk and supports decisions based on evidence.
-
 ## Checklist
 
 - Define the pilot: which departments, which patient groups, how many users and how long. Choose sites and users who are typical but manageable.

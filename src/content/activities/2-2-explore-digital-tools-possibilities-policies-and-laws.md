@@ -2,7 +2,10 @@
 step: step-2
 order: 2
 title: "Explore Digital Tools, Possibilities, Policies and Laws"
-summary: "Before you use resources to develop solutions, understand the available technology, the rules and the limits in your organization. This makes sure that the solution is possible, follows the rules and fits with existing IT."
+summary: |-
+  Before you use resources to develop solutions, understand the available technology, the rules and the limits in your organization. This makes sure that the solution is possible, follows the rules and fits with existing IT.
+
+  It also prevents work on solutions that break rules or copy systems that already exist.
 icon: monitor
 prompts:
   - title: "Summarize data protection rules"
@@ -14,8 +17,6 @@ prompts:
     attach: "a list of your current IT systems"
     ask: "Compare the attached list of our current IT systems with what [solution] needs. Show in a table where it fits, where it overlaps with existing systems and where there are gaps."
 ---
-It also prevents work on solutions that break rules or copy systems that already exist.
-
 ## Checklist
 
 - List the digital tools and systems that already exist in your organization.

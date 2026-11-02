@@ -2,7 +2,10 @@
 step: step-4
 order: 6
 title: "Set Up Leadership and Decision-Making (Governance)"
-summary: "A clear leadership and decision structure (often called governance) helps the implementation to live on in a sustainable way. Without it, projects risk duplicated work, different priorities, safety problems, wasted resources and poor adoption."
+summary: |-
+  A clear leadership and decision structure (often called governance) helps the implementation to live on in a sustainable way. Without it, projects risk duplicated work, different priorities, safety problems, wasted resources and poor adoption.
+
+  Good structures give clear decision-making and responsibility at all levels, better use of resources, open reporting to stakeholders and stronger engagement from clinicians and leaders.
 icon: people
 prompts:
   - title: "Suggest a structure"
@@ -14,8 +17,6 @@ prompts:
   - title: "Plan how to keep the solution safe and effective"
     ask: "Suggest ways to keep [solution] effective and safe over time, such as regular audits, reviews and feedback from users. Describe who is responsible for each."
 ---
-Good structures give clear decision-making and responsibility at all levels, better use of resources, open reporting to stakeholders and stronger engagement from clinicians and leaders.
-
 ## Checklist
 
 - Define who makes which decisions and who is responsible at all levels ([RACI matrix](https://www.atlassian.com/work-management/project-management/raci-chart)).

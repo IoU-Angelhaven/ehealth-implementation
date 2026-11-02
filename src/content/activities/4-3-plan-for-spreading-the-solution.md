@@ -2,7 +2,10 @@
 step: step-4
 order: 3
 title: "Plan for Spreading the Solution (Scalability)"
-summary: "This activity prepares the solution so that it can be expanded safely, efficiently and consistently to more users, units or patient groups, without losing quality, safety or value."
+summary: |-
+  This activity prepares the solution so that it can be expanded safely, efficiently and consistently to more users, units or patient groups, without losing quality, safety or value.
+
+  In healthcare, spreading a solution depends on people and systems as much as on technology. A good plan keeps what is important the same everywhere, allows local flexibility, supports future decision makers and keeps clinical quality and patient experience consistent.
 icon: rocket
 prompts:
   - title: "Create a spreading plan"
@@ -15,8 +18,6 @@ prompts:
     attach: "the pilot evaluation plan"
     ask: "Develop a set of measures to follow quality, safety and patient experience when [solution] is expanded to more units. For each measure, say how it is collected and how often it is reviewed."
 ---
-In healthcare, spreading a solution depends on people and systems as much as on technology. A good plan keeps what is important the same everywhere, allows local flexibility, supports future decision makers and keeps clinical quality and patient experience consistent.
-
 ## Checklist
 
 - Decide which parts of the solution must be the same everywhere and which can be adapted locally.

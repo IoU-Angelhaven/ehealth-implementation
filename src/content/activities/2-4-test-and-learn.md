@@ -2,7 +2,10 @@
 step: step-2
 order: 4
 title: "Test and Learn"
-summary: "Testing shows how real users handle a solution: what works and what needs to change. It lets you check assumptions early and lowers the risk of building the wrong thing."
+summary: |-
+  Testing shows how real users handle a solution: what works and what needs to change. It lets you check assumptions early and lowers the risk of building the wrong thing.
+
+  By testing and improving in several rounds, the solution becomes more effective, easier to use and more successful in real work.
 icon: cycle
 prompts:
   - title: "Create a test guide"
@@ -12,8 +15,6 @@ prompts:
     attach: "anonymized notes from your tests"
     ask: "List the problems found in the attached test notes. Sort them by how serious they are and how many users were affected. Suggest fixes for the three most important problems."
 ---
-By testing and improving in several rounds, the solution becomes more effective, easier to use and more successful in real work.
-
 ## Checklist
 
 - Define what you want to learn and which questions you want to answer.

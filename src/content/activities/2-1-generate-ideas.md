@@ -2,7 +2,10 @@
 step: step-2
 order: 1
 title: "Generate Ideas (Ideation)"
-summary: "Generating ideas together opens up creative possibilities and stops teams from jumping too quickly to the obvious solution. It brings together different views, so more options are explored and the chance of finding good ideas increases."
+summary: |-
+  Generating ideas together opens up creative possibilities and stops teams from jumping too quickly to the obvious solution. It brings together different views, so more options are explored and the chance of finding good ideas increases.
+
+  Working together with stakeholders also builds shared ownership and a clearer direction for the next steps.
 icon: lightbulb
 prompts:
   - title: "Generate alternative solutions"
@@ -14,8 +17,6 @@ prompts:
   - title: "Plan the workshop"
     ask: "I am hosting an idea workshop for a healthcare unit about how to [problem]. There are 10 participants and we have 90 minutes. Create a schedule with an ice breaker, idea generation and a 5-minute break. Include a list of material that I need to bring."
 ---
-Working together with stakeholders also builds shared ownership and a clearer direction for the next steps.
-
 ## Checklist
 
 - Invite a mix of participants: clinical staff, administrative staff, patients, IT and managers.

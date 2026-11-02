@@ -2,7 +2,10 @@
 step: step-4
 order: 5
 title: "Describe the Value (Value Proposition)"
-summary: "A value description explains why the initiative matters, who benefits, and how the benefit is delivered and measured over time. It moves the work from a nice-to-have pilot to a strategic change that justifies continued investment."
+summary: |-
+  A value description explains why the initiative matters, who benefits, and how the benefit is delivered and measured over time. It moves the work from a nice-to-have pilot to a strategic change that justifies continued investment.
+
+  A clear value description aligns the initiative with the organization’s priorities, strengthens engagement among clinicians and stakeholders, supports funding and improves decisions about wider rollout.
 icon: heart
 prompts:
   - title: "Describe the value"
@@ -15,8 +18,6 @@ prompts:
     attach: "the value description"
     ask: "Draft an outline for a short presentation (6–8 slides) that explains the value of [solution] to management and asks for continued funding. Use the attached value description."
 ---
-A clear value description aligns the initiative with the organization’s priorities, strengthens engagement among clinicians and stakeholders, supports funding and improves decisions about wider rollout.
-
 ## Checklist
 
 - Describe why the initiative matters and who benefits: patients, staff and the organization.

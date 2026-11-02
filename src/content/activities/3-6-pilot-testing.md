@@ -2,7 +2,10 @@
 step: step-3
 order: 6
 title: "Pilot Testing"
-summary: "Pilot testing carries out the evaluation plan. The solution is used by pilot participants in real working conditions, and data is collected as planned."
+summary: |-
+  Pilot testing carries out the evaluation plan. The solution is used by pilot participants in real working conditions, and data is collected as planned.
+
+  The focus is on following the data collection plan, solving problems quickly, writing down what is learned and creating a safe climate for honest feedback. A good pilot gives credible evidence about how well the solution works, and shows what to improve before full rollout.
 icon: rocket
 prompts:
   - title: "Create a pilot guide"
@@ -15,8 +18,6 @@ prompts:
     attach: "anonymized pilot data or notes, and the evaluation plan"
     ask: "Use the attached data and notes to draft a pilot results report. Include: main findings against our goals, lessons learned, recommendations for improving the solution and a recommendation to continue, adjust or stop. Mark where the data is not enough for a firm conclusion."
 ---
-The focus is on following the data collection plan, solving problems quickly, writing down what is learned and creating a safe climate for honest feedback. A good pilot gives credible evidence about how well the solution works, and shows what to improve before full rollout.
-
 ## Checklist
 
 - Recruit participants who reflect the variety of future users, such as different roles, experience and comfort with technology.
