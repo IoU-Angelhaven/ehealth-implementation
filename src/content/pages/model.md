@@ -1,5 +1,5 @@
 ---
-title: "The AMBeR Model"
+title: "The implementation model"
 intro: "This page describes the AMBeR implementation model, its five phases and suggested activities. The model is based on implementation science, the learnings of the AMBeR project and inspired by service design. It is written for managers, developers and clinicians in healthcare."
 ---
 
