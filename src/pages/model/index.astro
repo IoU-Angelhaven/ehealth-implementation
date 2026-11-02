@@ -182,18 +182,16 @@ const { Content } = await render(page);
 </script>
 
 <style>
-  /* Heading with a link beside it that jumps to the guide information further down */
+  /* Heading with a link on its own line below it that jumps to the guide information further down */
   .heading-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.25rem 1.5rem;
     margin: 0 0 0.5rem;
   }
   .heading-row h2 {
     margin: 0;
   }
   .jump-link {
+    display: inline-block;
+    margin-top: 0.4rem;
     color: var(--orange-text);
     font-weight: 700;
     text-decoration: none;
