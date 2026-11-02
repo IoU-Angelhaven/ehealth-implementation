@@ -1,8 +1,9 @@
 ---
 import { url } from '../../../lib/url';
-import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/PageHero.astro';
+import ChecklistNote from '../../../components/ChecklistNote.astro';
 import Icon from '../../../components/Icon.astro';
 import type { IconName } from '../../../icons';
 
@@ -21,7 +22,14 @@ interface Props {
 const { activity } = Astro.props;
 const step = await getEntry(activity.data.step);
 if (!step) throw new Error(`Activity ${activity.id} refers to an unknown step`);
-const { Content } = await render(activity);
+// The text is split right after the checklist so that the pointer to the local guide
+// can be placed directly under it (the same note on every activity page).
+const html = activity.rendered?.html ?? '';
+const checklistStart = html.indexOf('id="checklist"');
+const checklistEnd = checklistStart >= 0 ? html.indexOf('</ul>', checklistStart) : -1;
+const hasChecklist = checklistEnd >= 0;
+const htmlBefore = hasChecklist ? html.slice(0, checklistEnd + 5) : html;
+const htmlAfter = hasChecklist ? html.slice(checklistEnd + 5) : '';
 const siblings = (await getCollection('activities', (a) => a.data.step.id === step.id)).sort(
   (a, b) => a.data.order - b.data.order,
 );
@@ -78,7 +86,9 @@ const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
     </aside>
 
     <article class="prose">
-      <Content />
+      <Fragment set:html={htmlBefore} />
+      {hasChecklist && <ChecklistNote />}
+      <Fragment set:html={htmlAfter} />
 
       {
         (useItTo || rememberTo) && (
