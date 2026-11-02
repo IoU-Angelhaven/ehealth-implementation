@@ -2,7 +2,10 @@
 step: step-1
 order: 3
 title: "Map the Current Care Process (Map Existing Care Models)"
-summary: "Mapping the current care process gives a clear starting point: where we are today. Document, write and draw what exists. This shows problems, delays and bottlenecks, but also strengths that should stay."
+summary: |-
+  Mapping the current care process gives a clear starting point: where we are today. Document, write and draw what exists. This shows problems, delays and bottlenecks, but also strengths that should stay.
+
+  The map is also a useful source of information and ideas when you create new ways of working.
 icon: map
 prompts:
   - title: "Turn notes into a process description"
@@ -13,8 +16,6 @@ prompts:
   - title: "Plan a mapping workshop"
     ask: "Create a facilitation guide for a 90-minute workshop where 8 participants (nurses, doctors and administrative staff) map the process [care process name]. Include activities for describing the current steps, marking pain points and checking the map."
 ---
-The map is also a useful source of information and ideas when you create new ways of working.
-
 ## Checklist
 
 - Choose the care process to map based on what you are planning to implement.

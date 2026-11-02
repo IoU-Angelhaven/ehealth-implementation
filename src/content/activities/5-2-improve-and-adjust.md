@@ -2,7 +2,10 @@
 step: step-5
 order: 2
 title: "Improve and Adjust (Iteration & Refinement)"
-summary: "Use the results of the evaluation to keep improving the solution. Also consider what should change next time, or in similar initiatives."
+summary: |-
+  Use the results of the evaluation to keep improving the solution. Also consider what should change next time, or in similar initiatives.
+
+  Problems will appear after launch. A clear routine for handling them leads to regular improvements and keeps the solution useful over time.
 icon: cycle
 prompts:
   - title: "Create a routine for improvements"
@@ -15,8 +18,6 @@ prompts:
     attach: "the current process map"
     ask: "Describe the current workflow for [process] as a numbered list of steps, based on the attached map. Point out the steps where [solution] causes delays, workarounds or errors, and suggest improvements."
 ---
-Problems will appear after launch. A clear routine for handling them leads to regular improvements and keeps the solution useful over time.
-
 ## Checklist
 
 - Review the evaluation results regularly with users and stakeholders.

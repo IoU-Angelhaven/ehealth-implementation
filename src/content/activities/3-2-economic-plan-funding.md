@@ -2,7 +2,10 @@
 step: step-3
 order: 2
 title: "Economic Plan / Funding"
-summary: "Good financial planning makes sure that the implementation is funded and can continue after the first rollout. This activity maps all costs of implementing and running the new service, sets a realistic budget and identifies reliable funding."
+summary: |-
+  Good financial planning makes sure that the implementation is funded and can continue after the first rollout. This activity maps all costs of implementing and running the new service, sets a realistic budget and identifies reliable funding.
+
+  Poor financial planning often leads to delays, lower quality or a project that is stopped. A clear plan avoids funding gaps during implementation and shows funders and leaders why the investment is worthwhile.
 icon: chart
 prompts:
   - title: "Write a cost-benefit analysis"
@@ -15,8 +18,6 @@ prompts:
     attach: "your project description and any information about local funding rules"
     ask: "Suggest possible funding sources for [solution], such as internal budgets, grants or partner contributions. For each, say what has to be done to apply and how likely it is to fit our project. Then outline an investment case that explains the value in terms of clinical quality, efficiency and finances."
 ---
-Poor financial planning often leads to delays, lower quality or a project that is stopped. A clear plan avoids funding gaps during implementation and shows funders and leaders why the investment is worthwhile.
-
 ## Checklist
 
 - List all costs. Separate one-time implementation costs from running costs such as staff, maintenance, support and improvement.

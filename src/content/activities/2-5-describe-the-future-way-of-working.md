@@ -2,7 +2,10 @@
 step: step-2
 order: 5
 title: "Describe the Future Way of Working (Future Model of Care)"
-summary: "In the same way as you mapped the current process, you now map the future way of working, based on your ideas and learnings."
+summary: |-
+  In the same way as you mapped the current process, you now map the future way of working, based on your ideas and learnings.
+
+  This gives the implementation team a record of what you have learned and a common reference for stakeholders. It supports training and change management, and shows the value of a wider rollout.
 icon: map
 prompts:
   - title: "Describe the future process"
@@ -15,8 +18,6 @@ prompts:
     attach: "the future process description"
     ask: "Write a one-page description of the future process for [workflow] in plain language for readers without technical background."
 ---
-This gives the implementation team a record of what you have learned and a common reference for stakeholders. It supports training and change management, and shows the value of a wider rollout.
-
 ## Checklist
 
 - Agree what the future model covers: which processes, departments and patient groups.

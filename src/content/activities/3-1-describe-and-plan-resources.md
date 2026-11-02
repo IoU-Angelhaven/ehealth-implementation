@@ -2,7 +2,10 @@
 step: step-3
 order: 1
 title: "Describe and Plan Resources"
-summary: "Implementation needs the right people at the right time. This activity defines which roles, skills and time are required, and sets them out in a resource plan."
+summary: |-
+  Implementation needs the right people at the right time. This activity defines which roles, skills and time are required, and sets them out in a resource plan.
+
+  Weak planning of resources is a common cause of delay and poor quality. A clear plan prevents bottlenecks, makes responsibilities clear and keeps the timeline realistic. Start early and update the plan as needs become clearer.
 icon: calendar
 prompts:
   - title: "Create a resource plan"
@@ -15,8 +18,6 @@ prompts:
     attach: "the resource plan"
     ask: "Draft a RACI matrix for [implementation project] with these groups: clinical leadership, frontline staff, IT, project management, change management and senior management. Use the attached plan. Include the key decisions and milestones as rows."
 ---
-Weak planning of resources is a common cause of delay and poor quality. A clear plan prevents bottlenecks, makes responsibilities clear and keeps the timeline realistic. Start early and update the plan as needs become clearer.
-
 ## Checklist
 
 - List the roles needed, such as clinical leads, frontline staff, IT, project management, change management, training and vendor support.

@@ -2,7 +2,10 @@
 step: step-1
 order: 5
 title: "Map and Involve Stakeholders"
-summary: "Stakeholders are the people and groups who are affected by the work or can influence it. Healthcare is complex, and many of them are affected by change."
+summary: |-
+  Stakeholders are the people and groups who are affected by the work or can influence it. Healthcare is complex, and many of them are affected by change.
+
+  Find out who they are, what role they have, what interests and concerns they have, and how they should be involved. This clarifies responsibilities and supports cooperation. It also shows possible champions and the groups that need extra support or information.
 icon: chat
 prompts:
   - title: "Create a stakeholder map"
@@ -12,8 +15,6 @@ prompts:
     attach: "the stakeholder map"
     ask: "Create a stakeholder engagement plan for introducing [digital tool] to [type of staff] in [setting]. Use the attached stakeholder map. For each group include: interests and concerns, preferred ways to communicate, activities, timing and who is responsible."
 ---
-Find out who they are, what role they have, what interests and concerns they have, and how they should be involved. This clarifies responsibilities and supports cooperation. It also shows possible champions and the groups that need extra support or information.
-
 ## Checklist
 
 - List all people, teams and organizations that are affected by the project or can influence it.

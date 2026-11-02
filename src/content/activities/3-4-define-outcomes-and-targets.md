@@ -2,7 +2,10 @@
 step: step-3
 order: 4
 title: "Define Outcomes and Targets"
-summary: "Clear, measurable results guide the work, make it possible to follow progress and show whether the implementation has succeeded. This activity describes what success looks like for clinical results, operations, users and the organization, and turns it into specific targets with dates."
+summary: |-
+  Clear, measurable results guide the work, make it possible to follow progress and show whether the implementation has succeeded. This activity describes what success looks like for clinical results, operations, users and the organization, and turns it into specific targets with dates.
+
+  Well-defined results give stakeholders a shared understanding, support accountability, allow early correction and provide evidence for decisions on wider rollout. Develop them together with stakeholders so that they reflect different views.
 icon: compass
 prompts:
   - title: "Define results and goals"
@@ -15,8 +18,6 @@ prompts:
     attach: "the list of results and goals"
     ask: "Design a balanced scorecard for following [implementation]. Use the attached goals. Include clinical results, efficiency, finances, user satisfaction and use, and staff experience, with target values, how each is measured and how often it is reviewed."
 ---
-Well-defined results give stakeholders a shared understanding, support accountability, allow early correction and provide evidence for decisions on wider rollout. Develop them together with stakeholders so that they reflect different views.
-
 ## Checklist
 
 - Hold workshops to agree what success means for patients and families, clinical staff, administrative staff, IT and leaders.

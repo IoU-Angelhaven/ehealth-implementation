@@ -30,7 +30,7 @@ const icon = (activity.data.icon ?? step.data.icon) as IconName;
 const { useItTo, rememberTo, roles, downloads, prompts } = activity.data;
 ---
 
-<Base bare title={`${number} ${activity.data.title}`} description={activity.data.summary}>
+<Base bare title={`${number} ${activity.data.title}`} description={activity.data.summary.split(/\n\s*\n/)[0]}>
   <PageHero artFirst eyebrow={`Activity ${number}`} title={activity.data.title} lead={activity.data.summary}>
     <p class="breadcrumb" slot="breadcrumb">
       <a href={url('/model/')}>The AMBeR Model</a> /{' '}

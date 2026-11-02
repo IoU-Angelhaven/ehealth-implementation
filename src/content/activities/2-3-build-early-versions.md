@@ -2,7 +2,10 @@
 step: step-2
 order: 3
 title: "Build Early Versions (Prototyping)"
-summary: "An early version (a prototype) turns an idea into something concrete that can be tested and improved. It can be a drawing, a paper model or a simple screen mockup."
+summary: |-
+  An early version (a prototype) turns an idea into something concrete that can be tested and improved. It can be a drawing, a paper model or a simple screen mockup.
+
+  Early versions help the team find problems quickly, check assumptions and learn what works for users. Building and testing early versions several times lowers risk and gives solutions that fit users better.
 icon: gear
 prompts:
   - title: "Find ways to build an early version"
@@ -12,8 +15,6 @@ prompts:
     attach: "the scenario or process description"
     ask: "Describe a storyboard with six frames that shows how a patient uses [solution] from the first contact to the end. For each frame, give a short picture description and one sentence of text. Use the attached scenario."
 ---
-Early versions help the team find problems quickly, check assumptions and learn what works for users. Building and testing early versions several times lowers risk and gives solutions that fit users better.
-
 ## Checklist
 
 - Choose which ideas to turn into early versions, based on priority and what you can learn.

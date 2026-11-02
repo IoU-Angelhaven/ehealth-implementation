@@ -2,7 +2,10 @@
 step: step-4
 order: 2
 title: "Build Skills and Capacity (Capacity Building)"
-summary: "Building capacity means strengthening people, structures and systems so that the organization can adopt, use and improve digital ways of working over time. The aim is a lasting ability, not only a result during the project."
+summary: |-
+  Building capacity means strengthening people, structures and systems so that the organization can adopt, use and improve digital ways of working over time. The aim is a lasting ability, not only a result during the project.
+
+  The expected results are higher digital skills among staff and support for continuous learning. Learning should be part of everyday clinical work, not something added on top of it.
 icon: training
 prompts:
   - title: "Plan skills development"
@@ -12,8 +15,6 @@ prompts:
     attach: "the training plan or the description of the solution"
     ask: "Create a coaching and mentoring programme for super-users of [solution]. Describe how they are selected, what training they get, how much time they need and how they support their colleagues."
 ---
-The expected results are higher digital skills among staff and support for continuous learning. Learning should be part of everyday clinical work, not something added on top of it.
-
 ## Checklist
 
 - Assess the digital skills of staff (the [European digital competence framework](https://joint-research-centre.ec.europa.eu/projects-and-activities/education-and-training/digital-transformation-education/digital-competence-framework-digcomp/digcomp-30_en) can be used as a reference).

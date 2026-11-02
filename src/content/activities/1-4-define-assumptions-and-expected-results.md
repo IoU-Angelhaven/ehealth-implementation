@@ -2,7 +2,10 @@
 step: step-1
 order: 4
 title: "Define Assumptions and Expected Results (Hypotheses)"
-summary: "Write down early what you believe, what you assume and what you want to achieve. This gives clarity, focus and credibility."
+summary: |-
+  Write down early what you believe, what you assume and what you want to achieve. This gives clarity, focus and credibility.
+
+  It also lets the team test its ideas step by step and find risks and dependencies before implementation starts.
 icon: lightbulb
 prompts:
   - title: "Plan the assumptions workshop"
@@ -12,8 +15,6 @@ prompts:
     attach: "the project charter or a short description of the project"
     ask: "Write 5 statements about what we expect from [digital solution] at [hospital] in [country]. Use this format: “We believe that [result] for [user group], because [reason]. We will know this is true when [measurable sign].”"
 ---
-It also lets the team test its ideas step by step and find risks and dependencies before implementation starts.
-
 ## Checklist
 
 - Plan a workshop and decide who should join. Sometimes the core group is enough, sometimes key stakeholders should be there.

@@ -2,7 +2,10 @@
 step: step-3
 order: 3
 title: "Resource Mobilization"
-summary: "Mobilizing resources moves the implementation from planning to action. It secures formal commitments, engages stakeholders and sets up the structures and communication needed to keep up the momentum."
+summary: |-
+  Mobilizing resources moves the implementation from planning to action. It secures formal commitments, engages stakeholders and sets up the structures and communication needed to keep up the momentum.
+
+  Without it, plans stay on paper and attention shifts to other priorities. Good mobilization gives clear leadership and responsibility, builds a shared understanding among stakeholders and creates early visibility for the initiative.
 icon: people
 prompts:
   - title: "Plan the start-up"
@@ -15,8 +18,6 @@ prompts:
     attach: "the stakeholder map"
     ask: "Create a communication plan for [implementation] for clinical staff, administrative staff, IT, senior leaders and patients and families. Use the attached stakeholder map. For each group, give key messages, channels, frequency and the result we want."
 ---
-Without it, plans stay on paper and attention shifts to other priorities. Good mobilization gives clear leadership and responsibility, builds a shared understanding among stakeholders and creates early visibility for the initiative.
-
 ## Checklist
 
 - Get written commitments from department heads and leaders for staff, funding and executive sponsorship.

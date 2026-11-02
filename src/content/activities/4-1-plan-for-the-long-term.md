@@ -2,7 +2,10 @@
 step: step-4
 order: 1
 title: "Plan for the Long Term"
-summary: "Long-term planning looks beyond the pilot or launch. It shapes, on purpose, how the change will stay in place, grow and remain safe over time."
+summary: |-
+  Long-term planning looks beyond the pilot or launch. It shapes, on purpose, how the change will stay in place, grow and remain safe over time.
+
+  A good long-term plan covers clinical results and patient safety, staffing, legal and ethical duties, finances and digital inclusion. Without such a plan, a successful pilot can end when the project funding ends.
 icon: calendar
 prompts:
   - title: "Create a roadmap"
@@ -14,8 +17,6 @@ prompts:
   - title: "Check legal, ethical and inclusion issues"
     ask: "List the legal, ethical, accessibility and digital inclusion issues to consider when [solution] becomes part of regular care in [country or region]. Suggest how to address each one. Tell me where I need to check the current rules myself."
 ---
-A good long-term plan covers clinical results and patient safety, staffing, legal and ethical duties, finances and digital inclusion. Without such a plan, a successful pilot can end when the project funding ends.
-
 ## Checklist
 
 - Describe what the solution must achieve in the long term for clinical results and patient safety.
