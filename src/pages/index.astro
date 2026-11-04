@@ -7,6 +7,7 @@ import ModelOverview from '../components/ModelOverview.astro';
 import StoryCard from '../components/StoryCard.astro';
 import Facts from '../components/Facts.astro';
 import Icon from '../components/Icon.astro';
+import type { IconName } from '../icons';
 import Illustration from '../components/Illustration.astro';
 import { site } from '../site.config';
 
@@ -15,6 +16,28 @@ const about = await getEntry('pages', 'about');
 if (!home || !about) throw new Error('Missing src/content/pages/home.md or about.md');
 const { Content } = await render(home);
 const stories = (await getCollection('stories', (s) => s.data.published)).slice(0, 3);
+
+// "Who is this for?": text and links come from src/content/pages/home.md (editable in the editor).
+// The activity links are looked up in the activity collection, so the build fails loudly if an
+// activity is renamed or removed.
+const who = home.data.who;
+const allActivities = await getCollection('activities');
+const phaseCount = (await getCollection('steps')).length;
+const activityCount = allActivities.length;
+const activityLink = (id: string, label: string) => {
+  const a = allActivities.find((x) => x.id === id);
+  if (!a) throw new Error(`Start page: unknown activity "${id}" in home.md`);
+  return { label, href: url(`/model/${a.data.step.id}/${a.id}/`) };
+};
+const audiences = (who?.audiences ?? []).map((a, i) => ({
+  ...a,
+  icon: a.icon as IconName,
+  accent: (i % 2 ? 'orange' : 'blue') as 'blue' | 'orange',
+  uses: a.uses.map((u) => activityLink(u.activity, u.label)),
+}));
+const whoDescription = (who?.description ?? '')
+  .replaceAll('{activities}', String(activityCount))
+  .replaceAll('{phases}', String(phaseCount));
 ---
 
 <Base bare>
@@ -38,29 +61,43 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <span class="eyebrow">Who is this for?</span>
-      <h2>Knowledge for everyone involved in healthcare</h2>
-      <ul class="grid audiences">
-        <li class="card">
-          <Icon name="heart" size={64} />
-          <h3><a href={url('/model/')}>Healthcare developers</a></h3>
-          <p>Practical activities, tips and examples for introducing eHealth in everyday healthcare.</p>
-        </li>
-        <li class="card">
-          <Icon name="clipboard" size={64} accent="orange" />
-          <h3><a href={url('/local-guide/')}>Managers</a></h3>
-          <p>How to plan, lead and follow up an eHealth implementation in your organisation.</p>
-        </li>
-        <li class="card">
-          <Icon name="chart" size={64} />
-          <h3><a href={url('/stories/')}>Decision-makers</a></h3>
-          <p>Results and experiences from implementation in the South Baltic region.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
+  {
+    who && (
+      <section class="section">
+        <div class="wrap">
+          <span class="eyebrow">Who is this for?</span>
+          <h2>{who.title}</h2>
+          <div class="what-is-it">
+            <p>{whoDescription}</p>
+            <ul class="stats">
+              <li><strong>{phaseCount}</strong> phases</li>
+              <li><strong>{activityCount}</strong> activities</li>
+              {who.chips.map((c) => <li>{c}</li>)}
+            </ul>
+          </div>
+          <ul class="grid audiences">
+            {
+              audiences.map((a) => (
+                <li class="card audience">
+                  <Icon name={a.icon} size={64} accent={a.accent} />
+                  <h3>{a.name}</h3>
+                  <p>{a.text}</p>
+                  <span class="use-label">Use it to</span>
+                  <ul class="use-list">
+                    {a.uses.map((u) => (
+                      <li>
+                        <a href={u.href}>{u.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
   <section class="band">
     <div class="wrap">
@@ -110,13 +147,79 @@ const stories = (await getCollection('stories', (s) => s.data.published)).slice(
 </Base>
 
 <style>
+  .what-is-it {
+    max-width: 48rem;
+  }
+  .what-is-it p {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--ink);
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+  }
+  .stats li {
+    background: var(--blue-tint);
+    color: var(--blue);
+    border-radius: 999px;
+    padding: 0.3rem 0.95rem;
+    font-size: 0.9rem;
+  }
+  .stats strong {
+    font-size: 1.15rem;
+    margin-right: 0.15rem;
+  }
   .audiences {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   }
-  .audiences .card {
-    gap: 0.25rem;
+  .audience {
+    gap: 0;
+    padding-top: 2rem;
   }
-  .audiences h3 {
-    margin-top: 1.25rem;
+  .audience:has(a:hover) {
+    outline: none; /* the whole card is not a link here, only the list items */
+  }
+  .audience h3 {
+    font-size: 1.2rem;
+    margin: 0.9rem 0 0.35rem;
+  }
+  .audience > p {
+    margin: 0 0 1rem;
+    font-size: 0.97rem;
+    color: var(--muted);
+  }
+  .use-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange-text);
+  }
+  .use-list {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .use-list li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: 0.97rem;
+  }
+  .use-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--orange-text);
+    font-weight: 700;
   }
 </style>
