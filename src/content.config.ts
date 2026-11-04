@@ -66,6 +66,27 @@ const pages = defineCollection({
     intro: z.string().optional(),
     // Key facts about the project (shown on About and Home)
     facts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+    // "Who is this for?" section on the start page
+    who: z
+      .object({
+        title: z.string(),
+        // Use {activities} to insert the number of activities automatically
+        description: z.string(),
+        // Extra small labels shown after the automatic "N phases" and "N activities"
+        chips: z.array(z.string()).default([]),
+        audiences: z
+          .array(
+            z.object({
+              name: z.string(),
+              icon: z.enum(iconNames as [string, ...string[]]),
+              text: z.string(),
+              // `activity` is the id of an activity file (e.g. 1-3-map-the-current-care-process)
+              uses: z.array(z.object({ activity: z.string(), label: z.string() })).default([]),
+            }),
+          )
+          .default([]),
+      })
+      .optional(),
     // List of resources (used by the "Learnings & resources" page)
     resources: z
       .array(

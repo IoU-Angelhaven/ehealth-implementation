@@ -102,17 +102,70 @@ content:
     label: Page – Home
     type: file
     path: src/content/pages/home.md
-    fields: &page
+    fields:
       - { name: title, label: Title, type: string, required: true }
       - { name: intro, label: Introduction, type: text }
-      - name: facts
-        label: Key facts (shown as boxes)
+      - name: who
+        label: Section "Who is this for?"
         type: object
-        list: true
         fields:
-          - { name: label, label: Label, type: string }
-          - { name: value, label: Value, type: string }
-      - { name: body, label: Text, type: rich-text }
+          - { name: title, label: Heading, type: string }
+          - { name: description, label: "Description of the model (write {activities} to insert the number of activities automatically)", type: text }
+          - { name: chips, label: "Extra labels after the automatic '5 phases' and '30 activities'", type: string, list: true }
+          - name: audiences
+            label: Audiences (cards)
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Name, type: string, required: true }
+              - name: icon
+                label: Icon
+                type: select
+                options:
+                  values: [search, compass, people, clipboard, document, lightbulb, gear, rocket, chart, cycle, chat, consultation, monitor, heart, calendar, training, map]
+              - { name: text, label: Short description, type: text }
+              - name: uses
+                label: '"Use it to" – links to activities'
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: Link text, type: string, required: true }
+                  - name: activity
+                    label: Activity to link to
+                    type: select
+                    options:
+                      values:
+                        - { value: "1-1-secure-approval-and-resources", label: "1.1 Secure Approval and Resources (Mandate)" }
+                        - { value: "1-2-form-a-work-group-and-define-roles", label: "1.2 Form a Work Group and Define Roles" }
+                        - { value: "1-3-map-the-current-care-process", label: "1.3 Map the Current Care Process (Map Existing Care Models)" }
+                        - { value: "1-4-define-assumptions-and-expected-results", label: "1.4 Define Assumptions and Expected Results (Hypotheses)" }
+                        - { value: "1-5-map-and-involve-stakeholders", label: "1.5 Map and Involve Stakeholders" }
+                        - { value: "1-6-research-user-needs", label: "1.6 Research User Needs" }
+                        - { value: "1-7-learn-from-others", label: "1.7 Learn from Others (Benchmarking)" }
+                        - { value: "1-8-write-a-problem-definition", label: "1.8 Write a Problem Definition" }
+                        - { value: "2-1-generate-ideas", label: "2.1 Generate Ideas (Ideation)" }
+                        - { value: "2-2-explore-digital-tools-possibilities-policies-and-laws", label: "2.2 Explore Digital Tools, Possibilities, Policies and Laws" }
+                        - { value: "2-3-build-early-versions", label: "2.3 Build Early Versions (Prototyping)" }
+                        - { value: "2-4-test-and-learn", label: "2.4 Test and Learn" }
+                        - { value: "2-5-describe-the-future-way-of-working", label: "2.5 Describe the Future Way of Working (Future Model of Care)" }
+                        - { value: "2-6-engage-and-prepare-the-organization", label: "2.6 Engage and Prepare the Organization" }
+                        - { value: "3-1-describe-and-plan-resources", label: "3.1 Describe and Plan Resources" }
+                        - { value: "3-2-economic-plan-funding", label: "3.2 Economic Plan / Funding" }
+                        - { value: "3-3-resource-mobilization", label: "3.3 Resource Mobilization" }
+                        - { value: "3-4-define-outcomes-and-targets", label: "3.4 Define Outcomes and Targets" }
+                        - { value: "3-5-plan-the-pilot-evaluation", label: "3.5 Plan the Pilot Evaluation" }
+                        - { value: "3-6-pilot-testing", label: "3.6 Pilot Testing" }
+                        - { value: "3-7-change-management", label: "3.7 Change Management" }
+                        - { value: "4-1-plan-for-the-long-term", label: "4.1 Plan for the Long Term" }
+                        - { value: "4-2-build-skills-and-capacity", label: "4.2 Build Skills and Capacity (Capacity Building)" }
+                        - { value: "4-3-plan-for-spreading-the-solution", label: "4.3 Plan for Spreading the Solution (Scalability)" }
+                        - { value: "4-4-secure-organizational-resources", label: "4.4 Secure Organizational Resources" }
+                        - { value: "4-5-describe-the-value", label: "4.5 Describe the Value (Value Proposition)" }
+                        - { value: "4-6-set-up-leadership-and-decision-making", label: "4.6 Set Up Leadership and Decision-Making (Governance)" }
+                        - { value: "5-1-collect-and-analyse-data", label: "5.1 Collect and Analyse Data (Data Collection & Analysis)" }
+                        - { value: "5-2-improve-and-adjust", label: "5.2 Improve and Adjust (Iteration & Refinement)" }
+                        - { value: "5-3-learn-from-the-project", label: "5.3 Learn from the Project (Lessons Learned)" }
+      - { name: body, label: Text under "Five phases of implementing eHealth", type: rich-text }
   - name: resources
     label: Page – Learnings & resources
     type: file
@@ -134,7 +187,21 @@ content:
           - { name: description, label: Short description, type: text }
           - { name: url, label: "Link (web address). Leave empty if you upload a file.", type: string }
           - { name: file, label: "Download (upload a file)", type: file }
-  - { name: model, label: Page – The implementation model (introduction), type: file, path: src/content/pages/model.md, fields: *page }
+  - name: model
+    label: Page – The implementation model (introduction)
+    type: file
+    path: src/content/pages/model.md
+    fields: &page
+      - { name: title, label: Title, type: string, required: true }
+      - { name: intro, label: Introduction, type: text }
+      - name: facts
+        label: Key facts (shown as boxes)
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: value, label: Value, type: string }
+      - { name: body, label: Text, type: rich-text }
   - { name: about, label: Page – About AMBeR, type: file, path: src/content/pages/about.md, fields: *page }
   - { name: local-guide, label: Page – Create your local guide, type: file, path: src/content/pages/local-guide.md, fields: *page }
   - { name: privacy, label: Page – Privacy, type: file, path: src/content/pages/privacy.md, fields: *page }
