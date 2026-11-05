@@ -239,6 +239,9 @@ main.flush {
   margin: 2rem 0 0;
   list-style: none;
 }
+.grid-wide {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+}
 .card {
   position: relative;
   display: flex;

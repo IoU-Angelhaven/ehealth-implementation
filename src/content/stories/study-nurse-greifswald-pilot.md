@@ -1,21 +1,31 @@
 ---
-title: "The Key Role of a Study Nurse in the Greifswald Pilot (WP3)"
-summary: "The successful implementation of the AMBeR pilot study at University Medicine Greifswald highlights the importance of dedicated personnel and close cooperation between research teams and clinical practice."
-organisation: "University Medicine Greifswald"
+title: "A study nurse who connected research and everyday care"
+summary: "An experienced study nurse became the link between the research team, the clinic and the patients, and recruitment improved significantly."
+organisation: "Greifswald University Medicine"
 country: "Germany"
+topic: "Blood testing at home (HemoScreen)"
+year: "2025"
 steps:
   - step-3
 published: true
 ---
 
-During the initial phase of the study, patient recruitment was a major challenge. Despite careful planning, recruitment was progressing slowly, making it difficult to implement the study as originally intended.
+## The starting point
 
-A turning point was the involvement of an experienced study nurse who supported the project throughout its implementation. As an employee of the research institute with experience in clinical practice, she provided an important link between the research team, healthcare professionals, and patients. Her involvement helped overcome organizational barriers and significantly improved access to potential study participants.
+In the Greifswald pilot, patients used HemoScreen devices for blood testing. Despite careful planning, recruitment was slow, and the study could not run as intended.
 
-Beyond supporting patient recruitment, the study nurse took on several important responsibilities. She assisted with distributing the HemoScreen devices, supported patients during their introduction to the technology, and remained available as a contact person throughout the study. This continuous support helped address practical questions and challenges during the implementation process.
+## What we noticed
 
-Her role also improved communication and coordination between the research institute and the clinical setting. By combining clinical experience with an understanding of the study requirements, she helped integrate research activities into existing clinical workflows. Her involvement was made possible through additional resources provided by the research institute. This demonstrates how flexible organizational adjustments can help overcome unexpected implementation barriers.
+Organisational barriers between the research team, healthcare professionals and patients made it hard to reach possible participants. Something was missing between the study plan and everyday care.
 
-Overall, the involvement of the study nurse proved to be an essential factor in the successful implementation of the Greifswald pilot. Her contribution not only improved recruitment but also supported the practical delivery of the intervention and ongoing patient support.
+## What we tried
 
-The key lesson is that successful implementation depends not only on technology and study protocols, but also on having the right people who can connect research with everyday clinical practice.
+With extra resources from the research institute, we brought in an experienced study nurse with a clinical background. She supported recruitment, handed out the HemoScreen devices, helped patients get started with the technology and stayed available as a contact person throughout the study.
+
+## What we learned
+
+The nurse connected research and clinical practice. She improved communication and coordination, and helped fit research activities into existing clinical workflows. Recruitment improved, and patients got practical support when questions came up. Flexible organisational changes can help overcome unexpected barriers.
+
+## Our tip for others
+
+Technology and protocols are not enough. Make sure you have people who can connect research with everyday clinical practice.

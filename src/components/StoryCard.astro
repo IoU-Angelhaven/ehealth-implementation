@@ -1,12 +1,15 @@
 ---
 import { url } from '../lib/url';
-import type { CollectionEntry } from 'astro:content';
+import { getEntries, type CollectionEntry } from 'astro:content';
 import Icon from './Icon.astro';
 
 interface Props {
   story: CollectionEntry<'stories'>;
 }
 const { story } = Astro.props;
+const href = url(`/stories/${story.id}/`);
+const phases = (await getEntries(story.data.steps)).sort((a, b) => a.data.number - b.data.number);
+const place = [story.data.country, story.data.organisation, story.data.year].filter(Boolean).join(' · ');
 ---
 
 <li class="card story">
@@ -19,27 +22,94 @@ const { story } = Astro.props;
       </div>
     )
   }
-  <span class="eyebrow">{story.data.country} · {story.data.organisation}</span>
-  <h3><a href={url(`/stories/${story.id}/`)}>{story.data.title}</a></h3>
-  <p>{story.data.summary}</p>
+  <span class="eyebrow">{place}</span>
+  <h3><a href={href}>{story.data.title}</a></h3>
+
+  <div class="short">
+    <span class="short-label">In short</span>
+    <p>{story.data.summary}</p>
+  </div>
+
+  {
+    phases.length > 0 && (
+      <p class="phases">
+        {phases.map((s) => (
+          <span class="tag">
+            Phase {s.data.number}: {s.data.title}
+          </span>
+        ))}
+      </p>
+    )
+  }
+
+  <span class="read" aria-hidden="true">Read the story <span class="arrow">→</span></span>
 </li>
 
 <style>
   .story {
     padding-top: 0;
+    overflow: hidden;
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s;
+  }
+  .story:hover {
+    transform: translateY(-2px);
   }
   .thumb {
     display: block;
     width: calc(100% + 3.5rem);
     max-width: none;
     margin: 0 -1.75rem 1.5rem;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7;
     object-fit: cover;
-    border-radius: var(--radius) var(--radius) 0 0;
   }
   .placeholder {
     display: grid;
     place-items: center;
     background: var(--blue-tint);
+  }
+  .eyebrow {
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+  h3 {
+    margin: 0 0 1rem;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+  .short {
+    margin-bottom: 1rem;
+  }
+  .short-label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .short p {
+    margin: 0;
+    font-size: 0.97rem;
+  }
+  .phases {
+    margin: 0 0 1.25rem;
+  }
+  .read {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .story:hover .arrow {
+    margin-left: 0.2rem;
+  }
+  .arrow {
+    display: inline-block;
+    transition: margin-left 0.15s;
   }
 </style>
