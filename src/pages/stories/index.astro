@@ -22,7 +22,7 @@ const stories = await getCollection('stories', (s) => s.data.published);
   </PageHero>
   <section class="section soft">
     <div class="wrap">
-      <ul class="grid">
+      <ul class="grid grid-wide">
         {stories.map((story) => <StoryCard story={story} />)}
       </ul>
     </div>
