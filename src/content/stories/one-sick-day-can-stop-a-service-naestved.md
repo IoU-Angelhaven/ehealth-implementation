@@ -6,7 +6,7 @@ country: "Denmark"
 topic: "Digital physiotherapy"
 steps:
   - step-4
-published: false
+published: true
 ---
 
 ## The starting point
