@@ -50,6 +50,8 @@ const stories = defineCollection({
     summary: z.string(),
     organisation: z.string(),
     country: z.string(),
+    topic: z.string().optional(), // shown under "At a glance", e.g. "Blood testing at home (HemoScreen)"
+    year: z.string().optional(), // shown under "At a glance", e.g. "2025"
     steps: z.array(reference('steps')).default([]),
     image: z.string().optional(),
     imageAlt: z.string().optional(),

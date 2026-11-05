@@ -17,10 +17,29 @@ interface Props {
 const { story } = Astro.props;
 const { Content } = await render(story);
 const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number - b.data.number);
+
+// "At a glance": the key facts of the story, built from its fields
+const glance: { label: string; value?: string; links?: { text: string; href: string }[] }[] = [
+  { label: 'Organisation', value: story.data.organisation },
+  { label: 'Country', value: story.data.country },
+  ...(story.data.topic ? [{ label: 'Topic', value: story.data.topic }] : []),
+  ...(steps.length > 0
+    ? [
+        {
+          label: steps.length > 1 ? 'Phases' : 'Phase',
+          links: steps.map((s) => ({
+            text: `${s.data.number}. ${s.data.title}`,
+            href: url(`/model/${s.id}/`),
+          })),
+        },
+      ]
+    : []),
+  ...(story.data.year ? [{ label: 'Year', value: story.data.year }] : []),
+];
 ---
 
 <Base bare title={story.data.title} description={story.data.summary}>
-  <PageHero eyebrow={`${story.data.country} · ${story.data.organisation}`} title={story.data.title} lead={story.data.summary}>
+  <PageHero title={story.data.title}>
     <p class="breadcrumb" slot="breadcrumb"><a href={url('/stories/')}>Stories of implementation</a></p>
     {
       story.data.image ? (
@@ -31,8 +50,35 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
     }
   </PageHero>
 
+  <section class="section soft glance" aria-labelledby="glance-title">
+    <div class="wrap">
+      <h2 id="glance-title">At a glance</h2>
+      <dl class="facts">
+        {
+          glance.map((f) => (
+            <div>
+              <dt>{f.label}</dt>
+              <dd>
+                {f.links
+                  ? f.links.map((l, i) => (
+                      <>
+                        {i > 0 && ', '}
+                        <a href={l.href}>{l.text}</a>
+                      </>
+                    ))
+                  : f.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
   <div class="wrap body">
     <article class="prose">
+      <h2>In short</h2>
+      <p>{story.data.summary}</p>
       {
         story.data.video && (
           <p>
@@ -43,27 +89,29 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
         )
       }
       <Content />
-      {
-        steps.length > 0 && (
-          <>
-            <span class="label">Phases of the implementation model in this story</span>
-            <p>
-              {steps.map((s) => (
-                <a class="tag" href={url(`/model/${s.id}/`)}>
-                  Phase {s.data.number}: {s.data.title}
-                </a>
-              ))}
-            </p>
-          </>
-        )
-      }
     </article>
   </div>
 </Base>
 
 <style>
+  .glance {
+    padding: 2.5rem 0;
+  }
+  .glance h2 {
+    margin: 0;
+  }
+  .glance .facts {
+    margin: 1rem 0 0;
+  }
+  .glance dd a {
+    font-weight: 600;
+  }
   .body {
-    padding-top: 3.5rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  article > h2:first-child {
+    margin-top: 0;
   }
   .hero-img {
     border-radius: var(--radius);
