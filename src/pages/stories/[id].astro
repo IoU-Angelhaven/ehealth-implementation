@@ -22,7 +22,7 @@ const steps = (await getEntries(story.data.steps)).sort((a, b) => a.data.number 
 const glance: { label: string; value?: string; links?: { text: string; href: string }[] }[] = [
   { label: 'Organisation', value: story.data.organisation },
   { label: 'Country', value: story.data.country },
-  ...(story.data.topic ? [{ label: 'Topic', value: story.data.topic }] : []),
+  ...(story.data.topic ? [{ label: 'Implementing', value: story.data.topic }] : []),
   ...(steps.length > 0
     ? [
         {

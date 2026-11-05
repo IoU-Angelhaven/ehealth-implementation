@@ -85,7 +85,7 @@ content:
       - { name: summary, label: "In short (shown first on the story page and in the story lists)", type: text, required: true }
       - { name: organisation, label: Organisation, type: string, required: true }
       - { name: country, label: Country, type: string, required: true }
-      - { name: topic, label: "Topic (shown under 'At a glance')", type: string }
+      - { name: topic, label: "Implementing (what was implemented; shown under 'At a glance')", type: string }
       - { name: year, label: "Year (shown under 'At a glance')", type: string }
       - name: steps
         label: Phase in the implementation model (shown under 'At a glance')
