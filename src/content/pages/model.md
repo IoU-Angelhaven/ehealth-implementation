@@ -1,6 +1,6 @@
 ---
 title: "The implementation model"
-intro: "This page describes the AMBeR implementation model, its five phases and suggested activities. The model is based on implementation science, the learnings of the AMBeR project and inspired by service design. It is written for managers, developers and clinicians in healthcare."
+intro: "This page describes the AMBeR implementation model, its five phases and suggested activities. The model is based on implementation science, the learnings of the AMBeR project and inspired by service design. It is written for managers, developers and decision-makers."
 ---
 
 Each activity has four parts: a short introduction, a checklist, methods and tools with links to pages that explain them, and examples of prompts for an AI assistant. The phases are not strictly one after the other. You can go back to an earlier phase when you learn something new.
