@@ -45,7 +45,7 @@ const glance: { label: string; value?: string; links?: { text: string; href: str
       story.data.image ? (
         <img slot="art" class="hero-img" src={url(story.data.image)} alt={story.data.imageAlt ?? ''} />
       ) : (
-        <Icon slot="art" name="consultation" size={200} accent="orange" />
+        <Icon slot="art" name={story.data.icon ?? 'consultation'} size={200} accent="orange" />
       )
     }
   </PageHero>
