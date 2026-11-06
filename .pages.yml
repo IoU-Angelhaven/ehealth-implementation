@@ -93,6 +93,11 @@ content:
         options:
           multiple: true
           values: [step-1, step-2, step-3, step-4, step-5]
+      - name: icon
+        label: Icon (shown on the story card when there is no image)
+        type: select
+        options:
+          values: [consultation, phone, owner, sensor, carechat, door, teams, fragile, findperson, chat, people, heart, lightbulb, gear, chart, cycle, monitor, training, calendar, map, search, compass, clipboard, document, rocket]
       - { name: image, label: Image, type: image }
       - { name: imageAlt, label: Image description (for screen readers), type: string }
       - { name: video, label: Video link (optional), type: string }

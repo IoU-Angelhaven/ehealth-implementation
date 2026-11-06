@@ -18,7 +18,7 @@ const place = [story.data.country, story.data.organisation, story.data.year].fil
       <img class="thumb" src={url(story.data.image)} alt="" loading="lazy" />
     ) : (
       <div class="thumb placeholder">
-        <Icon name="consultation" size={72} accent="orange" />
+        <Icon name={story.data.icon ?? 'consultation'} size={72} accent="orange" />
       </div>
     )
   }

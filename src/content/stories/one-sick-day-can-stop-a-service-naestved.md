@@ -6,6 +6,7 @@ country: "Denmark"
 topic: "Digital physiotherapy"
 steps:
   - step-4
+icon: fragile
 published: true
 ---
 

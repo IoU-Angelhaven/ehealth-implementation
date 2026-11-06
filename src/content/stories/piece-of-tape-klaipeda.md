@@ -6,6 +6,7 @@ country: "Lithuania"
 topic: "Digital physiotherapy"
 steps:
   - step-2
+icon: sensor
 published: true
 ---
 

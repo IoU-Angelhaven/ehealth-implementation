@@ -6,6 +6,7 @@ country: "Denmark"
 topic: "Digital physiotherapy"
 steps:
   - step-3
+icon: teams
 published: true
 ---
 
