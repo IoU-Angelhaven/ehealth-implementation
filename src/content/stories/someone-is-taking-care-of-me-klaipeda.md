@@ -6,6 +6,7 @@ country: "Lithuania"
 topic: "Digital physiotherapy"
 steps:
   - step-3
+icon: carechat
 published: true
 ---
 

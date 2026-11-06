@@ -53,6 +53,7 @@ const stories = defineCollection({
     topic: z.string().optional(), // label "Implementing" under "At a glance", e.g. "Blood testing at home (HemoScreen)"
     year: z.string().optional(), // shown under "At a glance", e.g. "2025"
     steps: z.array(reference('steps')).default([]),
+    icon, // icon on the story card when there is no image (default: nurse and patient)
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     video: z.string().url().optional(),

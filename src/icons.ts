@@ -69,6 +69,47 @@ export const icons = {
     accent: '<path d="M6 18l18-6v40L6 58z"/>',
     line: '<path d="M10 14l16-6 14 6 16-6v42l-16 6-14-6-16 6z"/><path d="M26 8v42M40 14v42"/>',
   },
+  // --- story icons ---
+  phone: {
+    // a phone call before the first appointment
+    accent: '<rect x="8" y="22" width="26" height="34"/>',
+    line: '<rect x="14" y="8" width="26" height="48" rx="4"/><path d="M23 14h8M27 50h.01" stroke-width="3"/><path d="M46 22c3 3 3 11 0 14M52 17c6 7 6 19 0 26"/>',
+  },
+  owner: {
+    // one person who owns the paperwork
+    accent: '<path d="M6 56c0-11 5-18 14-18s14 7 14 18z"/>',
+    line: '<circle cx="24" cy="18" r="7"/><path d="M10 54c0-9 5-15 14-15s14 6 14 15"/><rect x="40" y="28" width="18" height="26" rx="2"/><rect x="45" y="25" width="8" height="6" rx="1.5"/><path d="M44 38h10M44 44h10M44 50h6"/>',
+  },
+  sensor: {
+    // a sensor held in place with tape on an arm
+    accent: '<rect x="14" y="26" width="22" height="28"/>',
+    line: '<path d="M4 20h56M4 48h56"/><rect x="22" y="14" width="20" height="40" rx="2" fill="#fff"/><rect x="27" y="28" width="10" height="12" rx="2"/><path d="M32 33h.01" stroke-width="3"/><path d="M48 8c4 3 4 8 0 11M54 4c6 5 6 13 0 18"/>',
+  },
+  carechat: {
+    // a message with a heart: "someone is taking care of me"
+    accent: '<rect x="5" y="26" width="24" height="22" rx="4"/>',
+    line: '<path d="M12 8h40a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H30l-10 9v-9h-8a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z"/><path d="M32 35S22 29 22 22c0-3 2-5 5-5 2 0 4 1 5 3 1-2 3-3 5-3 3 0 5 2 5 5 0 7-10 13-10 13z"/>',
+  },
+  door: {
+    // knocking on the door
+    accent: '<rect x="10" y="16" width="24" height="40"/>',
+    line: '<rect x="16" y="8" width="28" height="48" rx="2"/><path d="M38 34h.01" stroke-width="4"/><path d="M6 56h52"/><path d="M50 26c3 2 3 8 0 10M55 21c5 4 5 14 0 20"/>',
+  },
+  teams: {
+    // three teams
+    accent: '<rect x="20" y="40" width="26" height="16"/>',
+    line: '<circle cx="12" cy="26" r="6"/><path d="M3 50c0-8 4-13 9-13s9 5 9 13"/><circle cx="32" cy="20" r="7"/><path d="M20 52c0-9 5-15 12-15s12 6 12 15"/><circle cx="52" cy="26" r="6"/><path d="M43 50c0-8 4-13 9-13s9 5 9 13"/><path d="M4 56h56"/>',
+  },
+  fragile: {
+    // a service resting on one or two people
+    accent: '<circle cx="29" cy="38" r="12"/>',
+    line: '<circle cx="9" cy="32" r="5"/><circle cx="55" cy="32" r="5"/><circle cx="32" cy="32" r="12"/><path d="M32 26v12M26 32h12"/><path d="M14 32h6M44 32h6" stroke-dasharray="2 3"/><path d="M9 42v10M55 42v10" stroke-dasharray="2 3"/>',
+  },
+  findperson: {
+    // looking for the right patients
+    accent: '<path d="M4 54c0-9 5-14 12-14s12 5 12 14z"/>',
+    line: '<circle cx="19" cy="18" r="7"/><path d="M6 52c0-9 5-14 13-14 3 0 5 1 7 2"/><circle cx="42" cy="34" r="13" fill="#fff" fill-opacity=".6"/><path d="M42 28v12M36 34h12"/><path d="M52 44l9 9"/>',
+  },
 } as const;
 
 export type IconName = keyof typeof icons;

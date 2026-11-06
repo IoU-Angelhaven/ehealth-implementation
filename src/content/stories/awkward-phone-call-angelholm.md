@@ -6,6 +6,7 @@ country: "Sweden"
 topic: "Digital physiotherapy"
 steps:
   - step-3
+icon: phone
 published: true
 ---
 

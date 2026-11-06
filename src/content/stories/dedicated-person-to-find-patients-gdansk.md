@@ -6,6 +6,7 @@ country: "Poland"
 topic: "Digital physiotherapy"
 steps:
   - step-3
+icon: findperson
 published: true
 ---
 

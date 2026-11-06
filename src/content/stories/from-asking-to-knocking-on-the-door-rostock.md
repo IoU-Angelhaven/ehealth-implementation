@@ -6,6 +6,7 @@ country: "Germany"
 topic: "Digital physiotherapy"
 steps:
   - step-3
+icon: door
 published: true
 ---
 
